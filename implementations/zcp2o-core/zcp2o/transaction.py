@@ -1,0 +1,122 @@
+"""
+ZCP2O Core Transaction Module.
+Handles transaction creation, validation, and serialization.
+"""
+
+import json
+import time
+import hashlib
+from typing import Dict, Optional
+from zcp2o.crypto import verify_signature, hash_data
+from zcp2o.wallet import Wallet
+
+
+class Transaction:
+    """Represents a ZCP2O transaction."""
+    
+    def __init__(
+        self,
+        sender: str,
+        receiver: str,
+        amount: float,
+        timestamp: Optional[float] = None,
+        signature: Optional[str] = None,
+        tx_type: str = "transfer"
+    ):
+        self.sender = sender
+        self.receiver = receiver
+        self.amount = amount
+        self.timestamp = timestamp or time.time()
+        self.signature = signature
+        self.tx_type = tx_type  # "transfer", "reward", "fee"
+    
+    def to_dict(self) -> Dict:
+        """Converts transaction to dictionary (for JSON serialization)."""
+        return {
+            "sender": self.sender,
+            "receiver": self.receiver,
+            "amount": self.amount,
+            "timestamp": self.timestamp,
+            "tx_type": self.tx_type,
+            "signature": self.signature
+        }
+    
+    def to_json(self) -> str:
+        """Converts transaction to JSON string (for network transmission)."""
+        return json.dumps(self.to_dict(), sort_keys=True)
+    
+    def get_hash(self) -> str:
+        """
+        Generates SHA-256 hash of the transaction (for block inclusion).
+        Hash is computed from all fields EXCEPT signature (to prevent circular dependency).
+        """
+        # Create dict without signature for hashing
+        tx_data = {
+            "sender": self.sender,
+            "receiver": self.receiver,
+            "amount": self.amount,
+            "timestamp": self.timestamp,
+            "tx_type": self.tx_type
+        }
+        tx_bytes = json.dumps(tx_data, sort_keys=True).encode('utf-8')
+        hashed = hash_data(tx_bytes)
+        return hashed.hex()
+    
+    @classmethod
+    def create(cls, wallet: Wallet, receiver: str, amount: float, tx_type: str = "transfer") -> 'Transaction':
+        """
+        Factory method to create and sign a new transaction.
+        """
+        # Validate amount
+        if amount <= 0:
+            raise ValueError("Transaction amount must be positive")
+        
+        # Create unsigned transaction
+        tx = cls(
+            sender=wallet.address,
+            receiver=receiver,
+            amount=amount,
+            tx_type=tx_type
+        )
+        
+        # Sign the transaction
+        signed_tx_dict = wallet.sign_transaction(tx.to_dict())
+        tx.signature = signed_tx_dict['signature']
+        
+        return tx
+    
+    @classmethod
+    def from_json(cls, json_str: str) -> 'Transaction':
+        """Deserializes transaction from JSON string."""
+        tx_dict = json.loads(json_str)
+        return cls(**tx_dict)
+    
+    def validate(self, public_key_pem: bytes) -> bool:
+        """
+        Validates transaction signature using sender's public key.
+        Returns True if valid, False otherwise.
+        """
+        if not self.signature:
+            return False
+        
+        # Reconstruct the original message (without signature)
+        tx_data = {
+            "sender": self.sender,
+            "receiver": self.receiver,
+            "amount": self.amount,
+            "timestamp": self.timestamp,
+            "tx_type": self.tx_type
+        }
+        tx_bytes = json.dumps(tx_data, sort_keys=True).encode('utf-8')
+        
+        # Verify signature
+        from cryptography.hazmat.primitives.serialization import load_pem_public_key
+        from cryptography.hazmat.backends import default_backend
+        
+        public_key = load_pem_public_key(public_key_pem, backend=default_backend())
+        
+        signature_bytes = bytes.fromhex(self.signature)
+        return verify_signature(public_key, signature_bytes, tx_bytes)
+    
+    def __repr__(self):
+        return f"Transaction({self.sender} -> {self.receiver}: {self.amount} WEEKS)"
