@@ -6,7 +6,7 @@
 
 ---
 
-##  Bitcoin/Traditional Blockchain → ZCP2O Mapping
+## 🔄 Bitcoin/Traditional Blockchain → ZCP2O Mapping
 
 | **Traditional Blockchain Term** | **ZCP2O Protocol Term** | **Key Differences** |
 |------------------------------|--------------------|--------------------------|
@@ -86,6 +86,26 @@
 
 ---
 
-## ⚡ Quick Reference Card
+##  Quick Reference Card
 
 ### For Bitcoin Developers:
+```text
+Bitcoin:     Mine Block → Get BTC → Pay Fee → Broadcast → Confirm
+ZCP2O:       Play/Relay → Get $WEEKS → Pay Fee → Mesh Flood → Local Consensus
+
+For Bitcoin Users:
+Bitcoin:     Needs Internet + Buy BTC + Pay Gas Fee
+ZCP2O:       Works Offline + Start at $0 + Small Fixed Fee (1%)
+
+For Node Operators:
+Bitcoin Full Node:  Download 500GB+ blockchain, online 24/7
+ZCP2O Full Node:    Download local ledger, can be offline, earns validation fees
+ZCP2O Light Node:   Only 50MB, perfect for mobile, no fee earning
+
+❓ FAQ
+Q: Is ZCP2O better than Bitcoin?
+A: Not "better", but "different purpose". Bitcoin is for global store of value. ZCP2O is for local accessibility & offline resilience.
+Q: Can ZCP2O and Bitcoin interact?
+A: In the future, bridges/pegged tokens can be built. Currently, ZCP2O is a standalone ecosystem.
+Q: Why not just use PoW?
+A: PoW wastes energy and cannot run offline. ZCP2O is designed for everyday devices in areas without internet.
