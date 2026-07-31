@@ -45,12 +45,12 @@ class Transaction:
         """Converts transaction to JSON string (for network transmission)."""
         return json.dumps(self.to_dict(), sort_keys=True)
     
-    def get_hash(self) -> str:
+    def _get_signing_data(self) -> bytes:
         """
-        Generates SHA-256 hash of the transaction (for block inclusion).
-        Hash is computed from all fields EXCEPT signature (to prevent circular dependency).
+        Gets the canonical byte representation for signing/validation.
+        This EXCLUDES the signature to prevent circular dependency.
         """
-        # Create dict without signature for hashing
+        # Create dict WITHOUT signature
         tx_data = {
             "sender": self.sender,
             "receiver": self.receiver,
@@ -58,7 +58,15 @@ class Transaction:
             "timestamp": self.timestamp,
             "tx_type": self.tx_type
         }
-        tx_bytes = json.dumps(tx_data, sort_keys=True).encode('utf-8')
+        # Sort keys and encode to bytes
+        return json.dumps(tx_data, sort_keys=True).encode('utf-8')
+    
+    def get_hash(self) -> str:
+        """
+        Generates SHA-256 hash of the transaction (for block inclusion).
+        Hash is computed from signing data (all fields EXCEPT signature).
+        """
+        tx_bytes = self._get_signing_data()
         hashed = hash_data(tx_bytes)
         return hashed.hex()
     
@@ -79,9 +87,15 @@ class Transaction:
             tx_type=tx_type
         )
         
-        # Sign the transaction
-        signed_tx_dict = wallet.sign_transaction(tx.to_dict())
-        tx.signature = signed_tx_dict['signature']
+        # Get the signing data
+        signing_data = tx._get_signing_data()
+        
+        # Sign the data
+        from zcp2o.crypto import sign_message
+        signature = sign_message(wallet.private_key, signing_data)
+        
+        # Store signature as hex string
+        tx.signature = signature.hex()
         
         return tx
     
@@ -99,24 +113,21 @@ class Transaction:
         if not self.signature:
             return False
         
-        # Reconstruct the original message (without signature)
-        tx_data = {
-            "sender": self.sender,
-            "receiver": self.receiver,
-            "amount": self.amount,
-            "timestamp": self.timestamp,
-            "tx_type": self.tx_type
-        }
-        tx_bytes = json.dumps(tx_data, sort_keys=True).encode('utf-8')
+        # Get the signing data (same as what was signed)
+        signing_data = self._get_signing_data()
+        
+        # Convert signature from hex to bytes
+        signature_bytes = bytes.fromhex(self.signature)
         
         # Verify signature
         from cryptography.hazmat.primitives.serialization import load_pem_public_key
         from cryptography.hazmat.backends import default_backend
         
-        public_key = load_pem_public_key(public_key_pem, backend=default_backend())
-        
-        signature_bytes = bytes.fromhex(self.signature)
-        return verify_signature(public_key, signature_bytes, tx_bytes)
+        try:
+            public_key = load_pem_public_key(public_key_pem, backend=default_backend())
+            return verify_signature(public_key, signature_bytes, signing_data)
+        except Exception:
+            return False
     
     def __repr__(self):
         return f"Transaction({self.sender} -> {self.receiver}: {self.amount} WEEKS)"
