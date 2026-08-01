@@ -6,7 +6,7 @@
 
 ---
 
-## 🪙 1. Token Overview
+##  1. Token Overview
 
 *   **Token Name:** WEEKS
 *   **Symbol:** $WEEKS
@@ -67,7 +67,29 @@ Unlike Ethereum where fees are partially burned (EIP-1559), ZCP2O directs **100%
 
 ---
 
-## ⚖️ 4. Reward Distribution Mechanics
+## 🔥 4. Deflationary Burn Mechanism (Premium Assets)
+
+To prevent infinite inflation and add utility to $WEEKS, certain premium in-game assets (e.g., "Golden Tickets" for extended high-yield gameplay zones) are not minted freely.
+
+### Burn Formula
+When a player purchases a premium asset (like a Golden Ticket), they must **permanently burn** a fixed amount of $WEEKS$:
+
+$$ Supply_{new} = Supply_{old} - Burn_{amount} $$
+
+**Example:**
+*   Player wants to buy 1 Golden Ticket (30-minute premium access)
+*   Price: 5,000 $WEEKS$
+*   Transaction: Player sends 5,000 $WEEKS$ to **Null Address** (`WKS-0000000000000000000000000000000000000000`)
+*   Result: 5,000 $WEEKS$ are **permanently removed** from circulation
+
+### Economic Impact
+*   **Deflationary Pressure:** As more players buy premium assets, the circulating supply decreases, making remaining tokens more scarce.
+*   **Value Accrual:** Burning creates a natural floor for token value, as active usage directly reduces supply.
+*   **Sustainable Economy:** Unlike inflationary models that dilute holder value, ZCP2O balances new issuance (rewards) with permanent destruction (burns).
+
+---
+
+## ⚖️ 5. Reward Distribution Mechanics
 
 Rewards are not given for "finding a block" (PoW) or "locking capital" (PoS). They are distributed based on **Proof-of-Play (PoP)** roles:
 
@@ -77,7 +99,7 @@ Rewards are not given for "finding a block" (PoW) or "locking capital" (PoS). Th
 
 ---
 
-## 🛡️ 5. Anti-Inflation Safeguards
+## 🛡️ 6. Anti-Inflation Safeguards
 
 To prevent economic collapse from bot farms or hyper-activity, the following mathematical dampeners are applied at the protocol level:
 
@@ -93,7 +115,7 @@ $$ \sum_{i=1}^{k} Reward_i \leq Daily\_Limit $$
 
 ---
 
-## 📊 6. Summary of Economic Flow
+## 📊 7. Summary of Economic Flow
 
 ```text
 [ Player performs Activity ] 
@@ -101,10 +123,13 @@ $$ \sum_{i=1}^{k} Reward_i \leq Daily\_Limit $$
        ├──> (Anti-Bot Check: Trust Score & Time Penalty applied)
        │
        ▼
-[ Mesh Relay Nodes forward payload ] ──> Earns 5% of Base Reward
+[ Mesh Relay Nodes forward payload ] ─> Earns 5% of Base Reward
        │
        ▼
 [ Full Node validates & archives ] ──> Earns 95% of Base Reward + 1% Transaction Fee
        │
        ▼
 [ Ledger Updated Locally ] ──> Async Sync to Global Mainnet when Gateway is available
+       │
+       ▼
+[ Premium Purchase ] ──> Burn 5,000 WEEKS to Null Address ──> Supply Decreases

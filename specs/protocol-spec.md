@@ -1,4 +1,4 @@
-# ZCP2O Protocol Specification (v0.1.0)
+# ZCP2O Protocol Specification (v0.2.0)
 
 > **Technical Rules and Data Structures for the ZCP2O Network**
 > 
@@ -8,12 +8,14 @@
 
 ##  1. Network Topology & Transport
 
-ZCP2O does not rely on a flat global internet topology. It uses a **Tiered Local Mesh Topology**.
+ZCP2O does not rely on a flat global internet topology. It uses a **Tiered Local Mesh Topology** with offline-first priority.
 
-### 1.1 Transport Layers
-*   **Primary (Short-Range):** Bluetooth Low Energy (BLE) 5.0+ for ultra-low power messaging.
-*   **Secondary (Mid-Range):** Wi-Fi Direct / Wi-Fi Aware for higher bandwidth payloads (e.g., syncing ledger snapshots).
-*   **Tertiary (Long-Range - Future):** LoRa (Long Range) radio for kilometers-range mesh in rural areas.
+### 1.1 Transport Layers (Offline-First Priority)
+ZCP2O prioritizes local, serverless communication. Global internet is only used as a fallback or for asynchronous syncing.
+*   **Primary (Short-Range, True Offline):** Bluetooth Low Energy (BLE) 5.0+ for ultra-low power, short-range messaging.
+*   **Secondary (Mid-Range, Local Network):** Local UDP Broadcast & Wi-Fi Direct / Wi-Fi Aware for higher bandwidth payloads within a local LAN/mesh (no internet required).
+*   **Tertiary (Online Fallback):** WebRTC (via STUN/TURN) *only* when devices have active internet access and need to bridge distant peers, but never relied upon for core local mesh consensus.
+*   **Quaternary (Long-Range - Future):** LoRa (Long Range) radio for kilometers-range mesh in rural areas.
 
 ### 1.2 Node Discovery
 Nodes do not use DNS seeders. Instead, they use **Active Radio Scanning**:
@@ -23,7 +25,7 @@ Nodes do not use DNS seeders. Instead, they use **Active Radio Scanning**:
 
 ---
 
-## 📡 2. Message Propagation: The Flood Algorithm
+##  2. Message Propagation: The Flood Algorithm
 
 When a transaction or message is created, it must reach the local validators without central servers.
 
@@ -34,6 +36,12 @@ When a transaction or message is created, it must reach the local validators wit
     *   If the hash is *new*, it adds it to the set and forwards the payload to its own neighbors.
     *   If the hash is *already seen*, it drops the payload to prevent infinite loops.
 4.  **TTL (Time-To-Live):** Every payload has a `max_hops` integer (default: 5). If `hops >= max_hops`, the payload is dropped.
+
+### 2.2 Broadcast Storm Prevention
+To prevent network flooding when many nodes broadcast simultaneously:
+*   **Exponential Backoff:** Nodes wait a random delay (100-500ms) before rebroadcasting.
+*   **Priority Queue:** Transactions with higher Trust Score senders get priority in the relay queue.
+*   **Zone Throttling:** Maximum 50 broadcasts per second per zone.
 
 ---
 

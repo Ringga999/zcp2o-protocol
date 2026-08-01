@@ -43,7 +43,8 @@ ZCP2O employs a "Defense in Depth" strategy. We do not rely on a single mechanis
     ```
 *   **Social Verification (Mesh Trust):** If a player's device physically encounters (via Bluetooth Mesh) another player with a high "Verified Human" trust score, their own Trust Score increases, and their reward multiplier resets to normal.
 *   **Result:** A bot left to auto-play for 24 hours will earn a lot in Hour 1, but by Hour 10, its reward approaches zero. Botting becomes **mathematically unprofitable**.
-
+*   **No Asset Destruction Policy:** Unlike traditional games that might ban accounts or confiscate assets (which can be triggered falsely by network lag or bugs), ZCP2O **never deletes user assets**. Instead, it targets the *income stream*. 
+*   **The Shadow Realm Effect:** When a node's Trust Score drops below a critical threshold (due to bot-like behavior, teleporting, or isolated farming), its **Reward Multiplier is set to 0.0x**. The player can still move and interact in the game, but they will earn **0 $WEEKS**. This makes botting mathematically unprofitable (wasting electricity/time) without causing false-positive asset loss for legitimate players experiencing technical issues.
 ---
 
 ##  Integration in Alpha Drop (Godot Implementation)
