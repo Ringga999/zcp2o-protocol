@@ -17,13 +17,18 @@
 *   **Fee-to-Spawn**: A unique economic loop where the 1% transaction fee is not destroyed or hoarded, but physically spawned as new coins in the game world, ensuring continuous local liquidity.
 *   **Genesis Pool**: A reserved allocation of 1,000,000 $WEEKS distributed as a bonus to the first 100 active players to bootstrap the initial network economy.
 *   **Golden Ticket**: Premium access pass for extended gameplay in World 1 (30 minutes). Acquired by burning 5,000 $WEEKS.
+*   **In-Memory Storage**: Storing data inside RAM (memory). It is fast but volatile (data is lost when power is off). ZCP2O uses this for temporary caching before saving to SQLite.
 *   **Light Node**: A lightweight mobile device (smartphone) that stores only the user's balance and recent transactions. Requires ~50MB storage.
 *   **Local Mesh Consensus**: Consensus reached locally (few meters/km) via Bluetooth/Wi-Fi Direct, without requiring global internet connectivity.
 *   **Node**: Any device connected to the ZCP2O network. Categorized into Light Nodes (mobile devices/players) and Full Nodes (Digital Bunkers).
+*   **On-Disk Storage**: Storing data on a hardisk/SSD. It is non-volatile (permanent). ZCP2O uses SQLite for this.
 *   **Proof-of-Play (PoP)**: ZCP2O's core consensus mechanism. Validates transactions and distributes rewards based on verifiable, real-world human activity (e.g., gameplay, message relaying), rather than computational hash power (PoW) or capital staking (PoS).
 *   **Proof-of-Relay**: Earning rewards for relaying other people's messages/transactions through the mesh network.
+*   **Querying**: The process of requesting or retrieving specific data from the database using SQL (e.g., `SELECT balance FROM ledger WHERE address = 'WKS-...'`).
 *   **Shadow Realm**: A non-destructive anti-cheat penalty state. Instead of banning accounts or deleting assets (which risks false positives from lag), offending nodes have their **Reward Multiplier set to 0.0x**. They can still interact, but earn zero $WEEKS, making botting mathematically unprofitable.
 *   **Silver Ticket**: Free access pass for World 1 (15 minutes). Earned by farming XP in World 2 (100 XP = 1 Silver Ticket).
+*   **SQLite**: A serverless, zero-configuration, single-file relational database engine. Used by ZCP2O to store the blockchain and ledger permanently.
+*   **State Recovery (Crash Recovery)**: The process where a Node reloads the entire blockchain status, balances, and peers from the SQLite database when the node is restarted after being shut down.
 *   **Trust Score**: A reputation metric (0-100) assigned to each node. It increases through historical valid activity and physical mesh encounters. Only nodes with a Trust Score > 80 (or Full Nodes) can act as consensus validators.
 *   **Vector Clocks**: A logical time-tracking method used during Async Sync to resolve data conflicts (e.g., double-spends) between two network zones that have been isolated from each other for extended periods.
 *   **Web of Trust**: Node reputation system based on history of correct validations and physical mesh encounters to prevent Sybil attacks.
@@ -32,6 +37,8 @@
 *   **Audit Trail**: Complete, timestamped log of all node activities stored in the `logs/` directory. Essential for institutional compliance and debugging.
 *   **Broadcast Interval**: Time between node presence broadcasts (default: 30 seconds). Controls network discovery frequency.
 *   **Cumulative Trust Weight**: The sum of trust scores of all validators across a blockchain. Used in Fork Resolution to determine the legitimate chain.
+*   **Database Persistence (Data Persistence)**: The ability of the system to store data permanently into non-volatile storage (hardisk/SSD) so that data is not lost when the system is shut down or crashes.
+*   **Database Schema**: The structure or design of the tables within the database (e.g., `blocks`, `ledger`, `peers` tables in ZCP2O's SQLite).
 *   **Fork Resolution**: The mechanism that determines which blockchain is legitimate when two conflicting chains exist. ZCP2O uses Cumulative Trust Weight algorithm instead of "longest chain wins".
 *   **Mesh Network**: Peer-to-peer network topology based on physical proximity using UDP broadcast or Wi-Fi Direct. Operates without internet (offline-first).
 *   **Peer Registry**: A database maintained by each node that tracks the Trust Scores (0-100) of other known nodes in the network.
@@ -101,6 +108,8 @@ A conversion dictionary for developers familiar with legacy blockchain architect
 | **Mesh Network (Offline-First)** | P2P network via Bluetooth/Wi-Fi Direct/UDP that works without internet. | Bitcoin P2P requires global internet connectivity. |
 | **Professional Logging** | Dual-output logging with daily rotation for institutional audit trails. | Bitcoin logs are basic text files without rotation or compliance features. |
 | **Peer Registry** | Local database tracking Trust Scores (0-100) of known network nodes. | Bitcoin nodes are anonymous; no local reputation tracking. |
+| **SQLite Integration** | ZCP2O stores its state in a local SQLite file, allowing external apps to query balances directly without running a full node. | Bitcoin uses LevelDB (a key-value store) which is harder for external apps to query directly without a running daemon. |
+| **State Recovery** | Upon restart, ZCP2O nodes instantly load their exact previous state (balances, chain height) from the local SQLite database. | Bitcoin nodes must replay or load from a specific UTXO set file, which is more complex to manage for simple applications. |
 
 ---
 
