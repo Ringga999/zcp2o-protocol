@@ -45,7 +45,10 @@ When a transaction occurs (e.g., Player A claims 50 $WEEKS in Alpha Drop), it do
 
 1. **Broadcast:** The transaction is broadcast via Bluetooth/Wi-Fi Direct to nearby nodes (Flood Algorithm).
 2. **Validation:** Nearby Full Nodes (Digital Bunkers) and reputable Light Nodes verify the transaction against the local ledger state.
-3. **Dynamic Quorum:** If a dynamic threshold of local nodes (e.g., 67% of active nearby validators) agrees, the transaction is **Instantly Finalized** for the local zone.
+3. **Trust-Weighted Dynamic Quorum:** To prevent Sybil attacks (e.g., one person using 3 phones to validate their own fake transaction), consensus is not just a simple headcount. The required threshold must include:
+   - At least **one (1) verified Full Node (Digital Bunker)**, OR
+   - At least **three (3) Light Nodes** that have a **Trust Score > 80** (verified through historical valid activity and physical mesh encounters).
+   - New nodes (Trust Score = 0) can broadcast transactions, but **cannot** act as validators for consensus.
 4. **Reward:** The activity is logged, and $WEEKS are minted/allocated locally.
 
 ---
