@@ -340,3 +340,148 @@
 2026-08-01 20:11:43 | INFO     | Node Name: TestBunker_Alpha | Networking: False
 2026-08-01 20:11:47 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-0a2294c14a66...
 2026-08-01 20:11:47 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 22:03:27 | INFO     | Digital Bunker initialized at WKS-03bd41f079fc48fdb395192bea1132ae060d1a6e
+2026-08-01 22:03:27 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:03:27 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:03:28 | INFO     | Digital Bunker initialized at WKS-f007baf3855347c809e02e9a76cc34ac59e9df81
+2026-08-01 22:03:28 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:03:28 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:03:28 | INFO     | Peer registered: WKS-peer123... (Trust: 80)
+2026-08-01 22:03:30 | INFO     | Digital Bunker initialized at WKS-7928ab0ececfbdd04b955a7a2c6d71d0df512e66
+2026-08-01 22:03:30 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:03:30 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:03:30 | INFO     | Peer registered: WKS-peer123... (Trust: 50)
+2026-08-01 22:03:32 | INFO     | Digital Bunker initialized at WKS-4f467b6092e82d4c7353326559e5ea7b3c3664db
+2026-08-01 22:03:32 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:03:32 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:03:35 | INFO     | Transaction accepted: 20.0 WEEKS from WKS-9214bd509986...
+2026-08-01 22:03:35 | INFO     | Digital Bunker initialized at WKS-4d8c2434ebc0f39eb2615bf2990bec304bdce426
+2026-08-01 22:03:35 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:03:35 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:03:40 | ERROR    | Reject: Insufficient funds for WKS-d24d8c47f785de4dc24fc4450e73e393f887463f (Balance: 0.0, Required: 50.0)
+2026-08-01 22:03:42 | INFO     | Digital Bunker initialized at WKS-c5b1b327c8edba9a76374dad2b994e83c5ff7542
+2026-08-01 22:03:42 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:03:42 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:03:47 | INFO     | Transaction accepted: 30.0 WEEKS from WKS-4a86b422b39b...
+2026-08-01 22:03:47 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 22:03:48 | INFO     | Digital Bunker initialized at WKS-a86aceee40213a95a3665abd9a4b0a0c16235026
+2026-08-01 22:03:48 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:03:48 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:03:49 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-896f3584e233...
+2026-08-01 22:03:49 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 22:03:52 | INFO     | Digital Bunker initialized at WKS-2d6cee0706d2ef3296caa614090dd295187c0fae
+2026-08-01 22:03:52 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:03:52 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:03:54 | INFO     | Transaction accepted: 20.0 WEEKS from WKS-ffc4eaa62f37...
+2026-08-01 22:03:54 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 22:03:54 | INFO     | Digital Bunker initialized at WKS-38aded185cb10194ade89b5a9eddb8d733b35e04
+2026-08-01 22:03:54 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:03:54 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:03:59 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-f10a6cf1ffb4...
+2026-08-01 22:03:59 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 22:03:59 | INFO     | Fork resolution: Local weight=100, Remote weight=100
+2026-08-01 22:04:00 | INFO     | Digital Bunker initialized at WKS-cf276fd5ca0a2fe5a415eaacd31db397b1341b44
+2026-08-01 22:04:00 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:04:00 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:04:05 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-cf581177077d...
+2026-08-01 22:04:05 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 22:04:05 | INFO     | Transaction accepted: 5.0 WEEKS from WKS-cf581177077d...
+2026-08-01 22:04:05 | INFO     | Block #2 validated and archived. Transactions: 1
+2026-08-01 22:04:05 | INFO     | Fork resolution: Local weight=100, Remote weight=150
+2026-08-01 22:04:06 | INFO     | Digital Bunker initialized at WKS-fe8cbe63c4dfd72af0965f630c02d3a784f80697
+2026-08-01 22:04:06 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:04:06 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:04:14 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-21ed0d0a8246...
+2026-08-01 22:04:14 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 22:04:14 | INFO     | Fork resolution: Local weight=100, Remote weight=100
+2026-08-01 22:04:14 | INFO     | Fork resolution: Keeping local chain
+2026-08-01 22:04:20 | INFO     | Digital Bunker initialized at WKS-0699a0627b8c8e417e0460ad8eb5f49fd3d8d0d7
+2026-08-01 22:04:20 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:04:20 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:04:23 | INFO     | Transaction accepted: 30.0 WEEKS from WKS-e783e766f589...
+2026-08-01 22:04:23 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 22:04:23 | INFO     | Ledger rebuilt from chain. Accounts: 2
+2026-08-01 22:04:25 | INFO     | Digital Bunker initialized at WKS-67118edb61d25ca9ba94f76fc420fa28daf5178a
+2026-08-01 22:04:25 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:04:25 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:04:28 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-163555d453ae...
+2026-08-01 22:04:28 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 22:09:08 | INFO     | Genesis Block saved to database.
+2026-08-01 22:09:12 | INFO     | Digital Bunker initialized at WKS-9870c9cb25cfce240508039f331cbd5977364572
+2026-08-01 22:09:12 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:09:12 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:09:12 | INFO     | Genesis Block saved to database.
+2026-08-01 22:09:14 | INFO     | Digital Bunker initialized at WKS-af6e9374a07999bf41232fbf268f47a54083785c
+2026-08-01 22:09:14 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:09:14 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:09:14 | INFO     | Peer registered: WKS-peer123... (Trust: 80)
+2026-08-01 22:09:15 | INFO     | Genesis Block saved to database.
+2026-08-01 22:09:15 | INFO     | Digital Bunker initialized at WKS-9773a35b078b1bcd491ed6d415a6f9d642edbaf3
+2026-08-01 22:09:15 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:09:15 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:09:15 | INFO     | Peer registered: WKS-peer123... (Trust: 50)
+2026-08-01 22:09:15 | INFO     | Genesis Block saved to database.
+2026-08-01 22:09:16 | INFO     | Digital Bunker initialized at WKS-49b102df671a60a63bd86be7bf9b485dbdc3b9ae
+2026-08-01 22:09:16 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:09:16 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:09:18 | INFO     | Transaction accepted: 20.0 WEEKS from WKS-2e6d6db58b9a...
+2026-08-01 22:09:18 | INFO     | Genesis Block saved to database.
+2026-08-01 22:09:19 | INFO     | Digital Bunker initialized at WKS-29b31bff717f8c683f035f2ef998c56de9d7729d
+2026-08-01 22:09:19 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:09:19 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:09:22 | ERROR    | Reject: Insufficient funds for WKS-be65af8c6d9da982befbca45cb0a68856abcf291 (Balance: 0.0, Required: 50.0)
+2026-08-01 22:09:22 | INFO     | Genesis Block saved to database.
+2026-08-01 22:09:23 | INFO     | Digital Bunker initialized at WKS-17a72622c23953754a79e0997ae39ad6b57c3c8c
+2026-08-01 22:09:23 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:09:23 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:09:28 | INFO     | Transaction accepted: 30.0 WEEKS from WKS-b8922cf1ef80...
+2026-08-01 22:09:28 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 22:09:28 | INFO     | Genesis Block saved to database.
+2026-08-01 22:09:28 | INFO     | Digital Bunker initialized at WKS-8a7052d113f0351f986dc7b8636cc32b9711c4bd
+2026-08-01 22:09:28 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:09:28 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:09:29 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-9937df1b8701...
+2026-08-01 22:09:29 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 22:09:29 | INFO     | Genesis Block saved to database.
+2026-08-01 22:09:30 | INFO     | Digital Bunker initialized at WKS-0bfe18cdef263b9c2b5d084523aef12b25c9d522
+2026-08-01 22:09:30 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:09:30 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:09:33 | INFO     | Transaction accepted: 20.0 WEEKS from WKS-c353b91ddd5e...
+2026-08-01 22:09:33 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 22:09:33 | INFO     | Genesis Block saved to database.
+2026-08-01 22:09:35 | INFO     | Digital Bunker initialized at WKS-9c0db43732a1dcb691065c866f9ca163dcc97b0a
+2026-08-01 22:09:35 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:09:35 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:09:38 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-3caf3737dbda...
+2026-08-01 22:09:38 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 22:09:39 | INFO     | Fork resolution: Local weight=100, Remote weight=100
+2026-08-01 22:09:39 | INFO     | Genesis Block saved to database.
+2026-08-01 22:09:42 | INFO     | Digital Bunker initialized at WKS-720ab86b14acc8f1c23979fc7e45344de4e7f618
+2026-08-01 22:09:42 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:09:42 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:09:51 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-3c69e4dcf84a...
+2026-08-01 22:09:51 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 22:09:51 | INFO     | Transaction accepted: 5.0 WEEKS from WKS-3c69e4dcf84a...
+2026-08-01 22:09:51 | INFO     | Block #2 validated and archived. Transactions: 1
+2026-08-01 22:09:51 | INFO     | Fork resolution: Local weight=100, Remote weight=150
+2026-08-01 22:09:51 | INFO     | Genesis Block saved to database.
+2026-08-01 22:09:53 | INFO     | Digital Bunker initialized at WKS-146f07037e7895ce4b3762f8c1e9d744474167a4
+2026-08-01 22:09:53 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:09:53 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:10:01 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-e8097e231f54...
+2026-08-01 22:10:01 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 22:10:01 | INFO     | Fork resolution: Local weight=100, Remote weight=100
+2026-08-01 22:10:01 | INFO     | Fork resolution: Keeping local chain
+2026-08-01 22:10:01 | INFO     | Genesis Block saved to database.
+2026-08-01 22:10:04 | INFO     | Digital Bunker initialized at WKS-de6f4f1df12086d828ca70bf18054ea4b05eb05d
+2026-08-01 22:10:04 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:10:04 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:10:06 | INFO     | Transaction accepted: 30.0 WEEKS from WKS-d1a19a02cf2b...
+2026-08-01 22:10:06 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 22:10:06 | INFO     | Ledger rebuilt from chain. Accounts: 2
+2026-08-01 22:10:06 | INFO     | Genesis Block saved to database.
+2026-08-01 22:10:10 | INFO     | Digital Bunker initialized at WKS-43fec848f3031cf174b92fb35021a85ca1ab0e29
+2026-08-01 22:10:10 | INFO     | Node Name: TestBunker_Alpha | Networking: False | DB: :memory:
+2026-08-01 22:10:10 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:10:11 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-abef3ccf87a6...
+2026-08-01 22:10:11 | INFO     | Block #1 validated and archived. Transactions: 1

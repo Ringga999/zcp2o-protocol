@@ -1,0 +1,13 @@
+2026-08-01 22:04:33 | INFO     | Digital Bunker initialized at WKS-799c718cfd094359d09f19f2149b493f229a20f8
+2026-08-01 22:04:33 | INFO     | Node Name: Node_A | Networking: False | DB: test_persistence_real.db
+2026-08-01 22:04:33 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:04:34 | INFO     | Transaction accepted: 100.0 WEEKS from WKS-e5908b1a9e1f...
+2026-08-01 22:04:34 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 22:04:34 | INFO     | Peer registered: WKS-trusted_peer_xyz (Trust: 95)
+2026-08-01 22:10:13 | INFO     | Genesis Block saved to database.
+2026-08-01 22:10:14 | INFO     | Digital Bunker initialized at WKS-73fc3c16fb652c76fc413e3e01fd1cecf1c053e1
+2026-08-01 22:10:14 | INFO     | Node Name: Node_A | Networking: False | DB: test_persistence_real.db
+2026-08-01 22:10:14 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.
+2026-08-01 22:10:14 | INFO     | Transaction accepted: 100.0 WEEKS from WKS-d6c506114bdd...
+2026-08-01 22:10:14 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 22:10:14 | INFO     | Peer registered: WKS-trusted_peer_xyz (Trust: 95)

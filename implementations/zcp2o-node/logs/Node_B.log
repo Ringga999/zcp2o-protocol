@@ -1,0 +1,10 @@
+2026-08-01 22:04:34 | INFO     | Loaded 1 blocks from database.
+2026-08-01 22:04:34 | INFO     | Loaded 2 account balances from database.
+2026-08-01 22:04:34 | INFO     | Loaded 1 peers from database.
+2026-08-01 22:04:34 | INFO     | Digital Bunker initialized at WKS-80b52861b793a6c02e3a740f8e2b7243551afdff
+2026-08-01 22:04:34 | INFO     | Node Name: Node_B | Networking: False | DB: test_persistence_real.db
+2026-08-01 22:04:34 | INFO     | State Recovery: Loaded 1 blocks, 2 accounts, 1 peers.
+2026-08-01 22:10:14 | INFO     | Loaded 2 blocks from database.
+2026-08-01 22:10:17 | INFO     | Digital Bunker initialized at WKS-0e5e3454efa86b53efcc893bff40ff2711b7c120
+2026-08-01 22:10:17 | INFO     | Node Name: Node_B | Networking: False | DB: test_persistence_real.db
+2026-08-01 22:10:17 | INFO     | State Recovery: Loaded 2 blocks, 2 accounts, 1 peers.
