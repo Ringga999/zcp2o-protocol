@@ -109,3 +109,63 @@ def test_chain_integrity(bunker, wallet_alice, wallet_bob):
     bunker.mine_block()
     
     assert bunker.is_chain_valid() is True
+    
+def test_async_sync_request(bunker):
+    """Test requesting sync from peer."""
+    peer_address = "WKS-peer123..."
+    bunker.peer_registry[peer_address] = 80
+    
+    # Should not raise exception
+    bunker.request_sync(peer_address)
+    assert peer_address in bunker.syncing_peers
+
+def test_sync_response_handling(bunker, wallet_alice, wallet_bob):
+    """Test handling sync response from peer."""
+    # Add some transactions to local chain
+    bunker.update_balance(wallet_alice.address, 100.0)
+    tx = Transaction.create(wallet_alice, wallet_bob.address, 20.0, tx_type="TRANSFER")
+    bunker.validate_and_add_transaction(tx)
+    bunker.mine_block()
+    
+    original_height = len(bunker.blockchain.chain)
+    
+    # Create sync response (simulating peer with more blocks)
+    sync_response = {
+        "type": "SYNC_RESPONSE",
+        "status": "syncing",
+        "from": "WKS-peer123...",
+        "our_height": original_height + 1,
+        "blocks": [],
+        "ledger_snapshot": {wallet_alice.address: 150.0}
+    }
+    
+    # Handle response
+    bunker._handle_sync_response(sync_response, ("127.0.0.1", 9999))
+    
+    # Should have processed response
+    assert "WKS-peer123..." not in bunker.syncing_peers or not bunker.syncing_peers["WKS-peer123..."]
+
+def test_ledger_merge_with_conflicts(bunker, wallet_alice):
+    """Test merging ledger with conflicting balances."""
+    # Set local balance
+    bunker.ledger[wallet_alice.address] = 100.0
+    
+    # Remote ledger has different balance
+    remote_ledger = {wallet_alice.address: 200.0}
+    peer_address = "WKS-trusted_peer"
+    bunker.peer_registry[peer_address] = 80  # High trust
+    
+    # Merge with high-trust peer
+    bunker._merge_ledger(remote_ledger, peer_address)
+    
+    # Should accept remote balance (high trust)
+    assert bunker.ledger[wallet_alice.address] == 200.0
+    
+    # Now test with low-trust peer
+    bunker.ledger[wallet_alice.address] = 100.0
+    bunker.peer_registry["WKS-untrusted_peer"] = 30  # Low trust
+    
+    bunker._merge_ledger(remote_ledger, "WKS-untrusted_peer")
+    
+    # Should keep local balance (low trust)
+    assert bunker.ledger[wallet_alice.address] == 100.0
