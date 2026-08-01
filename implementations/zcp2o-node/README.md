@@ -2,7 +2,7 @@
 
 > **The Full Node Implementation for ZCP2O Protocol**
 > 
-> Digital Bunker is a full node that maintains the complete blockchain ledger, validates transactions, manages peer trust scores, and archives blocks for the ZCP2O offline-first network. Features UDP-based mesh networking and Async Sync for offline resilience.
+> Digital Bunker is a full node that maintains the complete blockchain ledger, validates transactions, manages peer trust scores, and archives blocks for the ZCP2O offline-first network. Features UDP-based mesh networking, Async Sync, and professional logging for institutional deployment.
 
 ---
 
@@ -18,7 +18,8 @@
 - **Auto Peer Discovery**: Automatically discovers nearby nodes on local network
 - **Async Sync**: Synchronizes blockchain when nodes reconnect after offline period
 - **Conflict Resolution**: Trust-weighted ledger merge for double-spend resolution
-- **Message Broadcasting**: Broadcasts transactions and blocks to all peers
+- **Professional Logging**: Dual-output logging (Console + File) with daily rotation
+- **Audit Trail**: Complete transaction history for institutional compliance
 
 ---
 
@@ -151,6 +152,73 @@ print("Networking stopped")
 
 ---
 
+## Logging System
+
+### Overview
+
+ZCP2O Node includes a professional logging system designed for institutional deployment. All activities are logged to both console (for real-time monitoring) and file (for audit trail).
+
+### Log File Location
+
+Logs are stored in the `logs/` directory:
+- logs/MyBunker.log (current day)
+- logs/MyBunker.log.1 (yesterday)
+- logs/MyBunker.log.2 (2 days ago)
+- ... up to 30 days retention
+
+### Log Format
+
+Each log entry follows this format:
+YYYY-MM-DD HH:MM:SS | LEVEL | Message
+
+Example:
+2024-08-01 14:30:15 | INFO     | Digital Bunker initialized at WKS-a1b2c3d4...
+2024-08-01 14:30:20 | INFO     | Transaction accepted: 50 WEEKS from WKS-xyz...
+2024-08-01 14:30:21 | ERROR    | Reject: Insufficient funds for WKS-abc...
+2024-08-01 14:30:22 | WARNING  | Block hash mismatch, attempting resolution
+
+### Log Levels
+
+- DEBUG: Detailed information for debugging (trust score updates, internal state)
+- INFO: General information (transactions, blocks, sync events)
+- WARNING: Potential issues (hash mismatches, low-trust peer conflicts)
+- ERROR: Errors that prevent operations (invalid signatures, insufficient funds)
+- CRITICAL: Critical failures (system crashes, data corruption)
+
+### Configuration
+
+Customize logging in node.py:
+
+from logger import get_logger
+
+# Create custom logger
+logger = get_logger("MyBunker", log_dir="logs", log_level="INFO")
+
+# Available log levels: DEBUG, INFO, WARNING, ERROR, CRITICAL
+
+### Log Rotation
+
+- Rotation: Daily at midnight
+- Retention: 30 days
+- Encoding: UTF-8
+- Max file size: Unlimited (rotates by time, not size)
+
+### Viewing Logs
+
+# View current day log (Linux/Mac)
+tail -f logs/MyBunker.log
+
+# View current day log (Windows PowerShell)
+Get-Content logs/MyBunker.log -Wait -Tail 50
+
+# Search for specific transaction
+grep "WKS-abc123" logs/MyBunker.log
+
+# Count transactions per day
+grep "Transaction accepted" logs/MyBunker.log | wc -l
+
+---
+
 ## Async Sync: How It Works
 
 ### What is Async Sync?
@@ -197,6 +265,7 @@ Digital Bunker
 ├── Peer Registry (Trust scores 0-100)
 ├── Wallet (Node identity)
 ├── Sync Manager (Async sync state)
+├── Logger (Professional logging)
 └── Network Manager (UDP mesh networking)
     ├── Broadcast Loop (30s interval)
     ├── Listen Loop (incoming messages)
@@ -218,6 +287,7 @@ Digital Bunker
 - **Peer Cleanup**: Automatic removal of inactive peers (>5 minutes)
 - **Message Validation**: All incoming messages validated before processing
 - **Fork Resolution**: Longest chain with highest cumulative trust weight wins
+- **Audit Trail**: Complete logging for institutional compliance
 
 ---
 
@@ -247,7 +317,7 @@ network = NetworkManager("WKS-node", port=9999, broadcast_interval=30)
 
 def handle_custom_message(message: Dict, addr: tuple):
     """Handle custom message type."""
-    print(f"Received custom message: {message}")
+    bunker.logger.info(f"Received custom message: {message}")
 
 # Register handler
 if bunker.network:
@@ -302,8 +372,16 @@ Solution: Check network connectivity and broadcast permissions.
 Solution: Wait for sync to complete or restart node to reset sync state.
 
 ### Ledger Conflict
-[MyBunker] Resolved conflict for WKS-abc123...: 100 → 200 (trusted peer)
+[MyBunker] Resolved conflict for WKS-abc123...: 100 -> 200 (trusted peer)
 Note: This is NORMAL during Async Sync. Trust-weighted resolution is working.
+
+### Log File Not Created
+Issue: No logs/ directory or log files
+Solution: Check write permissions in zcp2o-node directory. Logger creates logs/ automatically.
+
+### Log Rotation Not Working
+Issue: Log file growing indefinitely
+Solution: Check TimedRotatingFileHandler configuration. Ensure midnight rotation is enabled.
 
 ---
 
@@ -332,6 +410,7 @@ Test coverage:
 - Async Sync request/response handling
 - Ledger merge with conflict resolution
 - Trust score management
+- Logging system functionality
 
 ---
 
@@ -339,14 +418,16 @@ Test coverage:
 
 ### Resource Usage
 - Memory: ~50-200 MB (depends on blockchain size)
-- Storage: ~10 MB per 1000 transactions
+- Storage: ~10 MB per 1000 transactions + log files
 - CPU: Low (RSA verification is main cost)
 - Network: ~1 KB/s idle, ~100 KB/s during sync
+- Disk I/O: Low (log writes are buffered)
 
 ### Scalability
 - Max peers per node: ~100 (tested)
 - Max transactions per block: ~1000
 - Sync speed: ~100 blocks/second (local network)
+- Log retention: 30 days (configurable)
 
 ---
 
@@ -380,8 +461,20 @@ export ZCP2O_LOG_LEVEL=INFO
 
 - Backup wallet private key (CRITICAL)
 - Backup ledger state daily
+- Backup log files weekly (for compliance)
 - Keep last 1000 blocks for recovery
 - Store backups offline (air-gapped)
+
+### Monitoring
+
+# Monitor log file in real-time
+tail -f logs/MyBunker.log | grep "ERROR"
+
+# Check node health
+curl http://localhost:9999/health
+
+# Monitor disk usage
+du -sh logs/
 
 ---
 
