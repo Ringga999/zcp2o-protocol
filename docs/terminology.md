@@ -29,6 +29,14 @@
 *   **Web of Trust**: Node reputation system based on history of correct validations and physical mesh encounters to prevent Sybil attacks.
 *   **Zero-Capital Entry**: The foundational principle allowing users to participate and earn rewards without any initial financial investment or token purchase.
 *   **Zone Auto-Scaling**: A dynamic networking feature where a geographic zone (e.g., 500x500m) automatically splits into sub-zones if player density exceeds 500, preventing network congestion.
+*   **Audit Trail**: Complete, timestamped log of all node activities stored in the `logs/` directory. Essential for institutional compliance and debugging.
+*   **Broadcast Interval**: Time between node presence broadcasts (default: 30 seconds). Controls network discovery frequency.
+*   **Cumulative Trust Weight**: The sum of trust scores of all validators across a blockchain. Used in Fork Resolution to determine the legitimate chain.
+*   **Fork Resolution**: The mechanism that determines which blockchain is legitimate when two conflicting chains exist. ZCP2O uses Cumulative Trust Weight algorithm instead of "longest chain wins".
+*   **Mesh Network**: Peer-to-peer network topology based on physical proximity using UDP broadcast or Wi-Fi Direct. Operates without internet (offline-first).
+*   **Peer Registry**: A database maintained by each node that tracks the Trust Scores (0-100) of other known nodes in the network.
+*   **Professional Logging**: Dual-output logging system (Console + File) with daily rotation. Stores 30 days of audit trail for compliance.
+*   **UDP Broadcast**: User Datagram Protocol broadcast method used for local mesh communication. Allows nodes to discover each other without central servers.
 
 ---
 
@@ -88,6 +96,11 @@ A conversion dictionary for developers familiar with legacy blockchain architect
 | **Shadow Realm** | Non-destructive penalty state where reward multiplier = 0x. | Bitcoin would ban or ignore; ZCP2O keeps assets but removes economic incentive. |
 | **Trust Score** | Dynamic reputation metric (0-100) based on activity history and mesh encounters. | Bitcoin has no reputation system; all nodes are equal if they have hash power. |
 | **Vector Clocks** | Logical time-tracking for resolving conflicts during async sync. | Bitcoin uses simple timestamps; doesn't handle long-term offline partitions. |
+| **Cumulative Trust Weight** | Sum of trust scores across all blocks in a chain. Used for fork resolution. | Bitcoin uses "longest chain wins" based on hash power, not reputation. |
+| **Fork Resolution (Trust-Weighted)** | Selects winning chain based on cumulative validator trust, not just chain length. | Bitcoin always chooses longest chain regardless of validator reputation. |
+| **Mesh Network (Offline-First)** | P2P network via Bluetooth/Wi-Fi Direct/UDP that works without internet. | Bitcoin P2P requires global internet connectivity. |
+| **Professional Logging** | Dual-output logging with daily rotation for institutional audit trails. | Bitcoin logs are basic text files without rotation or compliance features. |
+| **Peer Registry** | Local database tracking Trust Scores (0-100) of known network nodes. | Bitcoin nodes are anonymous; no local reputation tracking. |
 
 ---
 
@@ -158,6 +171,8 @@ A conversion dictionary for developers familiar with legacy blockchain architect
 | **Spam Claims** | **Rate Limiting**: 2-second cooldown between claims per player. |
 | **Future Quantum Threats** | **Post-Quantum Cryptography (PQC)**: Roadmap includes migration to NIST-approved algorithms (e.g., CRYSTALS-Dilithium) by 2028. |
 | **False Positive Bans** | **No Asset Deletion Policy**: Instead of banning or confiscating assets, accounts enter Shadow Realm (0x reward). Assets retained; Trust Score recoverable. |
+| **Fork Attack** | **Cumulative Trust Weight**: Chain with highest total validator trust wins, not longest chain. Prevents low-trust Sybil nodes from overriding. |
+| **Network Partition** | **Mesh Network + Async Sync**: Nodes operate autonomously offline and resolve conflicts when reconnected via Trust Score. |
 
 ---
 
