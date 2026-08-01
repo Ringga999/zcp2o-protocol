@@ -36,3 +36,307 @@
 2026-08-01 18:37:47 | INFO     | Ledger merge complete: 1 conflicts resolved
 2026-08-01 18:37:47 | WARNING  | Ignored conflict for WKS-89a34c75a088... from low-trust peer (30)
 2026-08-01 18:37:47 | INFO     | Ledger merge complete: 1 conflicts resolved
+2026-08-01 19:46:28 | INFO     | Digital Bunker initialized at WKS-06f604c02da914afd70f8c4a9a16b3efa6da4e0f
+2026-08-01 19:46:28 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:46:30 | INFO     | Digital Bunker initialized at WKS-d0fbe605d14d0df4288134b122f31cedec2f7deb
+2026-08-01 19:46:30 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:46:30 | INFO     | Peer registered: WKS-peer123... (Trust: 80)
+2026-08-01 19:46:32 | INFO     | Digital Bunker initialized at WKS-9b234703a45828d4ff050ba9bc3e6c7e29d3c959
+2026-08-01 19:46:32 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:46:32 | INFO     | Peer registered: WKS-peer123... (Trust: 50)
+2026-08-01 19:46:34 | INFO     | Digital Bunker initialized at WKS-b5ae5744db03d330c2eefcd9e1f8b5093434e316
+2026-08-01 19:46:34 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:46:39 | INFO     | Transaction accepted: 20.0 WEEKS from WKS-5a04bb809c2a...
+2026-08-01 19:46:40 | INFO     | Digital Bunker initialized at WKS-dd05064f832b202d49f2d0c8c33fc54a0b152153
+2026-08-01 19:46:40 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:46:52 | ERROR    | Reject: Insufficient funds for WKS-bd57473177db52e6900e1f8681c8a0343c3fb8c5 (Balance: 0.0, Required: 50.0)
+2026-08-01 19:46:53 | INFO     | Digital Bunker initialized at WKS-9bc8b17147818ed110647edcc37c2d032cb76ae6
+2026-08-01 19:46:53 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:46:59 | INFO     | Transaction accepted: 30.0 WEEKS from WKS-61e8920f196c...
+2026-08-01 19:46:59 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 19:47:00 | INFO     | Digital Bunker initialized at WKS-319e05368d3582a4289eaf09cb5deac6ea1f1255
+2026-08-01 19:47:00 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:47:02 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-ff0cd7c588fe...
+2026-08-01 19:47:02 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 19:47:03 | INFO     | Digital Bunker initialized at WKS-acf33306f1a4f01e651bf906093b4cc781c686ef
+2026-08-01 19:47:03 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:47:05 | INFO     | Digital Bunker initialized at WKS-df7736d3be6f72eea0dc20733e52f2d9320cffb4
+2026-08-01 19:47:05 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:47:07 | INFO     | Transaction accepted: 20.0 WEEKS from WKS-97c400f53733...
+2026-08-01 19:47:07 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 19:47:07 | INFO     | Receiving 0 blocks from WKS-peer123...
+2026-08-01 19:47:07 | WARNING  | Ignored conflict for WKS-97c400f53733... from low-trust peer (50)
+2026-08-01 19:47:07 | INFO     | Ledger merge complete: 1 conflicts resolved
+2026-08-01 19:47:07 | INFO     | Sync completed with WKS-peer123.... Chain height: 1
+2026-08-01 19:47:09 | INFO     | Digital Bunker initialized at WKS-878461d6a3f0a3fac1381e8ccea2c4b1b146f3d3
+2026-08-01 19:47:09 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:47:13 | INFO     | Resolved conflict for WKS-8dcdb21e3d0c...: 100.0 -> 200.0 (trusted peer)
+2026-08-01 19:47:13 | INFO     | Ledger merge complete: 1 conflicts resolved
+2026-08-01 19:47:13 | WARNING  | Ignored conflict for WKS-8dcdb21e3d0c... from low-trust peer (30)
+2026-08-01 19:47:13 | INFO     | Ledger merge complete: 1 conflicts resolved
+2026-08-01 19:47:16 | INFO     | Digital Bunker initialized at WKS-2bbe6cf98d90c16cfedcd044ee5331a6109cda61
+2026-08-01 19:47:16 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:47:17 | INFO     | Transaction accepted: 20.0 WEEKS from WKS-6a79995fcf15...
+2026-08-01 19:47:17 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 19:47:19 | INFO     | Digital Bunker initialized at WKS-d821308b8b823622d7a8fc76f0f42a2ac5e41d7a
+2026-08-01 19:47:19 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:47:24 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-a8b7bebfeb4c...
+2026-08-01 19:47:24 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 19:47:24 | INFO     | Fork resolution: Local weight=100, Remote weight=100
+2026-08-01 19:47:24 | INFO     | Fork resolution: Local length=2, Remote length=2
+2026-08-01 19:47:24 | INFO     | Fork resolution: Keeping local chain (equal weight and length)
+2026-08-01 19:47:25 | INFO     | Digital Bunker initialized at WKS-7e1efccfde0ed6061c3c1b9fa8ea490cd66bb8bd
+2026-08-01 19:47:25 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:47:27 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-564fcb2e4712...
+2026-08-01 19:47:27 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 19:47:27 | INFO     | Transaction accepted: 5.0 WEEKS from WKS-564fcb2e4712...
+2026-08-01 19:47:27 | INFO     | Block #2 validated and archived. Transactions: 1
+2026-08-01 19:47:27 | INFO     | Fork resolution: Local weight=100, Remote weight=150
+2026-08-01 19:47:27 | INFO     | Fork resolution: Local length=2, Remote length=3
+2026-08-01 19:47:27 | INFO     | Fork resolution: Remote chain wins (higher trust weight)
+2026-08-01 19:47:29 | INFO     | Digital Bunker initialized at WKS-3e47cd989e10260c2bfb7d7bf6d2b1fad5c9da48
+2026-08-01 19:47:29 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:47:35 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-2f9381661965...
+2026-08-01 19:47:35 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 19:47:35 | INFO     | Fork resolution: Local weight=100, Remote weight=100
+2026-08-01 19:47:35 | INFO     | Fork resolution: Local length=2, Remote length=2
+2026-08-01 19:47:35 | INFO     | Fork resolution: Keeping local chain (equal weight and length)
+2026-08-01 19:47:35 | INFO     | Fork resolution: Keeping local chain
+2026-08-01 19:47:36 | INFO     | Digital Bunker initialized at WKS-e81564c89bb0c695ad4c2e05da44f35123ed5e88
+2026-08-01 19:47:36 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:47:40 | INFO     | Transaction accepted: 30.0 WEEKS from WKS-4353f56bd340...
+2026-08-01 19:47:40 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 19:47:40 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-8799ce6f84d9...
+2026-08-01 19:47:40 | INFO     | Block #2 validated and archived. Transactions: 1
+2026-08-01 19:47:40 | INFO     | Ledger rebuilt from chain. Accounts: 2
+2026-08-01 19:47:42 | INFO     | Digital Bunker initialized at WKS-2495d75b5065b5d44413557398fe028ba98a49d3
+2026-08-01 19:47:42 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:47:46 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-7f558c727e1e...
+2026-08-01 19:47:46 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 19:53:30 | INFO     | Digital Bunker initialized at WKS-60abb5c4417cb1fe89c3ce8d00f9ab8a9d676b70
+2026-08-01 19:53:30 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:53:32 | INFO     | Digital Bunker initialized at WKS-eb57918f1a74f5d9648e5ea4f89f9c123c81c711
+2026-08-01 19:53:32 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:53:32 | INFO     | Peer registered: WKS-peer123... (Trust: 80)
+2026-08-01 19:53:36 | INFO     | Digital Bunker initialized at WKS-156beb69b42d9b465d853c375543e75b3b7637c8
+2026-08-01 19:53:36 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:53:36 | INFO     | Peer registered: WKS-peer123... (Trust: 50)
+2026-08-01 19:53:38 | INFO     | Digital Bunker initialized at WKS-db0ea3806683cc790fc38d5642a1bb68885e4fe6
+2026-08-01 19:53:38 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:53:39 | INFO     | Transaction accepted: 20.0 WEEKS from WKS-6d42b6961057...
+2026-08-01 19:53:40 | INFO     | Digital Bunker initialized at WKS-c68e11510f06374abdba01e1569b9c9f46720f25
+2026-08-01 19:53:40 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:53:43 | ERROR    | Reject: Insufficient funds for WKS-a39b98c409b1d58fcbd71e27f69cf348c074ebfa (Balance: 0.0, Required: 50.0)
+2026-08-01 19:53:44 | INFO     | Digital Bunker initialized at WKS-384c347e7a0be69629ca736b3e44534b66f13c62
+2026-08-01 19:53:44 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:53:47 | INFO     | Transaction accepted: 30.0 WEEKS from WKS-56668799082b...
+2026-08-01 19:53:47 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 19:53:47 | INFO     | Digital Bunker initialized at WKS-297a0b20618f3fdbd74481b1f8a157876914ade9
+2026-08-01 19:53:47 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:53:50 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-f69958ed0822...
+2026-08-01 19:53:50 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 19:53:52 | INFO     | Digital Bunker initialized at WKS-df1633ef829a8ac48e3ec176e026aa9711b5c3f3
+2026-08-01 19:53:52 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:54:02 | INFO     | Digital Bunker initialized at WKS-48c77e5fa685025982078b2ac84e8057567d59f8
+2026-08-01 19:54:02 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:54:06 | INFO     | Transaction accepted: 20.0 WEEKS from WKS-05f8590e20d8...
+2026-08-01 19:54:06 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 19:54:06 | INFO     | Receiving 0 blocks from WKS-peer123...
+2026-08-01 19:54:06 | WARNING  | Ignored conflict for WKS-05f8590e20d8... from low-trust peer (50)
+2026-08-01 19:54:06 | INFO     | Ledger merge complete: 1 conflicts resolved
+2026-08-01 19:54:06 | INFO     | Sync completed with WKS-peer123.... Chain height: 1
+2026-08-01 19:54:08 | INFO     | Digital Bunker initialized at WKS-e8044cfb4af1066ac1513094213237996629498d
+2026-08-01 19:54:08 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:54:09 | INFO     | Resolved conflict for WKS-7eb46c5000f1...: 100.0 -> 200.0 (trusted peer)
+2026-08-01 19:54:09 | INFO     | Ledger merge complete: 1 conflicts resolved
+2026-08-01 19:54:09 | WARNING  | Ignored conflict for WKS-7eb46c5000f1... from low-trust peer (30)
+2026-08-01 19:54:09 | INFO     | Ledger merge complete: 1 conflicts resolved
+2026-08-01 19:54:11 | INFO     | Digital Bunker initialized at WKS-dd5329f5871530524cf9fc4ff8956d14e34f5784
+2026-08-01 19:54:11 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:54:15 | INFO     | Transaction accepted: 20.0 WEEKS from WKS-965465041748...
+2026-08-01 19:54:15 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 19:54:18 | INFO     | Digital Bunker initialized at WKS-5a7c613707c3fd7bda834e18b2f49ae189e99d7c
+2026-08-01 19:54:18 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:54:21 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-ebc63cf66836...
+2026-08-01 19:54:21 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 19:54:21 | INFO     | Fork resolution: Local weight=100, Remote weight=100
+2026-08-01 19:54:21 | INFO     | Fork resolution: Local length=2, Remote length=2
+2026-08-01 19:54:21 | INFO     | Fork resolution: Keeping local chain (equal weight and length)
+2026-08-01 19:54:22 | INFO     | Digital Bunker initialized at WKS-b3b32892e1a7cd99acc72056635bf5445a387b00
+2026-08-01 19:54:22 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:54:27 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-c44a356923cf...
+2026-08-01 19:54:27 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 19:54:27 | INFO     | Transaction accepted: 5.0 WEEKS from WKS-c44a356923cf...
+2026-08-01 19:54:27 | INFO     | Block #2 validated and archived. Transactions: 1
+2026-08-01 19:54:27 | INFO     | Fork resolution: Local weight=100, Remote weight=150
+2026-08-01 19:54:27 | INFO     | Fork resolution: Local length=2, Remote length=3
+2026-08-01 19:54:27 | INFO     | Fork resolution: Remote chain wins (higher trust weight)
+2026-08-01 19:54:29 | INFO     | Digital Bunker initialized at WKS-6c410a394aad3384b35da4ed2d464026803c8505
+2026-08-01 19:54:29 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:54:33 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-790658a1d71d...
+2026-08-01 19:54:33 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 19:54:33 | INFO     | Fork resolution: Local weight=100, Remote weight=100
+2026-08-01 19:54:33 | INFO     | Fork resolution: Local length=2, Remote length=2
+2026-08-01 19:54:33 | INFO     | Fork resolution: Keeping local chain (equal weight and length)
+2026-08-01 19:54:33 | INFO     | Fork resolution: Keeping local chain
+2026-08-01 19:54:34 | INFO     | Digital Bunker initialized at WKS-da33a013713fbc07a8541d9871d2920fe2e9fb88
+2026-08-01 19:54:34 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:54:36 | ERROR    | Reject: Insufficient funds for WKS-ca9377a4f7e4f45b4446aabc1b4fcfe3401a7541 (Balance: 0.0, Required: 30.0)
+2026-08-01 19:54:36 | ERROR    | Reject: Insufficient funds for WKS-a5923dfd56d604545bf5511be38f9126e6572908 (Balance: 0.0, Required: 10.0)
+2026-08-01 19:54:36 | INFO     | Ledger rebuilt from chain. Accounts: 0
+2026-08-01 19:54:37 | INFO     | Digital Bunker initialized at WKS-d16143548766b890e4edc3ebbaa44c7726f65d9f
+2026-08-01 19:54:37 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 19:54:43 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-73ad596f4a60...
+2026-08-01 19:54:43 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 20:06:10 | INFO     | Digital Bunker initialized at WKS-1e3341497216a88e13460af7b1e8a219e88a5d70
+2026-08-01 20:06:10 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:06:12 | INFO     | Digital Bunker initialized at WKS-d2a922916b8ad6d4b719edaadf3b701e6bbd2113
+2026-08-01 20:06:12 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:06:12 | INFO     | Peer registered: WKS-peer123... (Trust: 80)
+2026-08-01 20:06:16 | INFO     | Digital Bunker initialized at WKS-16273efb3d678f1f566f35691fac3571ec42a6c5
+2026-08-01 20:06:16 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:06:16 | INFO     | Peer registered: WKS-peer123... (Trust: 50)
+2026-08-01 20:06:17 | INFO     | Digital Bunker initialized at WKS-b17e2fb495c21f97a09866c221fa73fdf6ae0980
+2026-08-01 20:06:17 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:06:20 | INFO     | Transaction accepted: 20.0 WEEKS from WKS-cdb6535ee2ef...
+2026-08-01 20:06:21 | INFO     | Digital Bunker initialized at WKS-5361e5d26c8e8ebf58e7666d6803de2326e27ea8
+2026-08-01 20:06:21 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:06:25 | ERROR    | Reject: Insufficient funds for WKS-cb3f5b507ff26829bf99142573ff81222c580835 (Balance: 0.0, Required: 50.0)
+2026-08-01 20:06:28 | INFO     | Digital Bunker initialized at WKS-0123bdc03bdc2a03ed81162daa2f50ade35f67c9
+2026-08-01 20:06:28 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:06:31 | INFO     | Transaction accepted: 30.0 WEEKS from WKS-dbb5b6780ceb...
+2026-08-01 20:06:31 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 20:06:32 | INFO     | Digital Bunker initialized at WKS-d55377302617df20c5f8cab1f5b64223aa46454a
+2026-08-01 20:06:32 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:06:36 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-0e2369737025...
+2026-08-01 20:06:36 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 20:06:37 | INFO     | Digital Bunker initialized at WKS-45dd0a90cf28eee92a9875729d22f4079605ab2b
+2026-08-01 20:06:37 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:06:38 | INFO     | Digital Bunker initialized at WKS-61c87119a699ffc9747f9c3e840b4144284e61f9
+2026-08-01 20:06:38 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:06:40 | INFO     | Transaction accepted: 20.0 WEEKS from WKS-78b3409e3839...
+2026-08-01 20:06:40 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 20:06:40 | INFO     | Receiving 0 blocks from WKS-peer123...
+2026-08-01 20:06:40 | WARNING  | Ignored conflict for WKS-78b3409e3839... from low-trust peer (50)
+2026-08-01 20:06:40 | INFO     | Ledger merge complete: 1 conflicts resolved
+2026-08-01 20:06:40 | INFO     | Sync completed with WKS-peer123.... Chain height: 1
+2026-08-01 20:06:43 | INFO     | Digital Bunker initialized at WKS-dfa8fdc97c845774257ef2cb3e88ce08dcef1ca6
+2026-08-01 20:06:43 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:06:45 | INFO     | Resolved conflict for WKS-41b81ab86a8d...: 100.0 -> 200.0 (trusted peer)
+2026-08-01 20:06:45 | INFO     | Ledger merge complete: 1 conflicts resolved
+2026-08-01 20:06:45 | WARNING  | Ignored conflict for WKS-41b81ab86a8d... from low-trust peer (30)
+2026-08-01 20:06:45 | INFO     | Ledger merge complete: 1 conflicts resolved
+2026-08-01 20:06:46 | INFO     | Digital Bunker initialized at WKS-7988e2ecf7f98ffc90fdba69ed5211235d087f3e
+2026-08-01 20:06:46 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:06:49 | INFO     | Transaction accepted: 20.0 WEEKS from WKS-9d9f80790f85...
+2026-08-01 20:06:49 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 20:06:55 | INFO     | Digital Bunker initialized at WKS-8924dfe78c6a530991c67fe31eeb88999a838e30
+2026-08-01 20:06:55 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:07:01 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-434b864a6482...
+2026-08-01 20:07:01 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 20:07:01 | INFO     | Fork resolution: Local weight=100, Remote weight=100
+2026-08-01 20:07:01 | INFO     | Fork resolution: Local length=2, Remote length=2
+2026-08-01 20:07:01 | INFO     | Fork resolution: Keeping local chain (equal weight and length)
+2026-08-01 20:07:03 | INFO     | Digital Bunker initialized at WKS-96c7262b52918810824cf498f2e4bd62760f5542
+2026-08-01 20:07:03 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:07:08 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-90bd76af6d51...
+2026-08-01 20:07:08 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 20:07:08 | INFO     | Transaction accepted: 5.0 WEEKS from WKS-90bd76af6d51...
+2026-08-01 20:07:08 | INFO     | Block #2 validated and archived. Transactions: 1
+2026-08-01 20:07:08 | INFO     | Fork resolution: Local weight=100, Remote weight=150
+2026-08-01 20:07:08 | INFO     | Fork resolution: Local length=2, Remote length=3
+2026-08-01 20:07:08 | INFO     | Fork resolution: Remote chain wins (higher trust weight)
+2026-08-01 20:07:10 | INFO     | Digital Bunker initialized at WKS-91e925325f258a05b20e2a87efdee54f949c0af9
+2026-08-01 20:07:10 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:07:12 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-0132b144464c...
+2026-08-01 20:07:12 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 20:07:12 | INFO     | Fork resolution: Local weight=100, Remote weight=100
+2026-08-01 20:07:12 | INFO     | Fork resolution: Local length=2, Remote length=2
+2026-08-01 20:07:12 | INFO     | Fork resolution: Keeping local chain (equal weight and length)
+2026-08-01 20:07:12 | INFO     | Fork resolution: Keeping local chain
+2026-08-01 20:07:12 | INFO     | Digital Bunker initialized at WKS-4c37cac3871939162ff42bd8f0f581aed10ce46f
+2026-08-01 20:07:12 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:07:15 | INFO     | Transaction accepted: 30.0 WEEKS from WKS-c73c8125c4cf...
+2026-08-01 20:07:15 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 20:07:15 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-09399f0c91a3...
+2026-08-01 20:07:15 | INFO     | Block #2 validated and archived. Transactions: 1
+2026-08-01 20:07:15 | INFO     | Ledger rebuilt from chain. Accounts: 2
+2026-08-01 20:07:16 | INFO     | Digital Bunker initialized at WKS-15b325c1b5f9cc036c1e0e279e633052133b5b2d
+2026-08-01 20:07:16 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:07:18 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-2b7f9dc7b49e...
+2026-08-01 20:07:18 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 20:10:37 | INFO     | Digital Bunker initialized at WKS-7723d704e3f3342db0bf5d0566083126085342cd
+2026-08-01 20:10:37 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:10:39 | INFO     | Digital Bunker initialized at WKS-ca52818a2fc796fc6beee2a4d676138b50e0a144
+2026-08-01 20:10:39 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:10:39 | INFO     | Peer registered: WKS-peer123... (Trust: 80)
+2026-08-01 20:10:40 | INFO     | Digital Bunker initialized at WKS-910e1d96a1bc19fe9c1a3589084942f6b4457cab
+2026-08-01 20:10:40 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:10:40 | INFO     | Peer registered: WKS-peer123... (Trust: 50)
+2026-08-01 20:10:42 | INFO     | Digital Bunker initialized at WKS-0853386c735a0dae72fe5266d575ce73eeec24b7
+2026-08-01 20:10:42 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:10:46 | INFO     | Transaction accepted: 20.0 WEEKS from WKS-65beec98a605...
+2026-08-01 20:10:46 | INFO     | Digital Bunker initialized at WKS-5f8af1365f9254ff500e4796d7daf44fdcd06621
+2026-08-01 20:10:46 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:10:52 | ERROR    | Reject: Insufficient funds for WKS-53e76ef3916bef1f25faa35d1b6f4d4a7746c8c2 (Balance: 0.0, Required: 50.0)
+2026-08-01 20:10:53 | INFO     | Digital Bunker initialized at WKS-15c92474316e47ebd5142d3899ee1d5729e3e0b2
+2026-08-01 20:10:53 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:10:57 | INFO     | Transaction accepted: 30.0 WEEKS from WKS-f175102bd178...
+2026-08-01 20:10:57 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 20:10:58 | INFO     | Digital Bunker initialized at WKS-188e0aa82831ecf160d5102c3d9165604a387982
+2026-08-01 20:10:58 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:11:01 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-ff3e8209caec...
+2026-08-01 20:11:01 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 20:11:03 | INFO     | Digital Bunker initialized at WKS-4a4317cafe7e02532e7cc60a7ffe9a9f5453e38c
+2026-08-01 20:11:03 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:11:04 | INFO     | Digital Bunker initialized at WKS-76218fe296521dc73ea30256de2a0da4aa25df98
+2026-08-01 20:11:04 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:11:07 | INFO     | Transaction accepted: 20.0 WEEKS from WKS-3fd26b38819d...
+2026-08-01 20:11:07 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 20:11:07 | INFO     | Receiving 0 blocks from WKS-peer123...
+2026-08-01 20:11:07 | WARNING  | Ignored conflict for WKS-3fd26b38819d... from low-trust peer (50)
+2026-08-01 20:11:07 | INFO     | Ledger merge complete: 1 conflicts resolved
+2026-08-01 20:11:07 | INFO     | Sync completed with WKS-peer123.... Chain height: 1
+2026-08-01 20:11:09 | INFO     | Digital Bunker initialized at WKS-48786012b914a5780b0103ca2a2fce3a7a18f423
+2026-08-01 20:11:09 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:11:13 | INFO     | Resolved conflict for WKS-fe423410438d...: 100.0 -> 200.0 (trusted peer)
+2026-08-01 20:11:13 | INFO     | Ledger merge complete: 1 conflicts resolved
+2026-08-01 20:11:13 | WARNING  | Ignored conflict for WKS-fe423410438d... from low-trust peer (30)
+2026-08-01 20:11:13 | INFO     | Ledger merge complete: 1 conflicts resolved
+2026-08-01 20:11:16 | INFO     | Digital Bunker initialized at WKS-f5ea8174b60ac5e8c67d51f359b289d286aab94c
+2026-08-01 20:11:16 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:11:20 | INFO     | Transaction accepted: 20.0 WEEKS from WKS-dbac12dbf230...
+2026-08-01 20:11:20 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 20:11:21 | INFO     | Digital Bunker initialized at WKS-1a27e599bfac76c2b73e3f68cb8f9928e8c1c322
+2026-08-01 20:11:21 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:11:24 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-d8a495ed86e8...
+2026-08-01 20:11:24 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 20:11:24 | INFO     | Fork resolution: Local weight=100, Remote weight=100
+2026-08-01 20:11:24 | INFO     | Fork resolution: Local length=2, Remote length=2
+2026-08-01 20:11:24 | INFO     | Fork resolution: Keeping local chain (equal weight and length)
+2026-08-01 20:11:27 | INFO     | Digital Bunker initialized at WKS-bdb2f9971dc251e4cd01a804e3171314c12a1fe2
+2026-08-01 20:11:27 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:11:34 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-354f2e7ba860...
+2026-08-01 20:11:34 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 20:11:34 | INFO     | Transaction accepted: 5.0 WEEKS from WKS-354f2e7ba860...
+2026-08-01 20:11:34 | INFO     | Block #2 validated and archived. Transactions: 1
+2026-08-01 20:11:34 | INFO     | Fork resolution: Local weight=100, Remote weight=150
+2026-08-01 20:11:34 | INFO     | Fork resolution: Local length=2, Remote length=3
+2026-08-01 20:11:34 | INFO     | Fork resolution: Remote chain wins (higher trust weight)
+2026-08-01 20:11:35 | INFO     | Digital Bunker initialized at WKS-0e34841e5c85761cd6ee1fc483744aa4bc200609
+2026-08-01 20:11:35 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:11:38 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-fee75662bdf9...
+2026-08-01 20:11:38 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 20:11:38 | INFO     | Fork resolution: Local weight=100, Remote weight=100
+2026-08-01 20:11:38 | INFO     | Fork resolution: Local length=2, Remote length=2
+2026-08-01 20:11:38 | INFO     | Fork resolution: Keeping local chain (equal weight and length)
+2026-08-01 20:11:38 | INFO     | Fork resolution: Keeping local chain
+2026-08-01 20:11:38 | INFO     | Digital Bunker initialized at WKS-b01de81987ebf8863caf23009cf3810cc160fa8e
+2026-08-01 20:11:38 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:11:41 | INFO     | Transaction accepted: 30.0 WEEKS from WKS-9822d805df6d...
+2026-08-01 20:11:41 | INFO     | Block #1 validated and archived. Transactions: 1
+2026-08-01 20:11:41 | INFO     | Ledger rebuilt from chain. Accounts: 2
+2026-08-01 20:11:43 | INFO     | Digital Bunker initialized at WKS-43338c4bccf88925ec36b64f8c3c0f04a55c3059
+2026-08-01 20:11:43 | INFO     | Node Name: TestBunker_Alpha | Networking: False
+2026-08-01 20:11:47 | INFO     | Transaction accepted: 10.0 WEEKS from WKS-0a2294c14a66...
+2026-08-01 20:11:47 | INFO     | Block #1 validated and archived. Transactions: 1
