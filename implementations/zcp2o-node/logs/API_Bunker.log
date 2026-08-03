@@ -1,0 +1,4 @@
+2026-08-03 21:23:26 | INFO     | Genesis Block saved to database.
+2026-08-03 21:23:28 | INFO     | Digital Bunker initialized at WKS-608c257f69feb23b0b2159e6e046fef5c3c5c4c8
+2026-08-03 21:23:28 | INFO     | Node Name: API_Bunker | Networking: False | DB: zcp2o_node.db
+2026-08-03 21:23:28 | INFO     | State Recovery: Loaded 1 blocks, 0 accounts, 0 peers.

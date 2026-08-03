@@ -10,8 +10,26 @@ import sys
 import os
 import json
 
-# Setup path agar bisa mengimpor modul dari zcp2o-core dan folder yang sama
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# ==========================================
+# FIX PATH SETUP - CRITICAL FOR IMPORTS
+# ==========================================
+# Get the absolute path to the current directory (zcp2o-node)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Get the parent directory (implementations)
+parent_dir = os.path.dirname(current_dir)
+
+# Path to zcp2o-core folder
+core_path = os.path.join(parent_dir, 'zcp2o-core')
+
+# Add core_path to sys.path so we can import zcp2o.*
+if core_path not in sys.path:
+    sys.path.insert(0, core_path)
+
+# Add current directory for local imports (database, logger, network)
+if current_dir not in sys.path:
+    sys.path.insert(0, current_dir)
+# ==========================================
 
 from zcp2o.blockchain import Blockchain
 from zcp2o.transaction import Transaction
