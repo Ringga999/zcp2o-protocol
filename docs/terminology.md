@@ -17,6 +17,7 @@
 *   **Dynamic Quorum**: Adaptive number of validators required based on local node density, inspired by Avalanche consensus principles.
 *   **Digital Bunker**: The ZCP2O term for a Full Node. Typically operated by institutions (universities, internet cafes, clinics) to store the local ledger, validate transactions, and provide network stability in offline environments.
 *   **Fee-to-Spawn**: A unique economic loop where the 1% transaction fee is not destroyed or hoarded, but physically spawned as new coins in the game world, ensuring continuous local liquidity.
+*   **FastAPI**: A modern, high-performance web framework for building APIs with Python. Used by ZCP2O to expose node functions to external apps (Godot, Web).
 *   **Genesis Pool**: A reserved allocation of 1,000,000 $WEEKS distributed as a bonus to the first 100 active players to bootstrap the initial network economy.
 *   **Golden Ticket**: Premium access pass for extended gameplay in World 1 (30 minutes). Acquired by burning 5,000 $WEEKS.
 *   **HTTP Endpoint**: A specific URL path on a server where an API receives requests (e.g., `/api/v1/balance`).
@@ -24,17 +25,20 @@
 *   **Light Node**: A lightweight mobile device (smartphone) that stores only the user's balance and recent transactions. Requires ~50MB storage.
 *   **Local Mesh Consensus**: Consensus reached locally (few meters/km) via Bluetooth/Wi-Fi Direct, without requiring global internet connectivity.
 *   **Node**: Any device connected to the ZCP2O network. Categorized into Light Nodes (mobile devices/players) and Full Nodes (Digital Bunkers).
+*   **Pydantic**: A data validation library for Python using type hints. Used by FastAPI to automatically validate incoming JSON requests (e.g., ensuring transfer amounts are numbers).
 *   **JSON Payload**: The format of data sent and received via the REST API. It is a lightweight, text-based format easily read by any programming language (Godot, JavaScript, Python).
 *   **On-Disk Storage**: Storing data on a hardisk/SSD. It is non-volatile (permanent). ZCP2O uses SQLite for this.
 *   **Proof-of-Play (PoP)**: ZCP2O's core consensus mechanism. Validates transactions and distributes rewards based on verifiable, real-world human activity (e.g., gameplay, message relaying), rather than computational hash power (PoW) or capital staking (PoS).
 *   **REST API (Representational State Transfer API)**: A standardized interface that allows external applications (games, websites, IoT) to interact with the ZCP2O node via HTTP requests (GET, POST).
 *   **Proof-of-Relay**: Earning rewards for relaying other people's messages/transactions through the mesh network.
 *   **Querying**: The process of requesting or retrieving specific data from the database using SQL (e.g., `SELECT balance FROM ledger WHERE address = 'WKS-...'`).
+*   **Swagger UI (OpenAPI)**: An interactive, auto-generated web interface that allows developers to test API endpoints directly from their browser without writing code.
 *   **Shadow Realm**: A non-destructive anti-cheat penalty state. Instead of banning accounts or deleting assets (which risks false positives from lag), offending nodes have their **Reward Multiplier set to 0.0x**. They can still interact, but earn zero $WEEKS, making botting mathematically unprofitable.
 *   **Silver Ticket**: Free access pass for World 1 (15 minutes). Earned by farming XP in World 2 (100 XP = 1 Silver Ticket).
 *   **Smart Contract Avoidance**: ZCP2O deliberately avoids Turing-complete smart contracts in favor of predefined Activity Scripts for security, auditability, and offline compatibility.
 *   **Trust-Based Decentralization (Federated Decentralization)**: Decentralization model where Full Nodes are operated by trusted institutions (universities, hospitals) rather than anonymous participants.
 *   **Web Server (Flask/FastAPI)**: The software component inside the ZCP2O Node that listens for incoming HTTP requests and routes them to the appropriate blockchain functions.
+*   **Uvicorn**: A lightning-fast ASGI server implementation, used to run the FastAPI application and handle incoming HTTP traffic for the ZCP2O node.
 *   **SQLite**: A serverless, zero-configuration, single-file relational database engine. Used by ZCP2O to store the blockchain and ledger permanently.
 *   **State Recovery (Crash Recovery)**: The process where a Node reloads the entire blockchain status, balances, and peers from the SQLite database when the node is restarted after being shut down.
 *   **Trust Score**: A reputation metric (0-100) assigned to each node. It increases through historical valid activity and physical mesh encounters. Only nodes with a Trust Score > 80 (or Full Nodes) can act as consensus validators.
