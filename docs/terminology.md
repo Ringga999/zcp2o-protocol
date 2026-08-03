@@ -10,23 +10,31 @@
 
 *   **$WEEKS**: The primary utility token and native currency of the ZCP2O ecosystem. Used for in-game transactions, premium asset purchases, and validator rewards.
 *   **Activity Proof**: Cryptographic proof that a user is performing real, verifiable activity (not a bot). Replaces traditional Proof-of-Work.
+*   **Activity Script**: A predefined, verified script for specific use cases (gaming, supply chain) that replaces Turing-complete smart contracts in ZCP2O.
 *   **Async Sync (Asynchronous Synchronization)**: The mechanism by which locally validated ledger data (generated while offline) is automatically synchronized with the global mainnet once a Gateway Node establishes an internet connection.
 *   **Burn Mechanism**: The permanent removal of tokens from circulation by sending them to an unspendable "Null Address" (e.g., `WKS-000...`). Example: Purchasing a Golden Ticket requires burning 5,000 $WEEKS.
 *   **Consensus**: The decentralized agreement among network nodes that a transaction or block is valid. In ZCP2O, this requires a Trust-Weighted Dynamic Quorum.
+*   **Dynamic Quorum**: Adaptive number of validators required based on local node density, inspired by Avalanche consensus principles.
 *   **Digital Bunker**: The ZCP2O term for a Full Node. Typically operated by institutions (universities, internet cafes, clinics) to store the local ledger, validate transactions, and provide network stability in offline environments.
 *   **Fee-to-Spawn**: A unique economic loop where the 1% transaction fee is not destroyed or hoarded, but physically spawned as new coins in the game world, ensuring continuous local liquidity.
 *   **Genesis Pool**: A reserved allocation of 1,000,000 $WEEKS distributed as a bonus to the first 100 active players to bootstrap the initial network economy.
 *   **Golden Ticket**: Premium access pass for extended gameplay in World 1 (30 minutes). Acquired by burning 5,000 $WEEKS.
+*   **HTTP Endpoint**: A specific URL path on a server where an API receives requests (e.g., `/api/v1/balance`).
 *   **In-Memory Storage**: Storing data inside RAM (memory). It is fast but volatile (data is lost when power is off). ZCP2O uses this for temporary caching before saving to SQLite.
 *   **Light Node**: A lightweight mobile device (smartphone) that stores only the user's balance and recent transactions. Requires ~50MB storage.
 *   **Local Mesh Consensus**: Consensus reached locally (few meters/km) via Bluetooth/Wi-Fi Direct, without requiring global internet connectivity.
 *   **Node**: Any device connected to the ZCP2O network. Categorized into Light Nodes (mobile devices/players) and Full Nodes (Digital Bunkers).
+*   **JSON Payload**: The format of data sent and received via the REST API. It is a lightweight, text-based format easily read by any programming language (Godot, JavaScript, Python).
 *   **On-Disk Storage**: Storing data on a hardisk/SSD. It is non-volatile (permanent). ZCP2O uses SQLite for this.
 *   **Proof-of-Play (PoP)**: ZCP2O's core consensus mechanism. Validates transactions and distributes rewards based on verifiable, real-world human activity (e.g., gameplay, message relaying), rather than computational hash power (PoW) or capital staking (PoS).
+*   **REST API (Representational State Transfer API)**: A standardized interface that allows external applications (games, websites, IoT) to interact with the ZCP2O node via HTTP requests (GET, POST).
 *   **Proof-of-Relay**: Earning rewards for relaying other people's messages/transactions through the mesh network.
 *   **Querying**: The process of requesting or retrieving specific data from the database using SQL (e.g., `SELECT balance FROM ledger WHERE address = 'WKS-...'`).
 *   **Shadow Realm**: A non-destructive anti-cheat penalty state. Instead of banning accounts or deleting assets (which risks false positives from lag), offending nodes have their **Reward Multiplier set to 0.0x**. They can still interact, but earn zero $WEEKS, making botting mathematically unprofitable.
 *   **Silver Ticket**: Free access pass for World 1 (15 minutes). Earned by farming XP in World 2 (100 XP = 1 Silver Ticket).
+*   **Smart Contract Avoidance**: ZCP2O deliberately avoids Turing-complete smart contracts in favor of predefined Activity Scripts for security, auditability, and offline compatibility.
+*   **Trust-Based Decentralization (Federated Decentralization)**: Decentralization model where Full Nodes are operated by trusted institutions (universities, hospitals) rather than anonymous participants.
+*   **Web Server (Flask/FastAPI)**: The software component inside the ZCP2O Node that listens for incoming HTTP requests and routes them to the appropriate blockchain functions.
 *   **SQLite**: A serverless, zero-configuration, single-file relational database engine. Used by ZCP2O to store the blockchain and ledger permanently.
 *   **State Recovery (Crash Recovery)**: The process where a Node reloads the entire blockchain status, balances, and peers from the SQLite database when the node is restarted after being shut down.
 *   **Trust Score**: A reputation metric (0-100) assigned to each node. It increases through historical valid activity and physical mesh encounters. Only nodes with a Trust Score > 80 (or Full Nodes) can act as consensus validators.
@@ -40,6 +48,9 @@
 *   **Database Persistence (Data Persistence)**: The ability of the system to store data permanently into non-volatile storage (hardisk/SSD) so that data is not lost when the system is shut down or crashes.
 *   **Database Schema**: The structure or design of the tables within the database (e.g., `blocks`, `ledger`, `peers` tables in ZCP2O's SQLite).
 *   **Fork Resolution**: The mechanism that determines which blockchain is legitimate when two conflicting chains exist. ZCP2O uses Cumulative Trust Weight algorithm instead of "longest chain wins".
+*   **Full Ledger Storage**: The capability of a Digital Bunker (Full Node) to maintain the complete history of all blocks and account balances since Genesis Block, without pruning. This enables independent transaction verification and serves as the authoritative source for the local mesh network.
+*   **Gateway Node**: Special node with internet access that bridges local mesh networks to the global mainnet. Earns fees for sync services and acts as an Oracle for external data.
+*   **Gateway Oracle**: Function of Gateway Node that provides external data (fiat prices, weather, market data) to the local mesh network, signed with the node's Trust Score.
 *   **Mesh Network**: Peer-to-peer network topology based on physical proximity using UDP broadcast or Wi-Fi Direct. Operates without internet (offline-first).
 *   **Peer Registry**: A database maintained by each node that tracks the Trust Scores (0-100) of other known nodes in the network.
 *   **Professional Logging**: Dual-output logging system (Console + File) with daily rotation. Stores 30 days of audit trail for compliance.
@@ -63,6 +74,7 @@ A conversion dictionary for developers familiar with legacy blockchain architect
 | **Private Key** | **Private Key (RSA)** | Same concept, but uses RSA 4096-bit (more secure against certain attacks than ECC). |
 | **Recovery Phrase** | **Seed Phrase / Recovery Key** | Standard 12-24 words, or RSA key file backup. |
 | **Node (Full Node)** | **Full Node / Digital Bunker** | Stores entire ledger history. Requires large storage, earns higher fees. Can operate offline. |
+| **Full Node Storage** | **Full Ledger Storage** | ZCP2O Full Nodes store the complete blockchain + ledger in SQLite, enabling offline verification and institutional audit. |
 | **Light Node (SPV)** | **Light Node / Mobile Node** | Stores only own balance + block headers. Very lightweight (~50MB), perfect for mobile. |
 | **Mempool** | **Local Mesh Buffer** | Unvalidated transactions stored temporarily in local/mesh buffer waiting for peer validation. |
 | **51% Attack** | **Sybil / Mesh Takeover** | Prevented not by hash power, but by Trust-Weighted Consensus (requiring high-reputation nodes to approve blocks). |
@@ -110,6 +122,14 @@ A conversion dictionary for developers familiar with legacy blockchain architect
 | **Peer Registry** | Local database tracking Trust Scores (0-100) of known network nodes. | Bitcoin nodes are anonymous; no local reputation tracking. |
 | **SQLite Integration** | ZCP2O stores its state in a local SQLite file, allowing external apps to query balances directly without running a full node. | Bitcoin uses LevelDB (a key-value store) which is harder for external apps to query directly without a running daemon. |
 | **State Recovery** | Upon restart, ZCP2O nodes instantly load their exact previous state (balances, chain height) from the local SQLite database. | Bitcoin nodes must replay or load from a specific UTXO set file, which is more complex to manage for simple applications. |
+| **API-First Architecture** | ZCP2O nodes expose a REST API by default, making it trivial for any external app (Godot, Web) to integrate without needing Python libraries. | Bitcoin requires complex RPC setups or third-party middleware to interact with nodes from external apps. |
+| **Activity Script** | Predefined, verified script for specific use cases (gaming, supply chain) instead of Turing-complete smart contracts. | Ethereum allows any smart contract; ZCP2O restricts to audited, predefined scripts for security. |
+| **Dynamic Quorum** | Adaptive validator count based on local node density, inspired by Avalanche consensus. | Bitcoin uses fixed difficulty; ZCP2O adjusts quorum dynamically for efficiency. |
+| **Federated Decentralization** | Full Nodes operated by trusted institutions (universities, hospitals) with reputational accountability. | Bitcoin allows anonymous nodes; ZCP2O requires institutional trust for stability. |
+| **Gateway Oracle** | Gateway Node that provides external data (fiat prices, weather) to local mesh, signed with Trust Score. | Ethereum uses third-party oracles (Chainlink); ZCP2O integrates oracle function into Gateway Node. |
+| **Smart Contract Avoidance** | Deliberate design choice to avoid Turing-complete contracts in favor of predefined Activity Scripts. | Ethereum's core feature is smart contracts; ZCP2O prioritizes security and offline compatibility. |
+| **Trust-Based Decentralization** | Decentralization through geographic distribution of trusted institutional nodes, not anonymous participation. | Bitcoin achieves decentralization through hash power distribution; ZCP2O through institutional trust. |
+| **Full Ledger Storage** | Digital Bunkers maintain the complete blockchain history and all account balances without pruning, enabling full offline verification. | Bitcoin Full Nodes also store full history, but ZCP2O uses SQLite for easier querying by external apps and institutions. |
 
 ---
 
