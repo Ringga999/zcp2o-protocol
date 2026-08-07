@@ -134,6 +134,11 @@ A conversion dictionary for developers familiar with legacy blockchain architect
 | **Smart Contract Avoidance** | Deliberate design choice to avoid Turing-complete contracts in favor of predefined Activity Scripts. | Ethereum's core feature is smart contracts; ZCP2O prioritizes security and offline compatibility. |
 | **Trust-Based Decentralization** | Decentralization through geographic distribution of trusted institutional nodes, not anonymous participation. | Bitcoin achieves decentralization through hash power distribution; ZCP2O through institutional trust. |
 | **Full Ledger Storage** | Digital Bunkers maintain the complete blockchain history and all account balances without pruning, enabling full offline verification. | Bitcoin Full Nodes also store full history, but ZCP2O uses SQLite for easier querying by external apps and institutions. |
+| **Activity Scripts** | Predefined, audited, deterministic logic for specific actions (e.g., claiming, transferring) replacing Turing-complete smart contracts. | Ethereum allows arbitrary code execution; ZCP2O restricts to safe, predefined scripts for offline compatibility and security. |
+| **API-First dApp** | Decentralized applications that interact with the ZCP2O node exclusively via standard REST API (HTTP/JSON), not direct blockchain calls. | Traditional dApps require Web3 libraries and direct RPC connection to nodes. |
+| **Asynchronous DEX** | A decentralized exchange model using a "Bulletin Board" approach where orders are matched and settled asynchronously during Async Sync, enabling offline trading. | Traditional DEXs (AMMs) require real-time, global internet connectivity for instant settlement. |
+| **Institutional Data Sovereignty (DeSci)** | The ability for local institutions (hospitals, universities) to cryptographically log and own their data offline via a local Digital Bunker, syncing later for global provenance. | Traditional DeSci relies on continuous internet and decentralized storage (IPFS) that may not be viable in offline/remote areas. |
+| **Local Micro-Finance (DeFi)** | Focus on P2P utility transactions and local liquidity within a mesh network, rather than global speculative lending or yield farming. | Traditional DeFi is heavily reliant on global liquidity pools and real-time oracle price feeds. |
 
 ---
 
