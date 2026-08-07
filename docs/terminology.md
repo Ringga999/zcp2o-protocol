@@ -139,6 +139,10 @@ A conversion dictionary for developers familiar with legacy blockchain architect
 | **Asynchronous DEX** | A decentralized exchange model using a "Bulletin Board" approach where orders are matched and settled asynchronously during Async Sync, enabling offline trading. | Traditional DEXs (AMMs) require real-time, global internet connectivity for instant settlement. |
 | **Institutional Data Sovereignty (DeSci)** | The ability for local institutions (hospitals, universities) to cryptographically log and own their data offline via a local Digital Bunker, syncing later for global provenance. | Traditional DeSci relies on continuous internet and decentralized storage (IPFS) that may not be viable in offline/remote areas. |
 | **Local Micro-Finance (DeFi)** | Focus on P2P utility transactions and local liquidity within a mesh network, rather than global speculative lending or yield farming. | Traditional DeFi is heavily reliant on global liquidity pools and real-time oracle price feeds. |
+| **Bootstrap Node Privilege** | Temporary elevated trust (Score 100) granted to the first node(s) in a new network, allowing solo validation to prevent the Cold Start Problem. | Traditional blockchains often require a centralized seed or pre-mined genesis allocation to start. |
+| **Cold Start Problem** | The challenge of a decentralized network failing to function due to a lack of initial participants. Solved in ZCP2O via Dynamic Quorum and Bootstrap Nodes. | Many P2P networks fail or require centralized servers to overcome the initial lack of peers. |
+| **Dynamic Quorum** | An adaptive consensus rule where the required number of validators scales down when network density is low (e.g., 1 validator for 1 node), preventing blockchain stalls. | Bitcoin/Ethereum have fixed difficulty/consensus rules regardless of how many miners/validators are currently online. |
+| **Local Finality** | The state where a transaction is considered permanently valid within a local mesh or single node, before global Async Sync occurs. | Traditional blockchains only consider a transaction "final" after multiple global confirmations. |
 
 ---
 
