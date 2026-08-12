@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  zcp2o-node:
+    build:
+      context: .. # Build context adalah folder 'implementations'
+      dockerfile: zcp2o-node/Dockerfile
+    container_name: zcp2o_digital_bunker
+    restart: unless-stopped # Otomatis restart jika crash atau server reboot
+    ports:
+      - "8000:8000" # Map port host ke container
+    volumes:
+      - ./zcp2o_data:/app/zcp2o-node/data # Persisten data (DB & Logs)
+    environment:
+      - DB_PATH=/app/zcp2o-node/data/zcp2o_node.db
+      - LOG_DIR=/app/zcp2o-node/data/logs
