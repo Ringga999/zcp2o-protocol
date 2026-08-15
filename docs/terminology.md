@@ -143,7 +143,11 @@ A conversion dictionary for developers familiar with legacy blockchain architect
 | **Cold Start Problem** | The challenge of a decentralized network failing to function due to a lack of initial participants. Solved in ZCP2O via Dynamic Quorum and Bootstrap Nodes. | Many P2P networks fail or require centralized servers to overcome the initial lack of peers. |
 | **Dynamic Quorum** | An adaptive consensus rule where the required number of validators scales down when network density is low (e.g., 1 validator for 1 node), preventing blockchain stalls. | Bitcoin/Ethereum have fixed difficulty/consensus rules regardless of how many miners/validators are currently online. |
 | **Local Finality** | The state where a transaction is considered permanently valid within a local mesh or single node, before global Async Sync occurs. | Traditional blockchains only consider a transaction "final" after multiple global confirmations. |
-
+| **ZIP (ZCP2O Improvement Proposal)** | Formal proposal for protocol changes, similar to Bitcoin's BIP or Ethereum's EIP. Anyone can submit, but implementation requires Core Team review and community voting. | BIP/EIP are similar, but ZCP2O adds trust-weighted on-chain voting by Digital Bunkers. |
+| **Trust-Weighted Governance** | Voting power in protocol upgrades is proportional to a Digital Bunker's Trust Score. Higher trust = more influence on network decisions. | Bitcoin uses hash power, Solana uses stake; ZCP2O uses institutional trust reputation. |
+| **Governance Council** | Elected body (7-9 members) that oversees protocol development, treasury, and roadmap after network maturity. Elected every 2 years by Digital Bunkers. | Similar to DAOs, but ZCP2O Council is elected by trust-weighted voting, not token-weighted. |
+| **On-Chain Signaling** | Digital Bunkers vote on ZIPs via special transactions recorded on the blockchain, ensuring transparency and immutability of governance decisions. | Solana/BNB use on-chain voting; ZCP2O adapts this for offline-first mesh networks. |
+| **Activation Threshold** | A ZIP is activated only if 75% of total network Trust Score votes "YES" within a 30-day voting period. | Similar to Bitcoin's 90% miner signaling, but ZCP2O uses trust score instead of hash power. |
 ---
 
 ## 🎮 4. ALPHA DROP ECOSYSTEM TERMS
