@@ -151,6 +151,10 @@ A conversion dictionary for developers familiar with legacy blockchain architect
 | **PoP Attestation** | A cryptographic receipt (hash + signature) created at the moment of Proof-of-Presence activity, containing timestamp, location, and coin ID. Can be submitted to any Bunker hours/days later for validation. | Bitcoin requires real-time network participation; there's no concept of "delayed verification receipts". |
 | **Implicit Proof of Humanity** | Passive anti-bot mechanism analyzing behavioral biometrics (micro-jitters, sensor noise, movement patterns) to distinguish humans from bots without CAPTCHA or KYC. | Bitcoin has no anti-bot layer; it assumes all nodes are honest and relies purely on computational proof. |
 | **Probationary Finality** | New transactions/claims enter a challengeable time window (1-24 hours) before becoming final. Low-trust participants have longer probation; high-trust finalize faster. | Bitcoin uses probabilistic finality (6 confirmations ≈ 60 min); ZCP2O uses deterministic finality based on time + reputation. |
+| **URI Scheme (zcp2o:)** | Standardized format for payment requests: `zcp2o:WKS-...?amount=X&label=Y&zone=Z`. Enables QR code scanning and deep-linking to native wallet. | Bitcoin uses `bitcoin:` URI; ZCP2O adds `zone` parameter for offline-first mesh context. |
+| **ZWS (ZCP2O Wallet Standard)** | Open specification defining how dApps and wallets communicate, including offline-first handshake via QR/mesh/NFC without requiring internet. | WalletConnect requires internet; ZWS works fully offline. |
+| **Challenge-Response Handshake** | Security mechanism where dApp generates random challenge, wallet signs it with private key to prove ownership without exposing the key. | Universal crypto security pattern, but ZWS implements it for offline mesh environments. |
+| **Multi-Channel Handshake** | ZWS supports QR (visual), mesh broadcast (BLE/Wi-Fi/UDP), and NFC (tap) for wallet-dApp connection. | Traditional wallet protocols rely solely on internet (HTTP/WebSocket). |
 ---
 
 ## 🎮 4. ALPHA DROP ECOSYSTEM TERMS
@@ -188,6 +192,7 @@ A conversion dictionary for developers familiar with legacy blockchain architect
 | **Fee Calculation** | Dynamic (auction-based) | Fixed 1% | `Fee = Amount × 0.01`. Simple and predictable. |
 | **Trust Score Formula** | N/A | `TS = (0.4×Validity) + (0.3×Encounters) + (0.2×Uptime) + (0.1×Age)` | Composite metric for node reputation. |
 | **Diminishing Returns** | N/A | `R_final = R_base × (1 / (1 + log(1 + t)))` | Logarithmic decay to prevent bot farming. |
+| **Mnemonic Seed (BIP-39 for RSA)** | 24-word phrase that deterministically generates RSA-4096 keypair. Seed = root, RSA key = derived output. Enables recovery phrase backup for RSA wallets. | Bitcoin uses 256-bit seed for ECDSA; ZCP2O uses same seed format but derives much larger RSA keys. |
 
 ---
 
