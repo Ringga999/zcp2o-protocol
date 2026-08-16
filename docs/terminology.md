@@ -148,6 +148,9 @@ A conversion dictionary for developers familiar with legacy blockchain architect
 | **Governance Council** | Elected body (7-9 members) that oversees protocol development, treasury, and roadmap after network maturity. Elected every 2 years by Digital Bunkers. | Similar to DAOs, but ZCP2O Council is elected by trust-weighted voting, not token-weighted. |
 | **On-Chain Signaling** | Digital Bunkers vote on ZIPs via special transactions recorded on the blockchain, ensuring transparency and immutability of governance decisions. | Solana/BNB use on-chain voting; ZCP2O adapts this for offline-first mesh networks. |
 | **Activation Threshold** | A ZIP is activated only if 75% of total network Trust Score votes "YES" within a 30-day voting period. | Similar to Bitcoin's 90% miner signaling, but ZCP2O uses trust score instead of hash power. |
+| **PoP Attestation** | A cryptographic receipt (hash + signature) created at the moment of Proof-of-Presence activity, containing timestamp, location, and coin ID. Can be submitted to any Bunker hours/days later for validation. | Bitcoin requires real-time network participation; there's no concept of "delayed verification receipts". |
+| **Implicit Proof of Humanity** | Passive anti-bot mechanism analyzing behavioral biometrics (micro-jitters, sensor noise, movement patterns) to distinguish humans from bots without CAPTCHA or KYC. | Bitcoin has no anti-bot layer; it assumes all nodes are honest and relies purely on computational proof. |
+| **Probationary Finality** | New transactions/claims enter a challengeable time window (1-24 hours) before becoming final. Low-trust participants have longer probation; high-trust finalize faster. | Bitcoin uses probabilistic finality (6 confirmations ≈ 60 min); ZCP2O uses deterministic finality based on time + reputation. |
 ---
 
 ## 🎮 4. ALPHA DROP ECOSYSTEM TERMS
