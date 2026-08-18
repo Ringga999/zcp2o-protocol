@@ -196,25 +196,28 @@ ZWS replaces the relay server with **direct device-to-device channels** and
 replaces trust in a server with **cryptographic challenge–response**.
 
 ### 3.2 Handshake Flow (Challenge–Response)
-┌──────────────┐ ┌──────────────┐
-│ dApp │ │ Wallet │
-└─────────────┘ └─────────────┘
-│ 1. Generate random 32-byte challenge │
-│ 2. Encode handshake_request as QR │
-│──────────────────────────────────────────────────────►│
-│ (dApp shows QR; wallet scans)│
-│ │
-│ 3. Wallet verifies app info │
-│ 4. User approves connection │
-│ 5. Wallet SIGNS challenge │
-│ with its private key │
-│◄──────────────────────────────────────────────────────│
-│ (wallet shows response QR; │
-│ dApp scans it) │
-│ 6. dApp verifies signature with returned public key │
-│ 7. SESSION ESTABLISHED (session_id created) │
-│ │
-│ 8. Subsequent messages flow over mesh / QR / NFC │
+
+```
+┌──────────────┐                                        ┌──────────────┐
+│   dApp       │                                        │   Wallet     │
+└──────────────┘                                        └──────────────┘
+       │ 1. Generate random 32-byte challenge                  │
+       │ 2. Encode handshake_request as QR                     │
+       │──────────────────────────────────────────────────────►│
+       │                          (dApp shows QR; wallet scans)│
+       │                                                       │
+       │                          3. Wallet verifies app info  │
+       │                          4. User approves connection  │
+       │                          5. Wallet SIGNS challenge    │
+       │                             with its private key      │
+       │◄──────────────────────────────────────────────────────│
+       │                          (wallet shows response QR;   │
+       │                           dApp scans it)              │
+       │ 6. dApp verifies signature with returned public key   │
+       │ 7. SESSION ESTABLISHED (session_id created)           │
+       │                                                       │
+       │ 8. Subsequent messages flow over mesh / QR / NFC      │
+```
 
 **Step-by-step:**
 
