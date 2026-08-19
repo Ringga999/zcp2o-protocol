@@ -16,7 +16,7 @@
 *   **Consensus**: The decentralized agreement among network nodes that a transaction or block is valid. In ZCP2O, this requires a Trust-Weighted Dynamic Quorum.
 *   **Dynamic Quorum**: Adaptive number of validators required based on local node density, inspired by Avalanche consensus principles.
 *   **Digital Bunker**: The ZCP2O term for a Full Node. Typically operated by institutions (universities, internet cafes, clinics) to store the local ledger, validate transactions, and provide network stability in offline environments.
-*   **Fee-to-Spawn**: A unique economic loop where the 1% transaction fee is not destroyed or hoarded, but physically spawned as new coins in the game world, ensuring continuous local liquidity.
+*   **Fee-to-Spawn**: A unique economic loop where the 1% transaction fee is not destroyed or hoarded, but physically spawned as new coins in the game world, ensuring continuous local liquidity.The 1% protocol fee applies universally to all network activities, including PoP claims (minting) and P2P transfers. For PoP claims, the fee is deducted at the source and routed to the local Digital Bunker to incentivize infrastructure maintenance from Day 1
 *   **FastAPI**: A modern, high-performance web framework for building APIs with Python. Used by ZCP2O to expose node functions to external apps (Godot, Web).
 *   **Genesis Pool**: A reserved allocation of 1,000,000 $WEEKS distributed as a bonus to the first 100 active players to bootstrap the initial network economy.
 *   **Golden Ticket**: Premium access pass for extended gameplay in World 1 (30 minutes). Acquired by burning 5,000 $WEEKS.
@@ -96,6 +96,7 @@ A conversion dictionary for developers familiar with legacy blockchain architect
 | **P2P Network** | **Mesh Network / Bluetooth Mesh** | Not P2P via internet, but P2P via Bluetooth/Wi-Fi Direct/LoRa (short-range, offline-first). |
 | **Broadcast** | **Flood / Mesh Propagation** | Transactions spread to neighbors, neighbors spread to their neighbors (flood algorithm with TTL). |
 | **Timestamp** | **Logical Clock (Lamport/Vector)** | Not server time, but logical time to order events in a distributed, offline-capable system. |
+| **Confirmations (6 blocks)** | **Transaction Lifecycle** | Bitcoin counts block confirmations (~60 min). ZCP2O tracks honest states — Signed → Queued → Accepted → Finalized — including offline queue and probation, so users always know the truth of their money. |
 
 ---
 
@@ -155,6 +156,9 @@ A conversion dictionary for developers familiar with legacy blockchain architect
 | **ZWS (ZCP2O Wallet Standard)** | Open specification defining how dApps and wallets communicate, including offline-first handshake via QR/mesh/NFC without requiring internet. | WalletConnect requires internet; ZWS works fully offline. |
 | **Challenge-Response Handshake** | Security mechanism where dApp generates random challenge, wallet signs it with private key to prove ownership without exposing the key. | Universal crypto security pattern, but ZWS implements it for offline mesh environments. |
 | **Multi-Channel Handshake** | ZWS supports QR (visual), mesh broadcast (BLE/Wi-Fi/UDP), and NFC (tap) for wallet-dApp connection. | Traditional wallet protocols rely solely on internet (HTTP/WebSocket). |
+| **Tiered Cryptography** | Security model matching RSA key size to device class: Light Nodes (mobile) use RSA-2048 for fast onboarding on low-spec hardware; Digital Bunkers (institutions) use RSA-4096 for maximum security. Both tiers interoperate via cross-tier signature verification. | Bitcoin uses a single curve (secp256k1) for all participants; ZCP2O adapts cryptographic weight to device capability without splitting the network. |
+| **Available vs Pending Balance** | Wallets display two balances: `available` (finalized, spendable) and `pending` (still in lifecycle). Prevents spending non-final funds and keeps offline UX honest. | Bitcoin's mempool is implicit and hidden; ZCP2O surfaces pending state explicitly as a first-class UX concept. |
+
 ---
 
 ## 🎮 4. ALPHA DROP ECOSYSTEM TERMS
@@ -193,7 +197,7 @@ A conversion dictionary for developers familiar with legacy blockchain architect
 | **Trust Score Formula** | N/A | `TS = (0.4×Validity) + (0.3×Encounters) + (0.2×Uptime) + (0.1×Age)` | Composite metric for node reputation. |
 | **Diminishing Returns** | N/A | `R_final = R_base × (1 / (1 + log(1 + t)))` | Logarithmic decay to prevent bot farming. |
 | **Mnemonic Seed (BIP-39 for RSA)** | 24-word phrase that deterministically generates RSA-4096 keypair. Seed = root, RSA key = derived output. Enables recovery phrase backup for RSA wallets. | Bitcoin uses 256-bit seed for ECDSA; ZCP2O uses same seed format but derives much larger RSA keys. |
-
+| **Key Tiering (RSA-2048/4096)** | Single key size for all nodes | Light Node: RSA-2048; Bunker: RSA-4096 | RSA-2048 keeps prime-search under ~10s on entry-level phones (safe per NIST through 2030+); RSA-4096 reserved for well-resourced Bunkers. Same `WKS-` address derivation for both tiers. |
 ---
 
 ## 🌐 6. NETWORK ARCHITECTURE TERMS

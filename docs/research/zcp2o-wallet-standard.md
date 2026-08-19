@@ -371,6 +371,68 @@ over a legitimate one. Mitigation: wallets MUST always render the parsed
 `app_name`, `app_url`, and target address in full for manual verification
 before the user approves (see §2.7 phishing awareness).
 
+### 3.8 Transaction Lifecycle & Honest UX
+
+A ZCP2O transaction is not binary (success/fail). It moves through a
+lifecycle. Wallets and dApps MUST represent this lifecycle honestly so users
+are never misled by an offline-first network.
+
+#### 3.8.1 Lifecycle States
+
+| State | Meaning | Authority |
+|-------|---------|-----------|
+| `signed` | Signed locally on the device; not yet in the network | Wallet |
+| `queued` | Stored in the local/mesh queue awaiting connectivity | Wallet |
+| `accepted` | Validated and appended by a Digital Bunker; inside the probation window | Bunker |
+| `finalized` | Probation passed without a valid challenge; immutable | Bunker |
+| `rejected` | Refused (invalid signature, double-spend, trust conflict); funds returned | Bunker |
+
+```
+[SIGNED] -> [QUEUED] -> [ACCEPTED] -> [FINALIZED]
+                         |
+                         +-> [REJECTED]
+```
+
+The `status` field in §3.5 reports the *immediate* outcome of the signing
+step only. The long-term state is tracked by the `lifecycle` field below.
+
+#### 3.8.2 Lifecycle Field & Status Query
+
+Every transaction object SHOULD carry:
+
+```json
+{
+  "lifecycle": "signed | queued | accepted | finalized | rejected",
+  "lifecycle_updated_at": 1739000300,
+  "rejection_reason": "optional_string"
+}
+```
+
+New message types for status polling:
+
+| Type | Direction | Purpose |
+|------|-----------|---------|
+| `zws_status_request` | dApp → wallet | Ask current lifecycle of a `tx_hash` |
+| `zws_status_response` | wallet → dApp | Return lifecycle (+ reason if rejected) |
+
+When online, the wallet resolves the authoritative state from its Digital
+Bunker via `GET /tx/status/{tx_hash}` and caches it for offline answers.
+
+#### 3.8.3 Normative UX Rules
+
+1. MUST NOT display "success/final" before `finalized`.
+2. MUST display a lifecycle indicator (e.g., 4-step tracker) for active txs.
+3. MUST split displayed balance into `available` (finalized, spendable) and
+   `pending` (in lifecycle). Pending funds cannot be spent in v1.0.
+4. On `rejected`, MUST show the reason, return funds to `available`, and
+   offer a retry action.
+5. SHOULD use friendly, game-like metaphors (sealed envelope → final stamp)
+   so honesty never feels like an error state.
+
+**Future extension (ZWS v2+):** high-trust local meshes MAY allow spending
+`accepted` funds before finalization ("soft finality"). Deliberately
+excluded from v1.0 to keep the economic model simple and safe.
+
 ---
 
 ## 4. Wallet Recovery Specification
@@ -428,6 +490,35 @@ SHOULD be validated against a public test-vector suite.
 2. Wallet validates the BIP-39 checksum; rejects invalid phrases.
 3. RSA keypair and address are re-derived deterministically.
 4. Balance and history are restored by querying any Digital Bunker.
+
+#### 4.1.4 Tiered Key Sizes (Performance vs Security)
+
+The deterministic derivation (§4.1.1) supports two RSA key tiers, selected by
+device class:
+
+| Tier | Key Size | Target Device | Rationale |
+|------|----------|---------------|-----------|
+| **Light** | RSA-2048 | Mobile / low-spec Light Nodes | Keeps prime-search under ~10 s on entry-level hardware; safe per NIST guidance through 2030+ |
+| **Institutional** | RSA-4096 | Digital Bunkers, institutional wallets | Maximum security margin for long-lived, well-resourced infrastructure |
+
+**Normative rules:**
+
+1. The mnemonic remains the single root of trust for both tiers; the same
+   words regenerate the same key **at the same tier**.
+2. Restoring the same mnemonic at a *different* tier yields a *different*
+   address (analogous to different BIP-44 derivation paths). Wallets MUST
+   store and restore the tier alongside the backup.
+3. The tier MUST be declared in the handshake payload
+   (`"key_tier": "light" | "institutional"`) so verifiers apply the correct
+   parameter set.
+4. **Cross-tier verification is mandatory:** a Bunker (4096) MUST verify a
+   Light Node (2048) signature and vice versa. This keeps the network unified.
+5. Address derivation is tier-agnostic: `WKS-<SHA256(pubkey)[:20]>`.
+
+**Deferred roadmap (ZWS v2+):** A third tier based on ECDSA secp256k1
+(instant generation) is retained as a contingency for ultra-constrained
+devices, but is deliberately excluded from ZWS v1.0 to preserve the
+RSA-based sovereign identity brand.
 
 ### 4.2 Encrypted File Backup (Secondary)
 
