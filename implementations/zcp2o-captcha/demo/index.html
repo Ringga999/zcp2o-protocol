@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZCP2O Human Proof — Bukti Manusia, Tanpa Mata-mata</title>
+<title>ZCP2O Human Proof — Prove You're Human, Without Being Spied On</title>
 <script src="../widget/zcp2o-human-proof.js"></script>
 <style>
   *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',sans-serif}
@@ -32,95 +32,72 @@
 
 <header>
   <h1>🛡️ ZCP2O Human Proof</h1>
-  <p><b>Bukti Anda manusia — tanpa mata-mata, tanpa internet.</b><br>
-  Indonesia punya 17.000 pulau dengan internet yang tidak merata.
-  Semua CAPTCHA mengasumsikan online 24/7 dan memata-matai Anda. Kami tidak.</p>
+  <p><b>Prove you're human — without being spied on, without the internet.</b><br>
+  2.6 billion people live with unstable connectivity, yet every CAPTCHA assumes
+  you're online 24/7 and harvests your data. We don't.</p>
   <div class="status" id="net">🟢 Online</div>
 </header>
 
-<button class="sim" id="btn-off">📴 SIMULASIKAN INTERNET MATI</button>
+<button class="sim" id="btn-off">📴 SIMULATE INTERNET OFF</button>
 
 <main>
-  <!-- KIRI: CAPTCHA tradisional (SIMULASI edukasi) -->
   <div class="card spy">
-    <h2>❌ CAPTCHA Tradisional (butuh internet + tracking)</h2>
+    <h2>❌ Traditional CAPTCHA (needs internet + tracking)</h2>
     <div id="spy-box" style="padding:12px;border:1px solid #444;border-radius:6px;background:#fff;color:#333">
-      <label><input type="checkbox" id="spy-check"> Saya bukan robot</label>
+      <label><input type="checkbox" id="spy-check"> I am not a robot</label>
       <div id="spy-result"></div>
     </div>
     <div class="leak" id="spy-leak"></div>
-    <div class="note">*Simulasi edukasi untuk menunjukkan data yang biasanya dikumpulkan.</div>
+    <div class="note">*Educational simulation showing the data typically collected.</div>
   </div>
 
-  <!-- KANAN: ZCP2O Human Proof (MESIN ASLI) -->
   <div class="card ours">
-    <h2>✅ ZCP2O Human Proof (on-device, 0 byte keluar)</h2>
+    <h2>✅ ZCP2O Human Proof (on-device, 0 bytes out)</h2>
     <div id="zcp2o-human-proof"></div>
   </div>
 </main>
 
 <section id="token">
   <h2 style="margin-bottom:10px">🔑 Human Proof Token</h2>
-  <pre id="token-out">Token akan muncul di sini setelah Anda terverifikasi...</pre>
-  <button id="btn-verify" style="margin-top:10px;padding:8px 16px;border:none;border-radius:6px;background:#4ade80;color:#111;font-weight:bold;cursor:pointer">🔍 Verifikasi Tanda Tangan (on-device)</button>
+  <pre id="token-out">Your signed token will appear here after verification...</pre>
+  <button id="btn-verify" style="margin-top:10px;padding:8px 16px;border:none;border-radius:6px;background:#4ade80;color:#111;font-weight:bold;cursor:pointer">🔍 Verify Signature (on-device)</button>
   <div id="verify-out" style="margin-top:8px;font-size:13px"></div>
 </section>
 
 <footer>
-  ZCP2O Protocol — Zero-Capital Play-to-Own • <a href="https://github.com/Ringga999/zcp2o-protocol" style="color:#4ade80">GitHub</a> • MIT License
+  ZCP2O Protocol — Zero-Capital Play-to-Own • <a href="https://github.com/Ringga999/zcp2o-protocol" style="color:#4ade80">GitHub</a> • MIT License<br>
+  "Born in the archipelago. Built for the unconnected world."
 </footer>
 
 <script>
-let lastToken = null, simOffline = false;
+let lastToken=null,simOffline=false;
+function drawNet(){document.getElementById('net').textContent=navigator.onLine?'🟢 Online (real)':'🟡 OFFLINE (real) — we still work!';}
+drawNet();addEventListener('online',drawNet);addEventListener('offline',drawNet);
 
-// status koneksi ASLI
-function drawNet(){
-  document.getElementById('net').textContent =
-    navigator.onLine ? '🟢 Online (asli)' : '🟡 OFFLINE (asli) — kami tetap jalan!';
-}
-drawNet(); addEventListener('online',drawNet); addEventListener('offline',drawNet);
-
-// simulasi internet mati
-document.getElementById('btn-off').onclick = function(){
-  simOffline = !simOffline;
-  this.textContent = simOffline ? '🟢 NYALAKAN INTERNET (simulasi)' : '📴 SIMULASIKAN INTERNET MATI';
-  document.getElementById('spy-result').innerHTML = simOffline
-    ? '<div style="color:#c00;margin-top:8px">❌ ERROR — Network unavailable</div>' : '';
-  document.getElementById('spy-leak').innerHTML = '';
+document.getElementById('btn-off').onclick=function(){
+  simOffline=!simOffline;
+  this.textContent=simOffline?'🟢 TURN INTERNET ON (simulated)':'📴 SIMULATE INTERNET OFF';
+  document.getElementById('spy-result').innerHTML=simOffline?'<div style="color:#c00;margin-top:8px">❌ ERROR — Network unavailable</div>':'';
+  document.getElementById('spy-leak').innerHTML='';
 };
 
-// CAPTCHA tradisional (simulasi tracking)
-document.getElementById('spy-check').onchange = function(){
-  const out = document.getElementById('spy-result');
-  const leak = document.getElementById('spy-leak');
-  if(simOffline){ this.checked=false;
-    out.innerHTML='<div style="color:#c00;margin-top:8px">❌ ERROR — Network unavailable</div>';
-    leak.innerHTML=''; return; }
-  out.innerHTML='<div style="margin-top:8px">⏳ Memverifikasi ke server pusat...</div>';
-  setTimeout(()=>{
-    out.innerHTML='<div style="color:#080;margin-top:8px">✅ Verified (oleh server mereka)</div>';
-    leak.innerHTML='<b>📡 Data yang dikirim ke server mereka:</b>'
-      +'<div>❌ IP: 36.16.x.x</div><div>❌ Mouse tracking</div>'
-      +'<div>❌ Riwayat browser</div><div>❌ Lokasi</div><div>❌ Fingerprint device</div>';
-  },900);
+document.getElementById('spy-check').onchange=function(){
+  const out=document.getElementById('spy-result'),leak=document.getElementById('spy-leak');
+  if(simOffline){this.checked=false;out.innerHTML='<div style="color:#c00;margin-top:8px">❌ ERROR — Network unavailable</div>';leak.innerHTML='';return;}
+  out.innerHTML='<div style="margin-top:8px">⏳ Verifying with central server...</div>';
+  setTimeout(()=>{out.innerHTML='<div style="color:#080;margin-top:8px">✅ Verified (by their server)</div>';
+    leak.innerHTML='<b>📡 Data sent to their server:</b><div>❌ IP: 36.16.x.x</div><div>❌ Mouse tracking</div><div>❌ Browsing history</div><div>❌ Location</div><div>❌ Device fingerprint</div>';},900);
 };
 
-// mesin ZCP2O
-Zcp2oHumanProof.init({
-  container:'#zcp2o-human-proof', threshold:70,
-  onVerified: t => { lastToken=t;
-    document.getElementById('token-out').textContent = t; },
-  onFail: s => { document.getElementById('token-out').textContent =
-    'Gagal (skor '+s+'). Coba lagi dengan gerakan alami.'; }
-});
+Zcp2oHumanProof.init({container:'#zcp2o-human-proof',threshold:70,
+  onVerified:t=>{lastToken=t;document.getElementById('token-out').textContent=t;},
+  onFail:s=>{document.getElementById('token-out').textContent='Failed (score '+s+'). Try again with natural movements.';}});
 
-// verifikasi tanda tangan on-device
-document.getElementById('btn-verify').onclick = async ()=>{
+document.getElementById('btn-verify').onclick=async()=>{
   const out=document.getElementById('verify-out');
-  if(!lastToken){ out.textContent='Belum ada token.'; return; }
-  const ok = await Zcp2oHumanProof.verify(lastToken);
-  out.textContent = ok ? '✅ Tanda tangan VALID — token asli, ditandatangani on-device.'
-                       : '❌ Tanda tangan tidak valid.';
+  if(!lastToken){out.textContent='No token yet.';return;}
+  const ok=await Zcp2oHumanProof.verify(lastToken);
+  out.textContent=ok?'✅ Signature VALID — genuine token, signed on-device.':'❌ Invalid signature.';
 };
 </script>
 </body>

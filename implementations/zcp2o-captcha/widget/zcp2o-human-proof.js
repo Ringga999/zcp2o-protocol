@@ -1,5 +1,5 @@
 /* =========================================================
-   ZCP2O Human Proof v0.2 Lite — Multi-Layer Verification
+   ZCP2O Human Proof v0.2.1 — Multi-Layer Verification (EN)
    Layers: [1] Motor (3 challenges) [2] Sensor [3] Signing
    Self-contained, offline, privacy-first. 0 bytes exfiltrated.
    ========================================================= */
@@ -40,9 +40,9 @@
   /* ---------------- Layer 2: sensor scorer ---------------- */
   function scoreSensor(sens,samples){
     if(sens.length>20){const m=sens.map(s=>Math.hypot(s.x,s.y,s.z));const d=[];for(let i=1;i<m.length;i++)d.push(Math.abs(m[i]-m[i-1]));return{score:Math.round(band(stdev(d),0.02,0.6,0,1.5)),present:true};}
-    const ps=samples.map(s=>s.p).filter(p=>p!=null&&p>0);
-    if(ps.length>10)return{score:Math.round(band(stdev(ps),0.02,0.3,0,0.8)),present:true};
-    return{score:50,present:false};
+    const ps=samples.map(s=>s.p).filter(p=>p!=null);
+    if(ps.length>10){const spread=Math.max(...ps)-Math.min(...ps);if(spread>0.01)return{score:Math.round(band(stdev(ps),0.02,0.3,0,0.8)),present:true};}
+    return{score:50,present:false}; // desktop / no sensor => neutral
   }
 
   /* ---------------- Layer 3: signer ---------------- */
@@ -54,39 +54,62 @@
     const sb=Uint8Array.from(atob(sig.replace(/-/g,"+").replace(/_/g,"/")),c=>c.charCodeAt(0));
     return await crypto.subtle.verify({name:"RSA-PSS",saltLength:32},k,sb,strBytes(JSON.stringify(p)));}catch(e){return false;}}
 
+  /* ---------------- i18n (English / global) ---------------- */
+  const L={
+    title:"🛡️ ZCP2O Human Proof",
+    ritual:["① Motor"," Sensor","③ Signing"],
+    label:{ "steady-hold":"Hold your cursor inside the circle for 3 seconds.",
+            "trace-line":"Trace the green path from left to right.",
+            "hold-release":"Press & hold, then release at exactly 2.5 seconds." },
+    instr:{ "steady-hold":["Press and hold inside the circle.","Keep your hand natural — tiny wobbles are good!","Hold for 3 s until the green ring completes."],
+            "trace-line":["Press on the green start zone (left).","Drag along the path toward the right end.","Stay inside the corridor — natural wobble is fine."],
+            "hold-release":["Press and hold the yellow button.","Watch the on-screen timer.","Release as close to 2.50 s as you can."] },
+    tip:"💡 Tip: be natural — human hands wobble. Bots are too perfect.",
+    live:"human-ness: –",
+    analyzing:"Analyzing motor + sensor signals...",
+    outside:"Outside! Try again.", offpath:"Off path! Retry.",
+    holdHere:"HOLD HERE",
+    verified:s=>"✅ <b>VERIFIED</b> score "+s,
+    failed:s=>"⚠️ Score: <b>"+s+"</b> — below threshold. Try again.",
+    proven:"You are proven human — 3 layers, no spying.",
+    zero:"🔒 0 bytes sent • works without internet"
+  };
+
   /* ---------------- widget ---------------- */
   function init(opts){
     const box=document.querySelector(opts.container);if(!box)return;
     const TH=opts.threshold||70;
     const MODES=["steady-hold","trace-line","hold-release"];
     const mode=opts.challenge&&MODES.includes(opts.challenge)?opts.challenge:MODES[Math.floor(Math.random()*3)];
-    const LABEL={"steady-hold":"Tahan kursor di lingkaran 3 detik","trace-line":"Telusuri jalur hijau kiri→kanan","hold-release":"Tahan tombol, lepas TEPAT di 2,5 dtk"};
 
-    box.innerHTML='<div style="font-family:sans-serif;max-width:360px;border:1px solid #ccc;border-radius:10px;padding:14px;background:#fafafa;color:#111">'
-      +'<b>🛡️ ZCP2O Human Proof</b> <span id="z-net" style="float:right"></span>'
-      +'<div style="font-size:11px;color:#666;margin:4px 0">Ritual: <span id="z-step">1 Motorik</span> → 2 Sensor → 3 Signing • 🎲 '+mode+'</div>'
-      +'<div id="z-msg" style="margin:6px 0;color:#333">'+LABEL[mode]+'</div>'
+    box.innerHTML='<div style="font-family:sans-serif;max-width:380px;border:1px solid #ccc;border-radius:10px;padding:14px;background:#fafafa;color:#111">'
+      +'<b>'+L.title+'</b> <span id="z-net" style="float:right"></span>'
+      +'<div style="font-size:11px;color:#999;margin:4px 0">Ritual: <span id="z-s1">① Motor</span> → <span id="z-s2">② Sensor</span> → <span id="z-s3">③ Signing</span> • 🎲 '+mode+'</div>'
+      +'<div id="z-msg" style="margin:6px 0;color:#333;font-weight:bold">'+L.label[mode]+'</div>'
+      +'<ol id="z-instr" style="margin:0 0 6px 18px;padding:0;font-size:12px;color:#555">'+L.instr[mode].map(t=>"<li>"+t+"</li>").join("")+'</ol>'
+      +'<div style="font-size:11px;color:#888;margin-bottom:6px">'+L.tip+'</div>'
       +'<div style="background:#eee;border-radius:6px;height:10px;overflow:hidden"><div id="z-meter" style="height:10px;width:0%;background:#2a7;transition:width .2s"></div></div>'
-      +'<div id="z-live" style="font-size:11px;color:#888;margin:2px 0">human-ness: –</div>'
+      +'<div id="z-live" style="font-size:11px;color:#888;margin:2px 0">'+L.live+'</div>'
       +'<canvas id="z-cv" width="300" height="160" style="border:1px solid #ddd;border-radius:6px;background:#fff;touch-action:none;margin-top:6px"></canvas>'
       +'<div id="z-res" style="margin-top:8px;font-size:13px"></div>'
-      +'<div style="margin-top:6px;font-size:11px;color:#888">🔒 0 byte dikirim • jalan tanpa internet</div></div>';
+      +'<div style="margin-top:6px;font-size:11px;color:#888">'+L.zero+'</div></div>';
 
     const cv=box.querySelector("#z-cv"),ctx=cv.getContext("2d");
-    const msg=box.querySelector("#z-msg"),res=box.querySelector("#z-res"),meter=box.querySelector("#z-meter"),live=box.querySelector("#z-live"),step=box.querySelector("#z-step"),net=box.querySelector("#z-net");
-    const drawNet=()=>net.textContent=navigator.onLine?"🟢 online":"🟡 offline";drawNet();addEventListener("online",drawNet);addEventListener("offline",drawNet);
+    const msg=box.querySelector("#z-msg"),res=box.querySelector("#z-res"),meter=box.querySelector("#z-meter"),live=box.querySelector("#z-live"),net=box.querySelector("#z-net");
+    const S=[box.querySelector("#z-s1"),box.querySelector("#z-s2"),box.querySelector("#z-s3")];
+    function setStep(n){S.forEach((el,i)=>{el.style.fontWeight=(i===n)?"bold":"normal";el.style.color=(i===n)?"#0a7":"#999";});}
+    setStep(0);
+    const drawNet=()=>net.textContent=navigator.onLine?"🟢 online":" offline";drawNet();addEventListener("online",drawNet);addEventListener("offline",drawNet);
 
-    let samples=[],sens=[],holding=false,tracing=false,start=0,done=false,misses=0,relScore=0;
+    let samples=[],sens=[],holding=false,tracing=false,start=0,done=false,misses=0;
     const T={x:150,y:80,r:34};
-    const corr=x=>80+30*Math.sin(x/40), HALF=20;
+    const corr=x=>80+30*Math.sin(x/40),HALF=20;
 
-    // sensor collector (Layer 2)
-    let sensOn=false;
+    let sensHandler=null,sensOn=false;
     function startSensors(){const h=e=>{const a=e.accelerationIncludingGravity;if(a&&a.x!=null)sens.push({x:a.x,y:a.y,z:a.z});};window.addEventListener("devicemotion",h);sensOn=true;return h;}
-    let sensHandler=null;
-    try{if(typeof DeviceMotionEvent!=="undefined"&&DeviceMotionEvent.requestPermission){/* iOS: request on first tap */}else sensHandler=startSensors();}catch(e){}
+    try{if(!(typeof DeviceMotionEvent!=="undefined"&&DeviceMotionEvent.requestPermission))sensHandler=startSensors();}catch(e){}
 
-    const pos=e=>{const r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top,t:performance.now(),p:e.pressure||null};};
+    const pos=e=>{const r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top,t:performance.now(),p:e.pressure!=null?e.pressure:null};};
     const inside=(x,y)=>Math.hypot(x-T.x,y-T.y)<=T.r;
 
     function draw(){
@@ -97,10 +120,9 @@
         ctx.beginPath();for(let x=0;x<=300;x+=4){const y=corr(x);x?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.strokeStyle="#2a7";ctx.stroke();
         ctx.fillStyle="#063";ctx.fillRect(0,corr(0)-HALF,14,HALF*2);ctx.fillRect(286,corr(300)-HALF,14,HALF*2);
         if(samples.length){ctx.beginPath();samples.forEach((s,i)=>i?ctx.lineTo(s.x,s.y):ctx.moveTo(s.x,s.y));ctx.strokeStyle="#f80";ctx.stroke();}}
-      else{ // hold-release
-        ctx.fillStyle=holding?"#fd7":"#eee";ctx.strokeStyle="#999";ctx.beginPath();ctx.roundRect?ctx.roundRect(60,50,180,60,10):ctx.rect(60,50,180,60);ctx.fill();ctx.stroke();
+      else{ctx.fillStyle=holding?"#fd7":"#eee";ctx.strokeStyle="#999";ctx.beginPath();ctx.roundRect?ctx.roundRect(60,50,180,60,10):ctx.rect(60,50,180,60);ctx.fill();ctx.stroke();
         ctx.fillStyle="#111";ctx.font="16px sans-serif";ctx.textAlign="center";
-        ctx.fillText(holding?((performance.now()-start)/1000).toFixed(2)+" s":"TAHAN DI SINI",150,85);ctx.textAlign="left";}
+        ctx.fillText(holding?((performance.now()-start)/1000).toFixed(2)+" s":L.holdHere,150,85);ctx.textAlign="left";}
     }
 
     cv.addEventListener("pointerdown",e=>{if(done)return;const p=pos(e);
@@ -112,13 +134,13 @@
       else{holding=true;start=p.t;samples=[p];}
     });
     cv.addEventListener("pointermove",e=>{if(done)return;const p=pos(e);
-      if(mode==="steady-hold"&&holding){if(!inside(p.x,p.y)){holding=false;msg.textContent="Keluar! Coba lagi.";return;}samples.push(p);}
-      else if(mode==="trace-line"&&tracing){samples.push(p);if(Math.abs(p.y-corr(p.x))>HALF)misses++;if(misses>40){tracing=false;msg.textContent="Keluar jalur! Ulangi.";samples=[];}else if(p.x>286)finish(100-Math.min(100,misses*3),"adherence");}
+      if(mode==="steady-hold"&&holding){if(!inside(p.x,p.y)){holding=false;msg.textContent=L.outside;return;}samples.push(p);}
+      else if(mode==="trace-line"&&tracing){samples.push(p);if(Math.abs(p.y-corr(p.x))>HALF)misses++;if(misses>40){tracing=false;msg.textContent=L.offpath;samples=[];}else if(p.x>286)finish(100-Math.min(100,misses*3),"adherence");}
       else if(mode==="hold-release"&&holding)samples.push(p);
     });
     cv.addEventListener("pointerup",e=>{if(done)return;
       if(mode==="hold-release"&&holding){holding=false;const el=(performance.now()-start)/1000;const err=Math.abs(el-2.5);
-        relScore=Math.round(band(err,0.05,0.5,0.0,1.0));finish(relScore,"release-timing");}
+        finish(Math.round(band(err,0.05,0.5,0.0,1.0)),"release-timing");}
       else if(mode==="steady-hold"&&holding)holding=false;
       else tracing=false;
     });
@@ -126,25 +148,26 @@
     (function loop(){requestAnimationFrame(loop);
       draw();
       if((holding||tracing)&&samples.length>=10){const m=scoreMotor(samples);meter.style.width=m.score+"%";live.textContent="human-ness: "+m.score+"% (motor)";}
-      if(mode==="steady-hold"&&holding&&(performance.now()-start)>=3000){holding=false;const j=scoreMotor(samples).parts.jitter||50;finish(j,"micro-tremor");}
+      if(mode==="steady-hold"&&holding&&(performance.now()-start)>=3000){holding=false;finish(scoreMotor(samples).parts.jitter||50,"micro-tremor");}
     })();
 
     async function finish(bonus,bonusLabel){
-      if(done)return;done=true;step.textContent="2 Sensor";
-      msg.textContent="Menganalisis motorik + sensor...";
+      if(done)return;done=true;setStep(1);
+      msg.textContent=L.analyzing;
       if(sensHandler){window.removeEventListener("devicemotion",sensHandler);sensHandler=null;}
       const motor=scoreMotor(samples);const sensor=scoreSensor(sens,samples);
       const final=Math.round(0.5*motor.score+0.3*sensor.score+0.2*bonus);
       meter.style.width=final+"%";
-      if(samples.length<30||final<TH){res.innerHTML="⚠️ Skor: <b>"+final+"</b> (motor "+motor.score+" / sensor "+sensor.score+" / "+bonusLabel+" "+bonus+"). Coba lagi.";done=false;return;}
-      step.textContent="3 Signing";
+      const sensTxt=sensor.present?("sensor "+sensor.score):"sensor n/a";
+      if(samples.length<30||final<TH){res.innerHTML=L.failed(final)+" (motor "+motor.score+", "+sensTxt+", "+bonusLabel+" "+bonus+").";done=false;return;}
+      setStep(2);
       const payload={v:2,type:"zcp2o-human-proof",challenge:mode,score:final,
-        layers:{motor:motor.score,sensor:sensor.score,sensorPresent:sensor.present,[bonusLabel]:bonus},
+        layers:{motor:motor.score,sensor:sensor.present?sensor.score:null,[bonusLabel]:bonus},
         signals_digest:await sha256hex(samples),issued_at:Math.floor(Date.now()/1000),tier:"light",assurance:"self"};
       const{sig,pubkey}=await signProof(payload);
       const token=b64url(strBytes(JSON.stringify(Object.assign({},payload,{sig,pubkey}))));
-      res.innerHTML="✅ <b>VERIFIED</b> skor "+final+" (motor "+motor.score+", sensor "+sensor.score+", "+bonusLabel+" "+bonus+").";
-      msg.textContent="Anda terbukti manusia — 3 lapisan, tanpa mata-mata.";
+      res.innerHTML=L.verified(final)+" (motor "+motor.score+", "+sensTxt+", "+bonusLabel+" "+bonus+").";
+      msg.textContent=L.proven;
       if(opts.onVerified)opts.onVerified(token);
     }
   }
