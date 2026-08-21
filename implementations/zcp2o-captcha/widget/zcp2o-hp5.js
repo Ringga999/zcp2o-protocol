@@ -14,37 +14,40 @@ const PUZZLES=[
   {name:"Sunset",color:"#d4a574",bg:"#e8b89d"}
 ];
 
+// Module-level state to keep shape/puzzle consistent between meta() and create()
+let currentShape="circle";
+let currentPuzzle=PUZZLES[0];
+
 global.Zcp2oChallenges["sliding-puzzle"]={
   meta(){
-    const shape=SHAPES[Math.floor(Math.random()*SHAPES.length)];
-    const puzzle=PUZZLES[Math.floor(Math.random()*PUZZLES.length)];
+    currentShape=SHAPES[Math.floor(Math.random()*SHAPES.length)];
+    currentPuzzle=PUZZLES[Math.floor(Math.random()*PUZZLES.length)];
     return{
-      label:"Slide the "+shape+" to the matching slot.",
+      label:"Slide the "+currentShape+" to the matching slot.",
       instructions:[
-        "Press and hold the white "+shape+" on the right.",
+        "Press and hold the white "+currentShape+" on the right.",
         "Drag it smoothly to the dashed slot on the left.",
         "Align it carefully - natural movement is key."
       ],
-      shape:shape,
-      puzzle:puzzle
+      shape:currentShape,
+      puzzle:currentPuzzle
     };
   },
 
   create(api){
     const ctx=api.ctx, C=api.core;
-    const shape=api.meta?.shape||"circle";
-    const puzzle=api.meta?.puzzle||PUZZLES[0];
+    const shape=currentShape;
+    const puzzle=currentPuzzle;
     
     // Smaller size
-    const SIZE=35;
-    const TOLERANCE=20;
+    const SIZE=25;
+    const TOLERANCE=15;
     
     // Random slot position (3 zones: top, middle, bottom)
     const slotZones=[45, 80, 115];
     const SLOT_X=75;
     const SLOT_Y=slotZones[Math.floor(Math.random()*slotZones.length)];
     
-    // Piece starts on right, middle height
     const PIECE_X=225;
     const PIECE_Y=80;
     
@@ -58,17 +61,17 @@ global.Zcp2oChallenges["sliding-puzzle"]={
       
       if(isSlot){
         ctx.strokeStyle="rgba(255,255,255,0.8)";
-        ctx.lineWidth=3;
-        ctx.setLineDash([8,4]);
+        ctx.lineWidth=2;
+        ctx.setLineDash([6,4]);
         ctx.fillStyle="rgba(255,255,255,0.1)";
       }else{
         ctx.fillStyle="#f0f0f0";
         ctx.strokeStyle="#fff";
-        ctx.lineWidth=3;
+        ctx.lineWidth=2;
         ctx.shadowColor="rgba(0,0,0,0.3)";
-        ctx.shadowBlur=10;
-        ctx.shadowOffsetX=3;
-        ctx.shadowOffsetY=3;
+        ctx.shadowBlur=8;
+        ctx.shadowOffsetX=2;
+        ctx.shadowOffsetY=2;
       }
       
       ctx.beginPath();
