@@ -1,9 +1,11 @@
-/* ANAK 5: SLIDING-PUZZLE "Jigsaw Fit". Registers to Zcp2oChallenges. */
+/* ANAK 5: SLIDING-PUZZLE "Shape Match". Registers to Zcp2oChallenges. */
 
 (function(global){
 "use strict";
 
 global.Zcp2oChallenges=global.Zcp2oChallenges||{};
+
+const SHAPES=["circle","square","triangle","diamond"];
 
 const PUZZLES=[
   {name:"Forest",color:"#2d5016",bg:"#4a7c23"},
@@ -14,140 +16,113 @@ const PUZZLES=[
 
 global.Zcp2oChallenges["sliding-puzzle"]={
   meta(){
+    const shape=SHAPES[Math.floor(Math.random()*SHAPES.length)];
     const puzzle=PUZZLES[Math.floor(Math.random()*PUZZLES.length)];
     return{
-      label:"Slide the puzzle piece to complete the image.",
+      label:"Slide the "+shape+" to the matching slot.",
       instructions:[
-        "Press and hold the white puzzle piece on the right.",
-        "Drag it smoothly to the empty slot on the left.",
+        "Press and hold the white "+shape+" on the right.",
+        "Drag it smoothly to the dashed slot on the left.",
         "Align it carefully - natural movement is key."
       ],
+      shape:shape,
       puzzle:puzzle
     };
   },
 
   create(api){
     const ctx=api.ctx, C=api.core;
+    const shape=api.meta?.shape||"circle";
     const puzzle=api.meta?.puzzle||PUZZLES[0];
     
-    // Puzzle dimensions
-    const SLOT_X=30, SLOT_Y=55, SLOT_W=90, SLOT_H=90;
-    const PIECE_X=210, PIECE_Y=55;
-    const TOLERANCE=20;
+    // Positions
+    const SLOT_X=75, SLOT_Y=80;
+    const PIECE_X=225, PIECE_Y=80;
+    const SIZE=50; // radius/half-size
+    const TOLERANCE=25;
     
     let dragging=false, dragStart=0;
     let pieceX=PIECE_X, pieceY=PIECE_Y;
     let dragPath=[], lastPos=null;
     
-    // Draw jigsaw slot (the HOLE - has bump inward on RIGHT side)
-    function drawSlot(x,y,color){
+    // Draw shape function
+    function drawShape(x,y,size,shapeType,isSlot=false){
       ctx.save();
       ctx.translate(x,y);
       
-      // Semi-transparent background showing the "hole"
-      ctx.fillStyle="rgba(0,0,0,0.3)";
-      ctx.strokeStyle="#fff";
-      ctx.lineWidth=3;
-      ctx.setLineDash([5,3]);
+      if(isSlot){
+        // Slot: dashed outline
+        ctx.strokeStyle="rgba(255,255,255,0.8)";
+        ctx.lineWidth=3;
+        ctx.setLineDash([8,4]);
+        ctx.fillStyle="rgba(255,255,255,0.1)";
+      }else{
+        // Piece: solid with shadow
+        ctx.fillStyle="#f0f0f0";
+        ctx.strokeStyle="#fff";
+        ctx.lineWidth=3;
+        ctx.shadowColor="rgba(0,0,0,0.3)";
+        ctx.shadowBlur=10;
+        ctx.shadowOffsetX=3;
+        ctx.shadowOffsetY=3;
+      }
       
       ctx.beginPath();
-      // Top edge
-      ctx.moveTo(0,0);
-      ctx.lineTo(90,0);
-      // Right edge with INWARD bump (negative)
-      ctx.lineTo(90,32);
-      ctx.arc(90,45,13,Math.PI/2,-Math.PI/2,true); // inward bump
-      ctx.lineTo(90,90);
-      // Bottom edge
-      ctx.lineTo(0,90);
-      // Left edge with OUTWARD bump (positive)
-      ctx.lineTo(0,58);
-      ctx.arc(0,45,13,-Math.PI/2,Math.PI/2,false); // outward bump
-      ctx.closePath();
+      
+      switch(shapeType){
+        case "circle":
+          ctx.arc(0,0,size,0,Math.PI*2);
+          break;
+          
+        case "square":
+          ctx.rect(-size,-size,size*2,size*2);
+          break;
+          
+        case "triangle":
+          ctx.moveTo(0,-size);
+          ctx.lineTo(size,size);
+          ctx.lineTo(-size,size);
+          ctx.closePath();
+          break;
+          
+        case "diamond":
+          ctx.moveTo(0,-size);
+          ctx.lineTo(size,0);
+          ctx.lineTo(0,size);
+          ctx.lineTo(-size,0);
+          ctx.closePath();
+          break;
+      }
       
       ctx.fill();
       ctx.stroke();
-      ctx.setLineDash([]);
       
-      // Inner circle hint
-      ctx.fillStyle="rgba(255,255,255,0.15)";
-      ctx.beginPath();
-      ctx.arc(45,45,25,0,Math.PI*2);
-      ctx.fill();
-      
-      ctx.restore();
-    }
-    
-    // Draw jigsaw piece (has bump on LEFT side to match slot)
-    function drawPiece(x,y,color,isDragging=false){
-      ctx.save();
-      ctx.translate(x,y);
-      
-      ctx.fillStyle=isDragging?"#f5f5f5":"#e8e8e8";
-      ctx.strokeStyle="#fff";
-      ctx.lineWidth=3;
-      ctx.shadowColor="rgba(0,0,0,0.3)";
-      ctx.shadowBlur=8;
-      ctx.shadowOffsetX=2;
-      ctx.shadowOffsetY=2;
-      
-      ctx.beginPath();
-      // Top edge
-      ctx.moveTo(0,0);
-      ctx.lineTo(90,0);
-      // Right edge - FLAT (no bump)
-      ctx.lineTo(90,90);
-      // Bottom edge
-      ctx.lineTo(0,90);
-      // Left edge with OUTWARD bump (positive) to fit slot
-      ctx.lineTo(0,58);
-      ctx.arc(0,45,13,-Math.PI/2,Math.PI/2,false); // outward bump on LEFT
-      ctx.closePath();
-      
-      ctx.fill();
-      ctx.stroke();
-      ctx.shadowColor="transparent";
-      
-      // Inner circle
-      ctx.fillStyle="rgba(255,255,255,0.4)";
-      ctx.beginPath();
-      ctx.arc(45,45,25,0,Math.PI*2);
-      ctx.fill();
-      
-      // Highlight
-      ctx.fillStyle="rgba(255,255,255,0.3)";
-      ctx.beginPath();
-      ctx.arc(35,35,15,0,Math.PI*2);
-      ctx.fill();
+      if(!isSlot){
+        ctx.shadowColor="transparent";
+        // Inner highlight
+        ctx.fillStyle="rgba(255,255,255,0.4)";
+        ctx.beginPath();
+        ctx.arc(-size*0.3,-size*0.3,size*0.3,0,Math.PI*2);
+        ctx.fill();
+      }
       
       ctx.restore();
     }
     
     function drawBackground(){
-      // Gradient background matching puzzle theme
       const grad=ctx.createLinearGradient(0,0,300,160);
       grad.addColorStop(0,puzzle.bg);
       grad.addColorStop(1,puzzle.color);
       ctx.fillStyle=grad;
       ctx.fillRect(0,0,300,160);
       
-      // Draw subtle pattern (triangles/trees)
-      ctx.fillStyle="rgba(255,255,255,0.08)";
-      for(let i=0;i<6;i++){
+      // Subtle pattern
+      ctx.fillStyle="rgba(255,255,255,0.05)";
+      for(let i=0;i<8;i++){
         ctx.beginPath();
-        ctx.moveTo(i*50,160);
-        ctx.lineTo(i*50+25,30);
-        ctx.lineTo(i*50+50,160);
+        ctx.arc(i*40+20,80,30,0,Math.PI*2);
         ctx.fill();
       }
-      
-      // Horizontal line hint
-      ctx.strokeStyle="rgba(255,255,255,0.15)";
-      ctx.lineWidth=2;
-      ctx.beginPath();
-      ctx.moveTo(0,100);
-      ctx.lineTo(300,100);
-      ctx.stroke();
     }
     
     return{
@@ -155,15 +130,15 @@ global.Zcp2oChallenges["sliding-puzzle"]={
         ctx.clearRect(0,0,300,160);
         drawBackground();
         
-        // Draw the SLOT (target position) - always visible
-        drawSlot(SLOT_X,SLOT_Y,puzzle.color);
+        // Draw SLOT (target) - always visible
+        drawShape(SLOT_X,SLOT_Y,SIZE,shape,true);
         
         // Draw drag trail
         if(dragPath.length>1){
           ctx.beginPath();
-          ctx.strokeStyle="rgba(255,255,255,0.5)";
+          ctx.strokeStyle="rgba(255,255,255,0.4)";
           ctx.lineWidth=2;
-          ctx.setLineDash([6,4]);
+          ctx.setLineDash([5,3]);
           dragPath.forEach((p,i)=>{
             i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y);
           });
@@ -171,18 +146,17 @@ global.Zcp2oChallenges["sliding-puzzle"]={
           ctx.setLineDash([]);
         }
         
-        // Draw the PIECE (draggable)
+        // Draw PIECE (draggable)
         if(dragging&&lastPos){
-          drawPiece(lastPos.x-45,lastPos.y-45,"#f5f5f5",true);
+          drawShape(lastPos.x,lastPos.y,SIZE,shape,false);
         }else{
-          drawPiece(pieceX,pieceY,"#e8e8e8",false);
+          drawShape(pieceX,pieceY,SIZE,shape,false);
         }
       },
       
       down(p){
-        // Check if clicking on the puzzle piece
-        const dist=Math.hypot(p.x-pieceX-45,p.y-pieceY-45);
-        if(dist<55){
+        const dist=Math.hypot(p.x-pieceX,p.y-pieceY);
+        if(dist<SIZE+10){
           dragging=true;
           dragStart=p.t;
           dragPath=[];
@@ -195,9 +169,9 @@ global.Zcp2oChallenges["sliding-puzzle"]={
       move(p){
         if(dragging){
           lastPos={x:p.x,y:p.y};
-          pieceX=Math.max(0,Math.min(255,p.x-45));
-          pieceY=Math.max(0,Math.min(115,p.y-45));
-          dragPath.push({x:pieceX+45,y:pieceY+45,t:p.t});
+          pieceX=Math.max(SIZE,Math.min(300-SIZE,p.x));
+          pieceY=Math.max(SIZE,Math.min(160-SIZE,p.y));
+          dragPath.push({x:pieceX,y:pieceY,t:p.t});
           api.push(p);
         }
       },
@@ -206,12 +180,10 @@ global.Zcp2oChallenges["sliding-puzzle"]={
         if(dragging){
           dragging=false;
           
-          // Check alignment with slot
           const distX=Math.abs(pieceX-SLOT_X);
           const distY=Math.abs(pieceY-SLOT_Y);
           
           if(distX<TOLERANCE&&distY<TOLERANCE){
-            // Success!
             const duration=p.t-dragStart;
             const pathLength=dragPath.reduce((sum,p,i)=>{
               if(i===0)return 0;
@@ -219,13 +191,11 @@ global.Zcp2oChallenges["sliding-puzzle"]={
             },0);
             
             const accuracyBonus=Math.round(100-(distX+distY)*2);
-            const motorScore=api.core.scoreMotor(api.getSamples());
-            
             const avgSpeed=pathLength/(duration||1);
             const smoothnessBonus=Math.min(100,Math.abs(avgSpeed-0.3)*80);
             
             const finalBonus=Math.round((accuracyBonus+smoothnessBonus)/2);
-            api.finish(finalBonus,"puzzle-fit");
+            api.finish(finalBonus,"shape-match");
           }else{
             api.setMsg("Not aligned! Try again.");
             pieceX=PIECE_X;
@@ -236,10 +206,7 @@ global.Zcp2oChallenges["sliding-puzzle"]={
         }
       },
       
-      tick(now){
-        // Subtle pulse animation on slot
-      },
-      
+      tick(now){},
       active(){return dragging;}
     };
   }
