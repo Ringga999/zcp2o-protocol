@@ -35,29 +35,33 @@ global.Zcp2oChallenges["sliding-puzzle"]={
     const shape=api.meta?.shape||"circle";
     const puzzle=api.meta?.puzzle||PUZZLES[0];
     
-    // Positions
-    const SLOT_X=75, SLOT_Y=80;
-    const PIECE_X=225, PIECE_Y=80;
-    const SIZE=50; // radius/half-size
-    const TOLERANCE=25;
+    // Smaller size
+    const SIZE=35;
+    const TOLERANCE=20;
+    
+    // Random slot position (3 zones: top, middle, bottom)
+    const slotZones=[45, 80, 115];
+    const SLOT_X=75;
+    const SLOT_Y=slotZones[Math.floor(Math.random()*slotZones.length)];
+    
+    // Piece starts on right, middle height
+    const PIECE_X=225;
+    const PIECE_Y=80;
     
     let dragging=false, dragStart=0;
     let pieceX=PIECE_X, pieceY=PIECE_Y;
     let dragPath=[], lastPos=null;
     
-    // Draw shape function
     function drawShape(x,y,size,shapeType,isSlot=false){
       ctx.save();
       ctx.translate(x,y);
       
       if(isSlot){
-        // Slot: dashed outline
         ctx.strokeStyle="rgba(255,255,255,0.8)";
         ctx.lineWidth=3;
         ctx.setLineDash([8,4]);
         ctx.fillStyle="rgba(255,255,255,0.1)";
       }else{
-        // Piece: solid with shadow
         ctx.fillStyle="#f0f0f0";
         ctx.strokeStyle="#fff";
         ctx.lineWidth=3;
@@ -99,7 +103,6 @@ global.Zcp2oChallenges["sliding-puzzle"]={
       
       if(!isSlot){
         ctx.shadowColor="transparent";
-        // Inner highlight
         ctx.fillStyle="rgba(255,255,255,0.4)";
         ctx.beginPath();
         ctx.arc(-size*0.3,-size*0.3,size*0.3,0,Math.PI*2);
@@ -116,7 +119,6 @@ global.Zcp2oChallenges["sliding-puzzle"]={
       ctx.fillStyle=grad;
       ctx.fillRect(0,0,300,160);
       
-      // Subtle pattern
       ctx.fillStyle="rgba(255,255,255,0.05)";
       for(let i=0;i<8;i++){
         ctx.beginPath();
@@ -130,10 +132,8 @@ global.Zcp2oChallenges["sliding-puzzle"]={
         ctx.clearRect(0,0,300,160);
         drawBackground();
         
-        // Draw SLOT (target) - always visible
         drawShape(SLOT_X,SLOT_Y,SIZE,shape,true);
         
-        // Draw drag trail
         if(dragPath.length>1){
           ctx.beginPath();
           ctx.strokeStyle="rgba(255,255,255,0.4)";
@@ -146,7 +146,6 @@ global.Zcp2oChallenges["sliding-puzzle"]={
           ctx.setLineDash([]);
         }
         
-        // Draw PIECE (draggable)
         if(dragging&&lastPos){
           drawShape(lastPos.x,lastPos.y,SIZE,shape,false);
         }else{
