@@ -4,7 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ZCP2O Human Proof — Prove You're Human, Without Being Spied On</title>
+<!-- INDUK dulu, lalu ANAK (urutan wajib) -->
 <script src="../widget/zcp2o-human-proof.js"></script>
+<script src="../widget/zcp2o-hp1.js"></script>
+<script src="../widget/zcp2o-hp2.js"></script>
+<script src="../widget/zcp2o-hp3.js"></script>
 <style>
   *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',sans-serif}
   body{background:#0d1520;color:#e8eef5}
@@ -90,8 +94,7 @@ document.getElementById('spy-check').onchange=function(){
 };
 
 Zcp2oHumanProof.init({container:'#zcp2o-human-proof',threshold:70,
-  onVerified:t=>{lastToken=t;document.getElementById('token-out').textContent=t;},
-  onFail:s=>{document.getElementById('token-out').textContent='Failed (score '+s+'). Try again with natural movements.';}});
+  onVerified:t=>{lastToken=t;document.getElementById('token-out').textContent=t;}});
 
 document.getElementById('btn-verify').onclick=async()=>{
   const out=document.getElementById('verify-out');
