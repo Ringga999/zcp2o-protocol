@@ -151,3 +151,87 @@ Zcp2oHumanProof.init({
   onFail: (score) => {}
 });
 ```
+
+---
+\## 8. Appendix A: Token Forgery & Progressive Assurance
+
+### 8.1 Two Distinct Guarantees
+
+A Human Proof Token provides two different guarantees that must not be
+confused:
+
+| Guarantee | Meaning | v0.1 status |
+|-----------|---------|-------------|
+| **Integrity** | The token was not altered after signing | ✅ Provided (RSA-PSS signature verifies) |
+| **Score honesty** | The score was computed truthfully by a real interaction | ❌ NOT guaranteed on-device |
+
+### 8.2 The Forgery Scenario (Self-Issued Key Attack)
+
+Because the RSA keypair is generated on-device (self-issued), an attacker who
+controls the execution environment can forge a token:
+
+1. Generate their own RSA keypair.
+2. Build a payload with a fabricated `"score": 100`.
+3. Sign it with their own key.
+
+The resulting token passes signature verification (integrity), but the score
+is a lie. This is inherent to ANY client-side verification system without a
+trusted authority — the client is in the adversary's hands.
+
+**v0.1 position:** we accept this limitation by design. v0.1 optimizes for
+privacy + offline (blocking naive automation without surveillance), not for
+maximum adversarial hardness. This is an honest, deliberate trade-off.
+
+### 8.3 Progressive Assurance (Layered Co-Signing)
+
+Higher assurance is achieved by adding independent co-signers, so a forger
+must fool many entities at once instead of one self-issued key:
+
+```
+v0.1  [Device self-signature]                 → blocks naive bots
+v0.2  + [Mesh peer co-signatures]             → forger must fool N nearby devices
+v1.0  + [Bunker trust-weighted co-signature]  → forger must compromise an institution
+      + [User Trust Score weighting]          → fresh identities carry low weight
+```
+
+**Normative target (v1.0 token):**
+
+```json
+{
+  "v": 1,
+  "type": "zcp2o-human-proof",
+  "score": 87,
+  "assurance": "self | mesh | institutional",
+  "witnesses": [
+    {
+      "id": "peer_or_bunker_id",
+      "tier": "light | institutional",
+      "sig": "co-signature over (payload_digest + device_pubkey)"
+    }
+  ]
+}
+```
+
+**Verification rules (v1.0):**
+1. `assurance: self` → low confidence (privacy demo only).
+2. `assurance: mesh` → require ≥ K co-signatures from distinct peers.
+3. `assurance: institutional` → require ≥ 1 co-signature from a Bunker whose
+   Trust Score ≥ threshold; confidence scales with that Bunker's trust.
+
+### 8.4 What Each Layer Blocks
+
+| Attack | v0.1 | v0.2 (mesh) | v1.0 (Bunker) |
+|--------|------|-------------|---------------|
+| Naive scripted bot | ❌ blocked | ❌ blocked | ❌ blocked |
+| Simulated human-like input | ⚠️ arms race | ⚠️ harder | ⚠️ harder |
+| Self-issued key forgery | ✅ possible | ❌ needs N fake peers | ❌ needs compromised Bunker |
+| Sybil (many fake identities) | — | ⚠️ | ❌ Trust Score gates weight |
+
+### 8.5 Honest Positioning
+
+ZCP2O Human Proof does NOT claim to be "unhackable". It claims:
+
+- **Privacy-first:** 0 bytes exfiltrated, no tracking.
+- **Offline-first:** works with no internet and no server.
+- **Progressive assurance:** confidence scales with the number and trust of
+  independent co-signers — security by distribution, not by a central oracle.
