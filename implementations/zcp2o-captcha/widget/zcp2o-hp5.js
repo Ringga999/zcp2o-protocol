@@ -5,7 +5,6 @@
 
 global.Zcp2oChallenges=global.Zcp2oChallenges||{};
 
-// Puzzle images (simple SVG patterns or canvas drawings)
 const PUZZLES=[
   {name:"Forest",color:"#2d5016",bg:"#4a7c23"},
   {name:"Ocean",color:"#1e3a5f",bg:"#2e5c8a"},
@@ -19,9 +18,9 @@ global.Zcp2oChallenges["sliding-puzzle"]={
     return{
       label:"Slide the puzzle piece to complete the image.",
       instructions:[
-        "Press and hold the white puzzle piece on the right.",
+        "Press and hold the puzzle piece on the right.",
         "Drag it smoothly to the empty slot on the left.",
-        "Align it carefully - natural movement is key."
+        "Match the shape - align carefully!"
       ],
       puzzle:puzzle
     };
@@ -32,91 +31,115 @@ global.Zcp2oChallenges["sliding-puzzle"]={
     const puzzle=api.meta?.puzzle||PUZZLES[0];
     
     // Puzzle dimensions
-    const SLOT_X=40, SLOT_Y=60, SLOT_W=80, SLOT_H=80;
-    const PIECE_X=220, PIECE_Y=60;
-    const TOLERANCE=15; // pixels for successful fit
+    const SLOT_X=40, SLOT_Y=60, SLOT_W=70, SLOT_H=70;
+    const PIECE_X=230, PIECE_Y=60;
+    const TOLERANCE=20;
     
     let dragging=false, dragStart=0;
     let pieceX=PIECE_X, pieceY=PIECE_Y;
     let dragPath=[], lastPos=null;
     
-    // Generate puzzle piece shape (jigsaw-like)
-    function drawPuzzlePiece(x,y,color,isSlot=false){
+    // Draw puzzle piece with tab on LEFT side only
+    function drawPiece(x,y,color,isSlot=false){
       ctx.save();
       ctx.translate(x,y);
       
-      // Main body
-      ctx.fillStyle=isSlot?"rgba(255,255,255,0.3)":color;
-      ctx.strokeStyle=isSlot?"#999":"#fff";
-      ctx.lineWidth=3;
+      if(isSlot){
+        // SLOT: Empty space with NEGATIVE tab (indentation) on LEFT
+        ctx.fillStyle="rgba(255,255,255,0.4)";
+        ctx.strokeStyle="#fff";
+        ctx.lineWidth=2;
+        ctx.setLineDash([5,3]);
+        
+        ctx.beginPath();
+        ctx.moveTo(0,0);
+        ctx.lineTo(SLOT_W,0);
+        ctx.lineTo(SLOT_W,SLOT_H);
+        ctx.lineTo(0,SLOT_H);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        
+        // Draw indentation on LEFT side
+        ctx.beginPath();
+        ctx.arc(0,SLOT_H/2,10,-Math.PI/2,Math.PI/2,true);
+        ctx.strokeStyle="rgba(255,255,255,0.8)";
+        ctx.stroke();
+        
+      }else{
+        // PIECE: Solid piece with POSITIVE tab (protrusion) on LEFT
+        ctx.fillStyle=color;
+        ctx.strokeStyle="#fff";
+        ctx.lineWidth=3;
+        ctx.shadowColor="rgba(0,0,0,0.3)";
+        ctx.shadowBlur=8;
+        ctx.shadowOffsetX=2;
+        ctx.shadowOffsetY=2;
+        
+        // Main body
+        ctx.beginPath();
+        ctx.moveTo(15,5);
+        ctx.lineTo(SLOT_W,SLOT_H-5);
+        
+        // LEFT side with POSITIVE tab (protrusion)
+        ctx.lineTo(15,SLOT_H);
+        ctx.arc(15,SLOT_H/2,10,Math.PI/2,-Math.PI/2,false);
+        ctx.lineTo(15,5);
+        
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        
+        // Inner highlight
+        ctx.fillStyle="rgba(255,255,255,0.3)";
+        ctx.beginPath();
+        ctx.arc(35,35,15,0,Math.PI*2);
+        ctx.fill();
+        
+        ctx.shadowColor="transparent";
+      }
       
-      // Draw puzzle piece shape (simplified jigsaw)
-      ctx.beginPath();
-      ctx.moveTo(10,0);
-      ctx.lineTo(70,0);
-      ctx.lineTo(70,15);
-      // Right tab
-      ctx.arc(70,40,8,-Math.PI/2,Math.PI/2,false);
-      ctx.lineTo(70,65);
-      ctx.lineTo(70,80);
-      ctx.lineTo(10,80);
-      ctx.lineTo(10,65);
-      // Left tab (negative for slot)
-      ctx.arc(10,40,8,Math.PI/2,-Math.PI/2,!isSlot);
-      ctx.lineTo(10,15);
-      ctx.closePath();
-      ctx.fill();
-      ctx.stroke();
-      
-      // Inner detail
-      ctx.fillStyle="rgba(255,255,255,0.2)";
-      ctx.beginPath();
-      ctx.arc(40,40,20,0,Math.PI*2);
-      ctx.fill();
-      
+      ctx.setLineDash([]);
       ctx.restore();
     }
     
-    // Draw background pattern
     function drawBackground(){
-      // Gradient background
       const grad=ctx.createLinearGradient(0,0,300,160);
       grad.addColorStop(0,puzzle.bg);
       grad.addColorStop(1,puzzle.color);
       ctx.fillStyle=grad;
       ctx.fillRect(0,0,300,160);
       
-      // Draw decorative elements (trees/waves based on theme)
-      ctx.fillStyle="rgba(255,255,255,0.1)";
-      for(let i=0;i<5;i++){
+      // Draw pattern (abstract trees/waves)
+      ctx.fillStyle="rgba(255,255,255,0.15)";
+      for(let i=0;i<6;i++){
         ctx.beginPath();
-        ctx.moveTo(i*60,160);
-        ctx.lineTo(i*60+30,40);
-        ctx.lineTo(i*60+60,160);
+        ctx.moveTo(i*50,160);
+        ctx.lineTo(i*50+25,60);
+        ctx.lineTo(i*50+50,160);
         ctx.fill();
       }
     }
     
     return{
       draw(){
-        // Clear and draw background
         ctx.clearRect(0,0,300,160);
         drawBackground();
         
-        // Draw slot (target position)
-        drawPuzzlePiece(SLOT_X,SLOT_Y,puzzle.color,true);
+        // Draw slot (target)
+        drawPiece(SLOT_X,SLOT_Y,puzzle.color,true);
         
-        // Draw draggable piece
+        // Draw draggable piece (only if not currently being dragged)
         if(!dragging||dragPath.length===0){
-          drawPuzzlePiece(pieceX,pieceY,"#e0e0e0",false);
+          drawPiece(pieceX,pieceY,"#e8e8e8",false);
         }
         
         // Draw drag trail
         if(dragPath.length>1){
           ctx.beginPath();
-          ctx.strokeStyle="rgba(255,255,255,0.6)";
-          ctx.lineWidth=2;
-          ctx.setLineDash([5,3]);
+          ctx.strokeStyle="rgba(255,255,255,0.7)";
+          ctx.lineWidth=3;
+          ctx.setLineDash([6,4]);
           dragPath.forEach((p,i)=>{
             i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y);
           });
@@ -124,15 +147,14 @@ global.Zcp2oChallenges["sliding-puzzle"]={
           ctx.setLineDash([]);
         }
         
-        // Draw current piece position while dragging
+        // Draw piece while dragging
         if(dragging&&lastPos){
-          drawPuzzlePiece(lastPos.x-30,lastPos.y-30,"#f0f0f0",false);
+          drawPiece(lastPos.x-35,lastPos.y-35,"#f5f5f5",false);
         }
       },
       
       down(p){
-        // Check if clicking on the puzzle piece
-        const dist=Math.hypot(p.x-pieceX-40,p.y-pieceY-40);
+        const dist=Math.hypot(p.x-pieceX-35,p.y-pieceY-35);
         if(dist<50){
           dragging=true;
           dragStart=p.t;
@@ -146,9 +168,9 @@ global.Zcp2oChallenges["sliding-puzzle"]={
       move(p){
         if(dragging){
           lastPos={x:p.x,y:p.y};
-          pieceX=Math.max(0,Math.min(260,p.x-40));
-          pieceY=Math.max(0,Math.min(120,p.y-40));
-          dragPath.push({x:pieceX+40,y:pieceY+40,t:p.t});
+          pieceX=Math.max(0,Math.min(265,p.x-35));
+          pieceY=Math.max(0,Math.min(125,p.y-35));
+          dragPath.push({x:pieceX+35,y:pieceY+35,t:p.t});
           api.push(p);
         }
       },
@@ -157,30 +179,25 @@ global.Zcp2oChallenges["sliding-puzzle"]={
         if(dragging){
           dragging=false;
           
-          // Check if piece is aligned with slot
           const distX=Math.abs(pieceX-SLOT_X);
           const distY=Math.abs(pieceY-SLOT_Y);
           
           if(distX<TOLERANCE&&distY<TOLERANCE){
-            // Success! Calculate score
             const duration=p.t-dragStart;
-            const pathLength=dragPath.reduce((sum,p,i)=>{
+            const pathLength=dragPath.reduce((sum,pt,i)=>{
               if(i===0)return 0;
-              return sum+Math.hypot(p.x-dragPath[i-1].x,p.y-dragPath[i-1].y);
+              return sum+Math.hypot(pt.x-dragPath[i-1].x,pt.y-dragPath[i-1].y);
             },0);
             
-            // Score based on accuracy + movement quality
-            const accuracyBonus=Math.round(100-(distX+distY)*2);
+            const accuracyBonus=Math.round(100-(distX+distY)*2.5);
             const motorScore=api.core.scoreMotor(api.getSamples());
             
-            // Bonus for smooth, human-like drag
             const avgSpeed=pathLength/(duration||1);
-            const smoothnessBonus=Math.min(100,Math.abs(avgSpeed-0.5)*100);
+            const smoothnessBonus=Math.min(100,Math.abs(avgSpeed-0.3)*150);
             
             const finalBonus=Math.round((accuracyBonus+smoothnessBonus)/2);
-            api.finish(finalBonus,"puzzle-fit");
+            api.finish(Math.max(0,finalBonus),"puzzle-fit");
           }else{
-            // Not aligned - snap back or retry
             api.setMsg("Not aligned! Try again.");
             pieceX=PIECE_X;
             pieceY=PIECE_Y;
@@ -190,10 +207,7 @@ global.Zcp2oChallenges["sliding-puzzle"]={
         }
       },
       
-      tick(now){
-        // Optional: add subtle animation or hint
-      },
-      
+      tick(now){},
       active(){return dragging;}
     };
   }
