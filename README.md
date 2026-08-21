@@ -227,11 +227,21 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ---
 
-## 📄 License
+## 📄 License & Intellectual Property
 
-**MIT License** — see [LICENSE](LICENSE).
+ZCP2O uses a **layered protection model** to balance openness with
+sovereignty:
 
-The names "ZCP2O" and associated logos are trademarks of the author. Technical implementations are free to use; brand usage requires permission.
+| Layer | License / Protection |
+|-------|---------------------|
+| **Engine & implementations** | [AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.txt) — free to use, copy, and fork for community & evaluation; derivative services must remain open-source. |
+| **Specifications & documentation** | Open — to encourage global standard adoption. |
+| **Brand** | "ZCP2O", "Human Proof", "Digital Bunker", and "Proof-of-Play" are **trademarks of the ZCP2O Foundation**. |
+| **Commercial use** | Proprietary deployment requires a separate written license from the ZCP2O Foundation. |
+
+> **Open core, protected brand.** You may read, fork, and build upon the
+> protocol freely. You may not rebrand it, close-source derivatives, or
+> deploy it commercially without a license.
 
 ---
 
