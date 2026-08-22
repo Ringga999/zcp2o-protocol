@@ -1,17 +1,19 @@
-/* ANAK 11: SIMPLE MATH "Noisy Calc" + on-screen keypad (mobile-friendly). */
+/* ANAK 11: SIMPLE MATH "Noisy Calc" + keypad (mobile). v2: New Code regenerates soal+noise. */
 (function(global){
 "use strict";
 global.Zcp2oChallenges=global.Zcp2oChallenges||{};
 
 let currentMath={};
+function genMath(){
+  const a=Math.floor(Math.random()*15)+5;
+  const b=Math.floor(Math.random()*10)+1;
+  const isAddition=Math.random()>0.5;
+  return{a,b,ans:isAddition?a+b:a-b,isAddition,attempts:0};
+}
 
 global.Zcp2oChallenges["simple-math"]={
   meta(){
-    const a=Math.floor(Math.random()*15)+5;
-    const b=Math.floor(Math.random()*10)+1;
-    const isAddition=Math.random()>0.5;
-    const ans=isAddition?a+b:a-b;
-    currentMath={a,b,ans,isAddition,attempts:0};
+    currentMath=genMath();
     return{
       label:"Solve the math problem.",
       instructions:[
@@ -24,14 +26,16 @@ global.Zcp2oChallenges["simple-math"]={
 
   create(api){
     const ctx=api.ctx;
-    const {a,b,ans,isAddition}=currentMath;
-    const operator=isAddition?"+":"-";
 
-    // Noise (digenerate sekali)
-    const noiseLines=[];
-    for(let i=0;i<6;i++)noiseLines.push({x1:30+Math.random()*40,y1:12+Math.random()*36,x2:180+Math.random()*60,y2:12+Math.random()*36,width:1+Math.random()*1.5});
-    for(let i=0;i<4;i++)noiseLines.push({x1:50+Math.random()*150,y1:8+Math.random()*16,x2:80+Math.random()*150,y2:26+Math.random()*24,width:1+Math.random()*2});
-    const underlinePoints=[];for(let x=40;x<=260;x+=10)underlinePoints.push({x,y:46+Math.random()*4});
+    // Noise (bisa di-regenerate)
+    let noiseLines=[],underlinePoints=[];
+    function genNoise(){
+      noiseLines=[];underlinePoints=[];
+      for(let i=0;i<6;i++)noiseLines.push({x1:30+Math.random()*40,y1:12+Math.random()*36,x2:180+Math.random()*60,y2:12+Math.random()*36,width:1+Math.random()*1.5});
+      for(let i=0;i<4;i++)noiseLines.push({x1:50+Math.random()*150,y1:8+Math.random()*16,x2:80+Math.random()*150,y2:26+Math.random()*24,width:1+Math.random()*2});
+      for(let x=40;x<=260;x+=10)underlinePoints.push({x,y:46+Math.random()*4});
+    }
+    genNoise();
 
     let userInput="",submitted=false;
 
@@ -44,6 +48,8 @@ global.Zcp2oChallenges["simple-math"]={
     function pressKey(k){if(submitted)return;if(k==="⌫")userInput=userInput.slice(0,-1);else if(userInput.length<4)userInput+=k;}
 
     function drawNoisyMath(){
+      const {a,b,isAddition}=currentMath;          // ✅ baca dinamis
+      const operator=isAddition?"+":"-";
       ctx.save();
       ctx.fillStyle="#fff";ctx.fillRect(20,5,260,50);
       ctx.strokeStyle="#e0e0e0";ctx.lineWidth=1;ctx.strokeRect(20,5,260,50);
@@ -58,20 +64,17 @@ global.Zcp2oChallenges["simple-math"]={
       ctx.restore();
     }
     function drawInputUI(){
-      // display jawaban
       ctx.fillStyle="#fff";ctx.fillRect(20,58,260,22);
       ctx.strokeStyle="#ccc";ctx.strokeRect(20,58,260,22);
       ctx.fillStyle=userInput?"#333":"#999";ctx.font="16px sans-serif";
       ctx.textAlign="left";ctx.textBaseline="middle";
       ctx.fillText(userInput||"Type / tap your answer...",30,69);
-      // keypad
       keyRects().forEach(r=>{
         ctx.fillStyle="#f0f0f0";ctx.fillRect(r.x+1,r.y,r.w-2,r.h);
         ctx.strokeStyle="#bbb";ctx.strokeRect(r.x+1,r.y,r.w-2,r.h);
         ctx.fillStyle="#111";ctx.font="bold 14px sans-serif";ctx.textAlign="center";
         ctx.fillText(r.k,r.x+r.w/2,r.y+r.h/2);
       });
-      // tombol aksi
       ctx.fillStyle="#4ade80";ctx.fillRect(20,132,125,24);
       ctx.fillStyle="#111";ctx.font="bold 13px sans-serif";ctx.textAlign="center";ctx.fillText("✓ Verify",82,144);
       ctx.fillStyle="#f59e0b";ctx.fillRect(155,132,125,24);
@@ -82,7 +85,7 @@ global.Zcp2oChallenges["simple-math"]={
       draw(){ctx.clearRect(0,0,300,160);ctx.fillStyle="#f8f9fa";ctx.fillRect(0,0,300,160);drawNoisyMath();drawInputUI();},
       down(p){
         if(submitted)return;
-        api.push(p); // sampel motor dari tap
+        api.push(p);
         if(p.x>=20&&p.x<=145&&p.y>=132&&p.y<=156){checkAnswer();return;}
         if(p.x>=155&&p.x<=280&&p.y>=132&&p.y<=156){regen();return;}
         const kr=keyRects().find(r=>p.x>=r.x&&p.x<=r.x+r.w&&p.y>=r.y&&p.y<=r.y+r.h);
@@ -96,13 +99,14 @@ global.Zcp2oChallenges["simple-math"]={
     };
 
     function regen(){
-      const na=Math.floor(Math.random()*15)+5,nb=Math.floor(Math.random()*10)+1,nadd=Math.random()>0.5;
-      currentMath={a:na,b:nb,ans:nadd?na+nb:na-nb,isAddition:nadd,attempts:0};
-      userInput="";submitted=false;api.setMsg("New problem generated!");
+      currentMath=genMath();   // ✅ soal baru
+      genNoise();              // ✅ noise baru
+      userInput="";submitted=false;
+      api.setMsg("New problem generated!");
     }
     function checkAnswer(){
       const ua=parseInt(userInput);
-      if(ua===ans){submitted=true;api.finish(95,"math-correct");}
+      if(ua===currentMath.ans){submitted=true;api.finish(95,"math-correct");}   // ✅ baca dinamis
       else{currentMath.attempts++;
         if(currentMath.attempts>=3)api.setMsg("Failed 3x. Click 'New Code'.");
         else api.setMsg(`Wrong! Try again. (${currentMath.attempts}/3)`);
