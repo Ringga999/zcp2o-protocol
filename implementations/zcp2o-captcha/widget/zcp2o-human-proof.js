@@ -1,7 +1,8 @@
 /* =========================================================
-   ZCP2O Human Proof — CORE (Induk / Jembatan) v0.4
+   ZCP2O Human Proof — CORE (Induk / Jembatan) v0.4.1
    Copyright (C) 2026 ZCP2O Foundation. AGPL-3.0. Trademarks reserved.
    Memilih & memanggil anak (challenge) secara acak.
+   v0.4.1: + keyboard bridge (child.key) untuk challenge kognitif.
    ========================================================= */
 (function (global) {
   "use strict";
@@ -66,7 +67,7 @@
     const msg=box.querySelector("#z-msg"),res=box.querySelector("#z-res"),meter=box.querySelector("#z-meter"),live=box.querySelector("#z-live"),net=box.querySelector("#z-net");
     const S=[box.querySelector("#z-s1"),box.querySelector("#z-s2"),box.querySelector("#z-s3")];
     const setStep=n=>S.forEach((el,i)=>{el.style.fontWeight=(i===n)?"bold":"normal";el.style.color=(i===n)?"#0a7":"#999";});setStep(0);
-    const drawNet=()=>net.textContent=navigator.onLine?"🟢 online":"🟡 offline";drawNet();addEventListener("online",drawNet);addEventListener("offline",drawNet);
+    const drawNet=()=>net.textContent=navigator.onLine?"🟢 online":" offline";drawNet();addEventListener("online",drawNet);addEventListener("offline",drawNet);
 
     let samples=[],sens=[],done=false;
     const pos=e=>{const r=cvv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top,t:performance.now(),p:e.pressure!=null?e.pressure:null};};
@@ -85,6 +86,8 @@
     cvv.addEventListener("pointerdown",e=>{if(done)return;ensureSensors();cvv.setPointerCapture(e.pointerId);child.down&&child.down(api.pos(e));});
     cvv.addEventListener("pointermove",e=>{if(done)return;child.move&&child.move(api.pos(e));});
     cvv.addEventListener("pointerup",e=>{if(done)return;child.up&&child.up(api.pos(e));});
+    /* KEYBOARD BRIDGE (v0.4.1): teruskan tombol ke anak yang punya method key() */
+    addEventListener("keydown",e=>{if(done)return;child.key&&child.key(e.key);});
 
     (function loop(){requestAnimationFrame(loop);ctx.clearRect(0,0,300,160);child.draw&&child.draw();child.tick&&child.tick(performance.now());
       if(api.active()&&samples.length>=10){const m=scoreMotor(samples);meter.style.width=m.score+"%";live.textContent="human-ness: "+m.score+"% (motor)";}})();
