@@ -84,9 +84,15 @@ global.Zcp2oChallenges["number-sequence"]={
             nextExpected++;
             
             if(nextExpected > 5){
-              // Selesai
-              const duration = p.t - clickedPath[0].t; // Estimasi waktu
-              api.finish(90, "sequence-complete");
+              // Selesai — bonus dari EFISIENSI JALUR (bukan angka tetap).
+              // Manusia: cukup efisien tapi ada wobble (eff ~0.5-0.8) → tinggi.
+              // Bot sempurna: eff ≈ 1.0 → dipenalti. Terlalu acak: eff rendah → dipenalti.
+              const s=api.getSamples();
+              let actual=0;for(let i=1;i<s.length;i++)actual+=Math.hypot(s[i].x-s[i-1].x,s[i].y-s[i-1].y);
+              let ideal=0;for(let i=1;i<clickedPath.length;i++)ideal+=Math.hypot(clickedPath[i].x-clickedPath[i-1].x,clickedPath[i].y-clickedPath[i-1].y);
+              const eff=actual>0?Math.min(1,ideal/actual):0;
+              const bonus=Math.round(api.core.band(eff,0.4,0.85,0.1,1.05));
+              api.finish(bonus,"sequence-complete");
             }
           }
         }

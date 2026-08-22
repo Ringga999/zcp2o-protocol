@@ -18,9 +18,9 @@ global.Zcp2oChallenges["simple-math"]={
     return{
       label:"Solve the math problem.",
       instructions:[
-        "Hitung soal matematika yang dicoret di atas.",
-        "Garis-garis merah sengaja dibuat untuk mengecoh bot.",
-        "Jawab dengan teliti!"
+        "Solve the crossed-out math problem above.",
+        "The red strike-through lines are meant to fool OCR bots.",
+        "Answer carefully!"
       ]
     };
   },

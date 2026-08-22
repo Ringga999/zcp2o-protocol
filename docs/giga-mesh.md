@@ -126,7 +126,58 @@ Digital Bunker B ──► Light Node (village B, 30 km away)
 
 ---
 
-## 7. Call for Collaboration
+## 7. Positioning: Web0 — The Missing Layer of Web3
+
+### 7.1 The Honest Map
+
+Every "web" generation so far shares one hidden assumption:
+
+| Era | Keyword | Hidden Assumption |
+|-----|---------|-------------------|
+| Web1 | Read | Internet exists |
+| Web2 | Read + Write (social) | Internet exists + you accept tracking |
+| Web3 | Read + Write + Own (blockchain) | **Internet exists + you have capital** |
+| Web4 | Symbiotic (AI + human) | Ultra-fast internet exists |
+
+**None of them work for someone with no internet at all.**
+
+### 7.2 Where Giga Mesh Actually Sits
+
+Giga Mesh is **not Web4**. It sits **one layer below** every web — the
+**transport / infrastructure layer**.
+
+> Web1–Web4 are the **cars**. The ISP internet is the **highway**.
+> **Giga Mesh builds roads where there are no roads** — and ZCP2O puts a
+> sovereign economy on top of them.
+
+Web3 built brilliant electric cars (tokens, DeFi) — but they still need a
+highway. For 2.6 billion people, **there is no highway**. So the cars are
+useless. ZCP2O + Giga Mesh build **both the road and the car**, for those who
+have neither.
+
+### 7.3 The Claim
+
+> **"Web3 answered *'who owns?'*. ZCP2O + Giga Mesh answer *'how can people
+> with NO internet participate at all?'*. We are the missing connectivity +
+> value layer of Web3 — a sovereign internet for the forgotten."**
+
+This is a position **no Web3/Web4 project can claim**, because they all depend
+on an internet that already exists.
+
+### 7.4 Brand Narrative: "Web0"
+
+A memorable one-liner for pitches:
+
+> ### **Web0 — the web before connectivity.**
+> *"Web1 needs the internet. Web0 **brings** the internet."*
+
+**Web0** = the sovereign, offline-first connectivity + value layer for the
+unconnected. It is a narrative brand (not a technical standard), but it gives
+investors and communities a **new category** to believe in — and to fund.
+
+---
+
+## 8. Call for Collaboration
 
 Giga Mesh is too big for one foundation. We invite:
 - **RF / antenna engineers** to co-design open relay hardware.
