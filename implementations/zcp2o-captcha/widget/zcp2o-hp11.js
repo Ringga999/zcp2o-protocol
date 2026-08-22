@@ -121,7 +121,7 @@ global.Zcp2oChallenges["simple-math"]={
       ctx.font="16px sans-serif";
       ctx.textAlign="left";
       ctx.textBaseline="middle";
-      ctx.fillText(userInput || "Ketik jawaban Anda...", 30, 115);
+      ctx.fillText(userInput || "Type your answer...", 30, 115);
       
       // Tombol Verify
       ctx.fillStyle="#4ade80";
@@ -164,13 +164,13 @@ global.Zcp2oChallenges["simple-math"]={
           currentMath = {a: newA, b: newB, ans: newIsAdd ? newA+newB : newA-newB, isAddition: newIsAdd, attempts: 0};
           userInput="";
           submitted=false;
-          api.setMsg("Soal baru dibuat!");
+          api.setMsg("New problem generated!");
           // Note: Untuk noise baru yang benar-benar random, idealnya di-reload, 
           // tapi untuk demo ini kita biarkan noise lama atau bisa di-refactor.
         }
         // Klik area input (fokus)
         else if(p.x>=20 && p.x<=280 && p.y>=95 && p.y<=135){
-          api.setMsg("Ketik angka 0-9 di keyboard Anda...");
+          api.setMsg("Type digits 0-9 on your keyboard...");
         }
       },
       
@@ -200,9 +200,9 @@ global.Zcp2oChallenges["simple-math"]={
       }else{
         currentMath.attempts++;
         if(currentMath.attempts >= 3){
-          api.setMsg("Gagal 3x. Klik 'New Code'.");
+          api.setMsg("Failed 3x. Click 'New Code'.");
         }else{
-          api.setMsg(`Salah! Coba lagi. (${currentMath.attempts}/3)`);
+          api.setMsg(`Wrong! Try again. (${currentMath.attempts}/3)`);
         }
         userInput="";
       }
