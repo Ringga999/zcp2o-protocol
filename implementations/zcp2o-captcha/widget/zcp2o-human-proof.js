@@ -1,8 +1,7 @@
 /* =========================================================
-   ZCP2O Human Proof — CORE (Induk / Jembatan) v0.4.1
+   ZCP2O Human Proof — CORE v0.4.2
+   v0.4.2: + Terminal Phase Analysis (anti-stealth-bot P0).
    Copyright (C) 2026 ZCP2O Foundation. AGPL-3.0. Trademarks reserved.
-   Memilih & memanggil anak (challenge) secara acak.
-   v0.4.1: + keyboard bridge (child.key) untuk challenge kognitif.
    ========================================================= */
 (function (global) {
   "use strict";
@@ -16,6 +15,23 @@
   const strBytes=s=>new TextEncoder().encode(s);
   async function sha256hex(o){const d=await crypto.subtle.digest("SHA-256",strBytes(JSON.stringify(o)));return Array.from(new Uint8Array(d)).map(b=>b.toString(16).padStart(2,"0")).join("");}
 
+  /* v2 P0: Terminal Phase Analysis — deteksi koreksi mikro di 20% akhir. */
+  function terminalAnalysis(s){
+    if(s.length<40)return{score:50,bot:false};
+    const tail=s.slice(Math.floor(s.length*0.8));
+    let reversals=0;
+    for(let i=2;i<tail.length;i++){
+      const dx1=tail[i-1].x-tail[i-2].x,dy1=tail[i-1].y-tail[i-2].y;
+      const dx2=tail[i].x-tail[i-1].x,dy2=tail[i].y-tail[i-1].y;
+      if((dx1*dx2+dy1*dy2)<0)reversals++;
+    }
+    const res=[];for(let i=1;i<tail.length-1;i++){const mx=(tail[i-1].x+tail[i+1].x)/2,my=(tail[i-1].y+tail[i+1].y)/2;res.push(Math.hypot(tail[i].x-mx,tail[i].y-my));}
+    const lateJitter=stdev(res);
+    const score=Math.max(band(reversals,1,6,0,10),band(lateJitter,0.1,2.5,0.02,6));
+    const bot=(reversals===0&&lateJitter<0.05);
+    return{score,bot};
+  }
+
   function scoreMotor(s){if(s.length<30)return{score:0,parts:{}};
     const dirs=[];for(let i=1;i<s.length;i++){const dx=s[i].x-s[i-1].x,dy=s[i].y-s[i-1].y;if(dx||dy)dirs.push(Math.atan2(dy,dx));}
     const bins=new Array(16).fill(0);dirs.forEach(a=>bins[clamp(Math.floor(((a+Math.PI)/(2*Math.PI))*16),0,15)]++);
@@ -23,7 +39,11 @@
     const res=[];for(let i=1;i<s.length-1;i++){const mx=(s[i-1].x+s[i+1].x)/2,my=(s[i-1].y+s[i+1].y)/2;res.push(Math.hypot(s[i].x-mx,s[i].y-my));}const jitter=band(stdev(res),0.2,2.5,0.05,6);
     const sp=[];for(let i=1;i<s.length;i++){const dt=s[i].t-s[i-1].t||1;sp.push(Math.hypot(s[i].x-s[i-1].x,s[i].y-s[i-1].y)/dt);}const velocity=band(cv(sp),0.25,1.2,0.05,2);
     const g=[];for(let i=1;i<s.length;i++)g.push(s[i].t-s[i-1].t);const timing=band(cv(g),0.2,1.5,0.02,2.5);
-    return{score:Math.round(0.3*entropy+0.3*jitter+0.2*velocity+0.2*timing),parts:{entropy,jitter,velocity,timing}};}
+    const term=terminalAnalysis(s);
+    const base=Math.round(0.25*entropy+0.25*jitter+0.15*velocity+0.15*timing+0.20*term.score);
+    const score=term.bot?Math.round(base*0.4):base;
+    return{score,parts:{entropy,jitter,velocity,timing,terminal:term.score}};}
+
   function scoreSensor(sens,s){if(sens.length>20){const m=sens.map(x=>Math.hypot(x.x,x.y,x.z));const d=[];for(let i=1;i<m.length;i++)d.push(Math.abs(m[i]-m[i-1]));return{score:Math.round(band(stdev(d),0.02,0.6,0,1.5)),present:true};}
     const ps=s.map(x=>x.p).filter(p=>p!=null);if(ps.length>10){const sp=Math.max(...ps)-Math.min(...ps);if(sp>0.01)return{score:Math.round(band(stdev(ps),0.02,0.3,0,0.8)),present:true};}return{score:50,present:false};}
   async function signProof(p){const kp=await crypto.subtle.generateKey({name:"RSA-PSS",modulusLength:2048,publicExponent:new Uint8Array([1,0,1]),hash:"SHA-256"},true,["sign","verify"]);
@@ -67,7 +87,7 @@
     const msg=box.querySelector("#z-msg"),res=box.querySelector("#z-res"),meter=box.querySelector("#z-meter"),live=box.querySelector("#z-live"),net=box.querySelector("#z-net");
     const S=[box.querySelector("#z-s1"),box.querySelector("#z-s2"),box.querySelector("#z-s3")];
     const setStep=n=>S.forEach((el,i)=>{el.style.fontWeight=(i===n)?"bold":"normal";el.style.color=(i===n)?"#0a7":"#999";});setStep(0);
-    const drawNet=()=>net.textContent=navigator.onLine?"🟢 online":" offline";drawNet();addEventListener("online",drawNet);addEventListener("offline",drawNet);
+    const drawNet=()=>net.textContent=navigator.onLine?"🟢 online":"🟡 offline";drawNet();addEventListener("online",drawNet);addEventListener("offline",drawNet);
 
     let samples=[],sens=[],done=false;
     const pos=e=>{const r=cvv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top,t:performance.now(),p:e.pressure!=null?e.pressure:null};};
@@ -86,7 +106,6 @@
     cvv.addEventListener("pointerdown",e=>{if(done)return;ensureSensors();cvv.setPointerCapture(e.pointerId);child.down&&child.down(api.pos(e));});
     cvv.addEventListener("pointermove",e=>{if(done)return;child.move&&child.move(api.pos(e));});
     cvv.addEventListener("pointerup",e=>{if(done)return;child.up&&child.up(api.pos(e));});
-    /* KEYBOARD BRIDGE (v0.4.1): teruskan tombol ke anak yang punya method key() */
     addEventListener("keydown",e=>{if(done)return;child.key&&child.key(e.key);});
 
     (function loop(){requestAnimationFrame(loop);ctx.clearRect(0,0,300,160);child.draw&&child.draw();child.tick&&child.tick(performance.now());
@@ -106,7 +125,7 @@
         signals_digest:await sha256hex(samples),issued_at:Math.floor(Date.now()/1000),tier:"light",assurance:"self"};
       const{sig,pubkey}=await signProof(payload);
       const token=b64url(strBytes(JSON.stringify(Object.assign({},payload,{sig,pubkey}))));
-      res.innerHTML=L.verified(final)+" (motor "+motor.score+", "+sensTxt+", "+bonusLabel+" "+bonus+").";
+      res.innerHTML=L.verified(final)+" (motor "+motor.score+" [term "+motor.parts.terminal+"], "+sensTxt+", "+bonusLabel+" "+bonus+").";
       msg.textContent=L.proven;
       if(opts.onVerified)opts.onVerified(token);
     }
