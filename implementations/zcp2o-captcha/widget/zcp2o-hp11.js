@@ -1,13 +1,14 @@
-/* ANAK 11: SIMPLE MATH "Noisy Calc" + keypad (mobile). v2: New Code regenerates soal+noise. */
+/* ANAK 11: SIMPLE MATH "Noisy Calc" + keypad. FINAL: New Code works, answers always >= 0. */
 (function(global){
 "use strict";
 global.Zcp2oChallenges=global.Zcp2oChallenges||{};
 
 let currentMath={};
 function genMath(){
-  const a=Math.floor(Math.random()*15)+5;
-  const b=Math.floor(Math.random()*10)+1;
+  let a=Math.floor(Math.random()*15)+5;
+  let b=Math.floor(Math.random()*10)+1;
   const isAddition=Math.random()>0.5;
+  if(!isAddition&&b>a){const t=a;a=b;b=t;}   // ✅ pengurangan tak pernah negatif
   return{a,b,ans:isAddition?a+b:a-b,isAddition,attempts:0};
 }
 
@@ -27,7 +28,6 @@ global.Zcp2oChallenges["simple-math"]={
   create(api){
     const ctx=api.ctx;
 
-    // Noise (bisa di-regenerate)
     let noiseLines=[],underlinePoints=[];
     function genNoise(){
       noiseLines=[];underlinePoints=[];
@@ -48,7 +48,7 @@ global.Zcp2oChallenges["simple-math"]={
     function pressKey(k){if(submitted)return;if(k==="⌫")userInput=userInput.slice(0,-1);else if(userInput.length<4)userInput+=k;}
 
     function drawNoisyMath(){
-      const {a,b,isAddition}=currentMath;          // ✅ baca dinamis
+      const {a,b,isAddition}=currentMath;          // ✅ dinamis
       const operator=isAddition?"+":"-";
       ctx.save();
       ctx.fillStyle="#fff";ctx.fillRect(20,5,260,50);
@@ -99,14 +99,14 @@ global.Zcp2oChallenges["simple-math"]={
     };
 
     function regen(){
-      currentMath=genMath();   // ✅ soal baru
+      currentMath=genMath();   // ✅ soal baru (non-negatif)
       genNoise();              // ✅ noise baru
       userInput="";submitted=false;
       api.setMsg("New problem generated!");
     }
     function checkAnswer(){
       const ua=parseInt(userInput);
-      if(ua===currentMath.ans){submitted=true;api.finish(95,"math-correct");}   // ✅ baca dinamis
+      if(ua===currentMath.ans){submitted=true;api.finish(95,"math-correct");}
       else{currentMath.attempts++;
         if(currentMath.attempts>=3)api.setMsg("Failed 3x. Click 'New Code'.");
         else api.setMsg(`Wrong! Try again. (${currentMath.attempts}/3)`);
