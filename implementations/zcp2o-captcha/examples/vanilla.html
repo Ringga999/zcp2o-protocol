@@ -1,0 +1,14 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZCP2O — Integration Demo (Vanilla)</title></head>
+<body style="font-family:sans-serif;max-width:420px;margin:40px auto;padding:0 12px">
+<h3>📝 Register (demo form)</h3>
+<form onsubmit="event.preventDefault();alert(window.__human?'✅ HUMAN — form boleh dikirim!':'⚠️ Selesaikan Human Proof dulu!')">
+  <input placeholder="email" style="width:100%;padding:8px;margin:6px 0;box-sizing:border-box">
+  <div id="my-captcha"></div>
+  <button style="margin-top:8px;padding:8px 16px">Submit</button>
+</form>
+<script src="https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/widget/embed.js"
+        data-container="#my-captcha" data-callback="onHuman"></script>
+<script>function onHuman(t){window.__human=t;alert("✅ Human verified! Token "+t.length+" karakter.");}</script>
+</body></html>
