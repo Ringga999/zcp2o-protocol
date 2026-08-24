@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZCP2O Chain View — Bunker Explorer</title>
+<style>
+:root{--bg:#0b0f0c;--card:#121a14;--line:#1f2b21;--txt:#d7e4d9;--mut:#7d8f80;--grn:#35d07f;--red:#ff5d5d}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:ui-monospace,Consolas,monospace;padding:24px}
+h1{font-size:20px}h1 span{color:var(--grn)}
+.sub{color:var(--mut);font-size:12px;margin:4px 0 18px}
+#banner{padding:8px 12px;border:1px solid var(--line);border-radius:8px;margin-bottom:16px;font-size:13px}
+.ok{border-color:var(--grn);color:var(--grn)}.err{border-color:var(--red);color:var(--red)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.card .k{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em}
+.card .v{font-size:22px;margin-top:6px;color:var(--grn)}
+.card .v.small{font-size:12px;color:var(--txt);word-break:break-all}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:8px;border-bottom:1px solid var(--line);text-align:left}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--grn)}
+.foot{color:var(--mut);font-size:11px;margin-top:14px}
+</style>
+</head>
+<body>
+<h1>🏛️ ZCP2O <span>Chain View</span> — Bunker Explorer</h1>
+<div class="sub">Live indicators dari Digital Bunker publik • auto-refresh 10 dtk</div>
+<div id="banner">Menghubungi Bunker…</div>
+<div class="grid">
+ <div class="card"><div class="k">Status</div><div class="v" id="st">—</div></div>
+ <div class="card"><div class="k">Chain Height</div><div class="v" id="ch">—</div></div>
+ <div class="card"><div class="k">Active Peers</div><div class="v" id="pp">—</div></div>
+ <div class="card"><div class="k">Versi</div><div class="v" id="vr">—</div></div>
+ <div class="card"><div class="k">Node Address</div><div class="v small" id="na">—</div></div>
+</div>
+<h1 style="font-size:15px">🤝 Peer Registry (Trust-Weighted)</h1>
+<table><thead><tr><th>Address</th><th>Trust</th><th style="width:40%">Bar</th></tr></thead>
+<tbody id="tb"><tr><td colspan="3">Memuat…</td></tr></tbody></table>
+<div class="foot">Bunker: <span id="url"></span> • ZCP2O — offline-first, zero-capital, sovereign.</div>
+<script>
+const BASE="https://kdewa.pythonanywhere.com";
+document.getElementById("url").textContent=BASE;
+const $=id=>document.getElementById(id);
+async function refresh(){
+ try{
+  const d=await (await fetch(BASE+"/")).json();
+  $("st").textContent=(d.status||"?").toUpperCase();
+  $("ch").textContent=d.chain_height;
+  $("pp").textContent=d.active_peers;
+  $("vr").textContent=d.version||"-";
+  $("na").textContent=d.node_address||"-";
+  const p=await (await fetch(BASE+"/peers")).json();
+  $("tb").innerHTML=(p.peers||[]).map(x=>
+   `<tr><td>${x.address.slice(0,18)}…</td><td>${x.trust_score}</td><td><div class="bar"><i style="width:${x.trust_score}%"></i></div></td></tr>`
+  ).join("")||`<tr><td colspan="3">Belum ada peer — Bunker berdiri sendiri (single-node demo).</td></tr>`;
+  const b=$("banner");b.className="ok";
+  b.textContent="🟢 BUNKER ONLINE — indikator normal ("+new Date().toLocaleTimeString()+")";
+ }catch(e){
+  const b=$("banner");b.className="err";
+  b.textContent="🔴 Bunker tidak terjangkau: "+e.message;
+ }
+}
+refresh();setInterval(refresh,10000);
+</script>
+</body>
+</html>
