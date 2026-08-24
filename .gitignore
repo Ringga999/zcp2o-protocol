@@ -13,4 +13,4 @@ desktop.ini
 .idea/
 *.swp
 *.swo
-*~
+*~.env
