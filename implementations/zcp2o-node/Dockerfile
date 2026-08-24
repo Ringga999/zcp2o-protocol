@@ -19,6 +19,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Expose port untuk FastAPI
 EXPOSE 8000
 
-# Jalankan server Uvicorn
-# --host 0.0.0.0 penting agar bisa diakses dari luar container
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
+# Jalankan server Uvicorn (fleksibel: $PORT untuk Render, 8000 untuk lokal)
+CMD ["sh", "-c", "uvicorn api:app --host 0.0.0.0 --port ${PORT:-8000}"]
