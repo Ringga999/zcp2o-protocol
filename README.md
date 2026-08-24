@@ -6,15 +6,16 @@
 
 **The offline-first, zero-capital, sovereign blockchain — for the 2.6 billion people the internet forgot.**
 
-[🛡️ **TRY LIVE DEMO: HUMAN PROOF**](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/demo/) •
-[📖 **Full Documentation**](docs/) •
-[⭐ **Star This Repo**](https://github.com/Ringga999/zcp2o-protocol)
+[![Status](https://img.shields.io/badge/Status-Production%20Ready-35d07f)](https://kdewa.pythonanywhere.com)
+[![License](https://img.shields.io/badge/License-AGPL--3.0-blue)](LICENSE)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Online-orange)](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/demo/)
+
+🛡️ **[TRY LIVE DEMO: HUMAN PROOF](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/demo/)** •
+📊 **[CHAIN VIEW EXPLORER](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-chainview/)** •
+📖 **[Full Documentation](#-documentation--standards)** •
+⭐ **Star This Repo**
 
 ---
-
-[![Status](https://img.shields.io/badge/status-active-brightgreen)]()
-[![License](https://img.shields.io/badge/license-MIT-blue)]()
-[![Version](https://img.shields.io/badge/version-0.1.0-orange)]()
 
 </div>
 
@@ -50,7 +51,7 @@ ZCP2O is a **sovereign blockchain protocol** designed from the ground up for the
 
 ## 🛡️ LIVE DEMO: Human Proof
 
-**[👉 TRY IT NOW](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/demo/)**
+**👉 [TRY IT NOW](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/demo/)**
 
 A self-contained JavaScript widget that proves you're human — **on-device, 0 bytes sent, works without internet**. Unlike Google reCAPTCHA (which surveils you) or Cloudflare Turnstile (which requires a connection).
 
@@ -64,35 +65,72 @@ A self-contained JavaScript widget that proves you're human — **on-device, 0 b
 
 ---
 
+## ⚡ INTEGRATE IN ONE LINE
+
+Adopsi ZCP2O Human Proof **cukup satu baris `<script>`** — ala reCAPTCHA, tapi tanpa spying dan tanpa server:
+
+```html
+<div id="my-captcha"></div>
+<script src="https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/widget/embed.js"
+        data-container="#my-captcha" data-callback="onHuman"></script>
+<script>function onHuman(token){ /* kirim token ke backend Anda */ }</script>
+```
+
+**React:**
+```jsx
+<Zcp2oCaptcha threshold={70} onVerified={t => setToken(t)} />
+```
+
+✅ Vanilla / React / Vue / Svelte — semua didukung via event `zcp2o:verified`
+📖 **Full guide:** [`docs/integration.md`](docs/integration.md)
+
+---
+
+## 🏦 LIVE INFRASTRUCTURE
+
+ZCP2O bukan konsep di atas kertas — **protokol ini hidup di internet**:
+
+| Komponen | URL | Status |
+|----------|-----|:---:|
+| 🛡️ Human Proof Demo | [demo](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/demo/) | 🟢 LIVE |
+| ⚡ One-line Integration | [examples](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/examples/vanilla.html) | 🟢 LIVE |
+| 📊 Chain View Explorer | [chainview](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-chainview/) | 🟢 LIVE |
+| 🏦 Digital Bunker (public API, hardened v1.1) | [kdewa.pythonanywhere.com](https://kdewa.pythonanywhere.com) | 🟢 LIVE |
+
+> Lihat status Bunker real-time (chain height, peers, trust-weighted consensus) di **Chain View Explorer**.
+
+---
+
 ## 🚀 Implementations
 
 ### Tools & Applications
 
 | Folder | Status | Description |
 |--------|--------|-------------|
-| [🛡️ **zcp2o-captcha**](implementations/zcp2o-captcha/) | 🟢 **LIVE** | Human Proof: on-device human verification. No spying, no internet. **[LIVE DEMO](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/demo/)** |
+| 🛡️ **zcp2o-captcha** | 🟢 **LIVE** | Human Proof: on-device human verification. No spying, no internet. **LIVE DEMO** |
+| 📊 **zcp2o-chainview** | 🟢 **LIVE** | Transparency dashboard: live Bunker explorer with real-time indicators. **VIEW** |
 
 ### Core Infrastructure
 
 | Folder | Status | Description |
 |--------|--------|-------------|
-| [⚙️ **zcp2o-core**](implementations/zcp2o-core/) | 🟡 Dev | Core protocol: RSA-4096/2048 cryptography, ledger, PoP consensus |
-| [🏦 **zcp2o-node**](implementations/zcp2o-node/) | 🟡 Dev | Digital Bunker: offline Full Node with REST API (FastAPI + SQLite) |
-| [💻 **zcp2o-cli**](implementations/zcp2o-cli/) | 🟡 Dev | Terminal wallet for command-line interaction |
+| ⚙️ **zcp2o-core** | 🟡 Dev | Core protocol: RSA-4096/2048 cryptography, ledger, PoP consensus |
+| 🏦 **zcp2o-node** | 🟢 **LIVE API** | Digital Bunker: offline Full Node with REST API (FastAPI + SQLite), hardened v1.1 |
+| 💻 **zcp2o-cli** | 🟡 Dev | Terminal wallet for command-line interaction |
 
 ### Reference Implementation
 
 | Folder | Status | Description |
 |--------|--------|-------------|
-| [🎮 **alpha-drop**](implementations/alpha-drop/) | 🟡 Dev | First Proof-of-Play game: claim $WEEKS coins in physical zones |
+| 🎮 **alpha-drop** | 🟡 Dev | First Proof-of-Play game: claim $WEEKS coins in physical zones |
 
 ### Future Modules (Phase 2-3)
 
 | Folder | Status | Description |
 |--------|--------|-------------|
-| [📱 **zcp2o-wallet**](implementations/zcp2o-wallet/) | 🔮 Planned | Standalone wallet (Web/Mobile), ZWS-compliant |
-| [🧰 **zcp2o-sdk**](implementations/zcp2o-sdk/) | 🔮 Planned | Developer toolkit for building third-party dApps |
-| [🌐 **zcp2o-testnet**](implementations/zcp2o-testnet/) | 🔮 Planned | Multi-node test network via Docker Compose |
+| 📱 **zcp2o-wallet** | 🔮 Planned | Standalone wallet (Web/Mobile), ZWS-compliant |
+| 🧰 **zcp2o-sdk** | 🔮 Planned | Developer toolkit for building third-party dApps |
+| 🌐 **zcp2o-testnet** | 🔮 Planned | Multi-node test network via Docker Compose |
 
 ---
 
@@ -107,7 +145,7 @@ The sovereign wallet standard — no dependency on EVM, no wrapped tokens:
 - **Wallet Recovery** — BIP-39 24-word mnemonic + encrypted file backup
 - **Tiered Cryptography** — RSA-2048 (Light Node) / RSA-4096 (Bunker)
 
-👉 **[Read the Full Specification](docs/research/zcp2o-wallet-standard.md)**
+👉 **Read the Full Specification**
 
 ### 📖 Terminology & Glossary
 
@@ -117,13 +155,14 @@ A comprehensive dictionary of 60+ terms comparing ZCP2O to traditional blockchai
 - Async Sync, Probationary Finality, Implicit Proof of Humanity
 - Trust-Weighted Consensus vs Longest Chain
 
-👉 **[Read the Terminology](docs/terminology.md)**
+👉 **Read the Terminology**
 
 ### 📁 Other Documentation
 
-- [📄 Litepaper](docs/litepaper.md) — Vision and architecture
-- [🛡️ Threat Model](docs/security/threat-model.md) — Security analysis and mitigations
-- [❓ FAQ](docs/faq.md) — Common questions about ZCP2O
+- 📄 Litepaper — Vision and architecture
+- 🛡️ Threat Model — Security analysis and mitigations
+- ❓ FAQ — Common questions
+- 🔌 [Integration Guide](docs/integration.md) — embed.js, React, events, backend verification
 
 ---
 
@@ -218,30 +257,28 @@ Open: https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/d
 ## 🤝 Contributing
 
 ZCP2O is open-source. We welcome contributions in the form of:
+
 - Code reviews & bug reports
 - Feature implementations
 - Documentation & translations
 - Testing across devices and networks
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+See CONTRIBUTING.md for guidelines.
 
 ---
 
 ## 📄 License & Intellectual Property
 
-ZCP2O uses a **layered protection model** to balance openness with
-sovereignty:
+ZCP2O uses a **layered protection model** to balance openness with sovereignty:
 
 | Layer | License / Protection |
 |-------|---------------------|
-| **Engine & implementations** | [AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.txt) — free to use, copy, and fork for community & evaluation; derivative services must remain open-source. |
+| **Engine & implementations** | AGPL-3.0 — free to use, copy, and fork for community & evaluation; derivative services must remain open-source. |
 | **Specifications & documentation** | Open — to encourage global standard adoption. |
 | **Brand** | "ZCP2O", "Human Proof", "Digital Bunker", and "Proof-of-Play" are **trademarks of the ZCP2O Foundation**. |
 | **Commercial use** | Proprietary deployment requires a separate written license from the ZCP2O Foundation. |
 
-> **Open core, protected brand.** You may read, fork, and build upon the
-> protocol freely. You may not rebrand it, close-source derivatives, or
-> deploy it commercially without a license.
+> **Open core, protected brand.** You may read, fork, and build upon the protocol freely. You may not rebrand it, close-source derivatives, or deploy it commercially without a license.
 
 ---
 
