@@ -12,5 +12,22 @@ services:
     volumes:
       - ./zcp2o_data:/app/zcp2o-node/data # Persisten data (DB & Logs)
     environment:
+      # ==========================================
+      # 🔒 HARDENING v1 — SECURITY CONFIG
+      # ==========================================
+      
+      # API Key untuk autentikasi (wajib untuk /transfer)
+      # Generate key acak: python -c "import secrets; print(secrets.token_urlsafe(32))"
+      - ZCP2O_API_KEY=zcp2o-sec-2026-aBcDeFgHiJkLmNoPqRsTuVwXyZ1234567890
+      
+      # Rate limiting: maksimal request per menit per IP
+      - ZCP2O_RATE_LIMIT=30
+      
+      # CORS: domain yang diizinkan mengakses API (comma-separated)
+      - ZCP2O_CORS=https://ringga999.github.io,http://localhost:8000
+      
+      # ==========================================
+      # 📁 PATH CONFIG (existing)
+      # ==========================================
       - DB_PATH=/app/zcp2o-node/data/zcp2o_node.db
       - LOG_DIR=/app/zcp2o-node/data/logs
