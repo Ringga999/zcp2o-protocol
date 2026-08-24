@@ -18,7 +18,7 @@ services:
       
       # API Key untuk autentikasi (wajib untuk /transfer)
       # Generate key acak: python -c "import secrets; print(secrets.token_urlsafe(32))"
-      - ZCP2O_API_KEY=zcp2o-sec-2026-aBcDeFgHiJkLmNoPqRsTuVwXyZ1234567890
+      - ZCP2O_API_KEY=${ZCP2O_API_KEY:-}
       
       # Rate limiting: maksimal request per menit per IP
       - ZCP2O_RATE_LIMIT=30
