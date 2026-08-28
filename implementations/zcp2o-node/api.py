@@ -196,3 +196,22 @@ async def get_peers():
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
+
+# ---- P3: Server-Side Token Verification (hardening v1.2) ----
+from fastapi import Request as _Req
+from fastapi.responses import JSONResponse as _JSON
+from verify import verify_token as _vt
+
+@app.post("/verify")
+async def verify_token_endpoint(request: _Req):
+    """Hakim terakhir: validasi signature RSA-PSS + expiry + anti-replay."""
+    require_api_key(request)
+    try:
+        body = await request.json()
+    except Exception:
+        raise HTTPException(400, "invalid JSON body")
+    token = body.get("token", "")
+    if not token:
+        raise HTTPException(400, "missing 'token' field")
+    result = _vt(token)
+    return _JSON(content=result, status_code=200 if result["valid"] else 401)
