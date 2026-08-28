@@ -6,7 +6,7 @@ var BASE="https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captc
 
 /* 🔒 P1: DAFTAR SIDIK JARI (SHA-384). Paste 14 baris output PowerShell di sini. */
 var HASHES={
-  "zcp2o-human-proof.js": "sha384-UL0SvllGCIclDajX5viz9tavyu1/INJFNdGydnlHGKdnRV1viEC3JiqeZOXalbkA",
+  "zcp2o-human-proof.js": "sha384-dOpxGF4o1qla2uPyfUPpBAncD5bX8Ey3P7FZOTR+CXNrHqt5hRoUBDmklbKr18u4",
   "zcp2o-hp1.js": "sha384-SFncoLGDS7aa45QTpz70FKM2etSPEHJzMNvE+HvaCWsb3iSCxb0YQ8Jwfvnh0zdD",
   "zcp2o-hp2.js": "sha384-N4ofmxPrifTF1OG2noIUQh7vaAncjyb1rDCl4Q5PxSL6dg71S1cKMBPR/rabUSfB",
   "zcp2o-hp3.js": "sha384-s8FicRJGqrVupg3vHYnRtZfojav1KeYFhV14KLdptSP3NatrjcYfAKcfQK/WPxyj",
