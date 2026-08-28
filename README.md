@@ -95,7 +95,7 @@ ZCP2O bukan konsep di atas kertas — **protokol ini hidup di internet**:
 | 🛡️ Human Proof Demo | [demo](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/demo/) | 🟢 LIVE |
 | ⚡ One-line Integration | [examples](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/examples/vanilla.html) | 🟢 LIVE |
 | 📊 Chain View Explorer | [chainview](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-chainview/) | 🟢 LIVE |
-| 🏦 Digital Bunker (public API, hardened v1.1) | [kdewa.pythonanywhere.com](https://kdewa.pythonanywhere.com) | 🟢 LIVE |
+| 🏦 Digital Bunker (public API, hardened v1.2 — SRI + anti-replay + server verify) | [kdewa.pythonanywhere.com](https://kdewa.pythonanywhere.com) | 🟢 LIVE |
 
 > Lihat status Bunker real-time (chain height, peers, trust-weighted consensus) di **Chain View Explorer**.
 
@@ -215,7 +215,10 @@ Not Proof-of-Work (wasteful electricity). Not Proof-of-Stake (requires capital).
 
 | Threat | ZCP2O Mitigation |
 |--------|------------------|
-| **Bot Farms** | Implicit Proof of Humanity (sensor noise) + Shadow Realm (0x reward) |
+| **Bot Farms** | Motor analysis + Terminal Phase + SRI integrity + Challenge binding + Nonce/Expiry + Server-side RSA-PSS |
+| **File Tampering** | Subresource Integrity (SRI) — browser blocks hash mismatch |
+| **Token Forgery** | RSA-PSS signature verified server-side by Bunker |
+| **Token Replay** | Nonce (16-byte unique) + Expiry (5 min) + server-side nonce store |
 | **Double Spend** | Vector Clocks + Trust-Weighted Consensus |
 | **Sybil Attacks** | Trust Score system (requires mesh encounters) |
 | **Nation-State Actors** | RSA-4096 + roadmap to Post-Quantum Crypto (2028) |
