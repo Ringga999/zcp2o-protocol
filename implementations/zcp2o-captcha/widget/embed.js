@@ -6,7 +6,20 @@ var BASE="https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captc
 
 /* 🔒 P1: DAFTAR SIDIK JARI (SHA-384). Paste 14 baris output PowerShell di sini. */
 var HASHES={
-/* >>> TEMPEL 14 BARIS "file": "sha384-...", DI SINI <<< */
+  "zcp2o-human-proof.js": "sha384-CK4njqsHPIL6OTN97LRWDkJExgR0/e7H/u+a0FfxLlkKP0itsDOORY9L85EQ85rF",
+  "zcp2o-hp1.js": "sha384-SFncoLGDS7aa45QTpz70FKM2etSPEHJzMNvE+HvaCWsb3iSCxb0YQ8Jwfvnh0zdD",
+  "zcp2o-hp2.js": "sha384-N4ofmxPrifTF1OG2noIUQh7vaAncjyb1rDCl4Q5PxSL6dg71S1cKMBPR/rabUSfB",
+  "zcp2o-hp3.js": "sha384-s8FicRJGqrVupg3vHYnRtZfojav1KeYFhV14KLdptSP3NatrjcYfAKcfQK/WPxyj",
+  "zcp2o-hp4.js": "sha384-YY/y13HftN1EkOzXEKV/L2ORhoPUbd2JoyKizPs9OA6Ak0shnTfjcBunp/L1BH8L",
+  "zcp2o-hp5.js": "sha384-5HcY9f/VGCda+IyknNy+lqo79XrbM0sGgT46w/U3YujVCsIPAbIxxQBUMQjL/FLC",
+  "zcp2o-hp6.js": "sha384-LmSkDmRTZ0hYpfVkCHkDkrdMe47hK1mDOsadXLZMJ6F7757ndJcuvgWGTwW2IoO8",
+  "zcp2o-hp7.js": "sha384-ULAy0Mf4swT9Wu4xOL/OqR2cGrdOKbd16mWqIuARFOkZ59wUJt00C5VBbThDnAES",
+  "zcp2o-hp8.js": "sha384-M3BB9rr6HHpgCUyWPhcgRXKdIUVjv7mmn3dwFB5gy4IVpIjIpTOnlXx7llmnp8f9",
+  "zcp2o-hp9.js": "sha384-sVfLJ6U3JepTz3a7neUL7vRYueQYMs+jDeXeN4OBQeidu1fyZ6M7A4rJqnWXGLwS",
+  "zcp2o-hp10.js": "sha384-RJZkc1hE9RcusmJBfp/xG5B/Xip2JBfdRMeVYbfxUoL8eKGdoM3vXsTZu8UcpXlN",
+  "zcp2o-hp11.js": "sha384-0zcGZ6JVxz0a/87pYKU5JQy+bi8rq1RS3r0X11gFOh0EeqDUgkvtDKJbvOryWZ6H",
+  "zcp2o-hp12.js": "sha384-TQ+EpSfHSamYJlIMj4SPdNc6W1a55aBMAz3RJxU+Gxa/LOg/xFXD3CBpOZlodmbd",
+  "zcp2o-hp13.js": "sha384-RAphM5o/sKeejbHjuDJgxiy92jvNjUgyme0vo6Q19B/Fsx9Zgt0jqeJpy8kfmAil",
 };
 
 var all=Array.prototype.slice.call(document.getElementsByTagName("script"));
