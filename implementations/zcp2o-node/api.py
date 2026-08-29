@@ -145,6 +145,9 @@ async def create_transfer(request: TransferRequest, req: Request):
     Create and validate a new transfer transaction.
     Hardened: requires X-API-Key if ZCP2O_API_KEY diset.
     """
+    import os as _os
+    if _os.environ.get("ZCP2O_ENABLE_TRANSFER", "0") != "1":
+        raise HTTPException(status_code=403, detail="Transfer disabled (sovereign auth v2 scope-split)")
     require_api_key(req)  # 🔒 auth gate
 
     if not bunker:
