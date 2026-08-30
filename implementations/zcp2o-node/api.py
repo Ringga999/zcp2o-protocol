@@ -218,3 +218,35 @@ async def verify_token_endpoint(request: _Req):
         raise HTTPException(400, "missing 'token' field")
     result = _vt(token)
     return _JSON(content=result, status_code=200 if result["valid"] else 401)
+
+# ---- Sovereign Auth v2: registrasi identitas (humanity = API key) ----
+from fastapi import Request as _Req2
+from fastapi.responses import JSONResponse as _JSON2
+import identity as _ident
+from verify import verify_token as _vt2
+
+@app.post("/identity/register")
+async def identity_register(request: _Req2):
+    """TANPA API key! Onboarding cukup buktikan kamu manusia."""
+    try:
+        body = await request.json()
+    except Exception:
+        raise HTTPException(400, "invalid JSON body")
+
+    proof = body.get("human_proof", "")   # token Human Proof
+    pubkey = body.get("pubkey")           # kunci publik RSA klien
+
+    if not proof or not pubkey:
+        raise HTTPException(400, "missing 'human_proof' or 'pubkey'")
+
+    # 1. Verifikasi dulu: benarkah dia manusia?
+    res = _vt2(proof)
+    if not res["valid"]:
+        return _JSON2(content={"ok": False, "error": "human_proof_rejected", "detail": res["reason"]}, status_code=401)
+
+    # 2. Daftarkan identitasnya
+    ok, out = _ident.register(res["payload"], pubkey)
+    if not ok:
+        return _JSON2(content={"ok": False, "error": out["error"]}, status_code=409)
+
+    return _JSON2(content={"ok": True, **out}, status_code=201)
