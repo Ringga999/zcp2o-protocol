@@ -270,3 +270,17 @@ async def _dual_auth(request):
                             dict(request.headers), identity)
     if not ok:
         raise HTTPException(401, "Sovereign auth failed: " + reason)
+
+# ---- Sovereign Auth v2: CORS preflight untuk header signed requests ----
+@app.middleware("http")
+async def sovereign_cors(request, call_next):
+    if request.method == "OPTIONS":
+        resp = JSONResponse(content={"ok": True}, status_code=204)
+    else:
+        resp = await call_next(request)
+    o = request.headers.get("origin", "")
+    if o == "https://ringga999.github.io" or o.endswith(".github.io"):
+        resp.headers["Access-Control-Allow-Origin"] = o
+        resp.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+        resp.headers["Access-Control-Allow-Headers"] = "Content-Type, X-ZCP2O-Identity, X-ZCP2O-Timestamp, X-ZCP2O-Nonce, X-ZCP2O-Signature"
+    return resp
