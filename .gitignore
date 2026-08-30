@@ -13,4 +13,10 @@ desktop.ini
 .idea/
 *.swp
 *.swo
-*~.env
+*~
+
+# ZCP2O: secrets & test artifacts
+.env
+body.json
+tr.json
+reg.json
