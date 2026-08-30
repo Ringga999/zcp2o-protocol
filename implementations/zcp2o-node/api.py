@@ -208,7 +208,7 @@ from verify import verify_token as _vt
 @app.post("/verify")
 async def verify_token_endpoint(request: _Req):
     """Hakim terakhir: validasi signature RSA-PSS + expiry + anti-replay."""
-    require_api_key(request)
+    await _dual_auth(request)
     try:
         body = await request.json()
     except Exception:
