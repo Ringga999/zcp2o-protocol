@@ -250,3 +250,23 @@ async def identity_register(request: _Req2):
         return _JSON2(content={"ok": False, "error": out["error"]}, status_code=409)
 
     return _JSON2(content={"ok": True, **out}, status_code=201)
+
+# ---- Sovereign Auth v2: dual auth (legacy key ATAU signed request) ----
+import sovereign as _sov
+
+async def _dual_auth(request):
+    """Migrasi mulus: key lama tetap jalan, identitas sovereign juga jalan."""
+    try:
+        require_api_key(request)      # jalur legacy
+        return
+    except Exception:
+        pass
+    ident_id = request.headers.get("x-zcp2o-identity", "")
+    identity = _ident.get(ident_id) if ident_id else None
+    if not identity or identity.get("revoked"):
+        raise HTTPException(401, "Invalid API key or identity")
+    body = await request.body()
+    ok, reason = _sov.check(request.method, request.url.path, body,
+                            dict(request.headers), identity)
+    if not ok:
+        raise HTTPException(401, "Sovereign auth failed: " + reason)
