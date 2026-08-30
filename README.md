@@ -231,6 +231,19 @@ Not Proof-of-Work (wasteful electricity). Not Proof-of-Stake (requires capital).
 - **Offline-first** — local transactions don't need internet
 - **Sovereign identity** — users own their keys, no custodians
 
+### 🔐 Crypto-Agility
+
+ZCP2O is **crypto-agile by design** — not locked to one algorithm:
+
+| Phase | Algorithm | Purpose | Status |
+|-------|-----------|---------|:---:|
+| 1 | RSA-2048 (PSS) | Universal browser compatibility (Human Proof, Sovereign Auth) | ✅ Current |
+| 2 | Ed25519 | Mobile wallets & mesh P2P (100x faster signing) | 🔮 Planned |
+| 3 | Dilithium / Falcon | Post-quantum security (2028+) | 🔮 Future |
+
+Legacy identities keep working when new algorithms arrive — **zero breaking changes**.
+📖 Full design: [`docs/crypto-agility.md`](docs/crypto-agility.md)
+
 ---
 
 ## 🚀 Quick Start
