@@ -162,16 +162,16 @@ activity**. The user becomes Miner #1 (like Satoshi mining genesis).
 Solve CAPTCHA → token v5 → signed request → Bunker verify → MINT $WEEKS
 ```
 
-**Effort:** = same as B4 (Faucet) | **Value:** 🔥🔥
+**Effort:** = same as B4 (Claim Portal) | **Value:** 🔥🔥
 
 ---
 
-### B4. PoP Faucet (Minimal Viable PoP Economy)
+### B4. PoP Claim Portal (Human Mining) (Minimal Viable PoP Economy)
 
 **Concept:** Solve CAPTCHA = earn $WEEKS. The reference implementation that
 unifies B1+B2+B3.
 
-**To build (`zcp2o-faucet`):**
+**To build (`zcp2o-claim`):**
 1. `/faucet` endpoint — requires signed request + fresh human proof
 2. Faucet page (widget → identity → claim)
 3. Anti-bot: per-identity daily cap, nonce/expiry
@@ -285,7 +285,7 @@ The most viral demo: *"mine diamond, earn crypto."*
 ### AFTER COMPETITION (Phase 2A — weeks 1–2)
 
 5. **Genesis Block + Tokenomics** (1–2 days)
-6. **PoP Faucet** (3–5 days)
+6. **PoP Claim Portal (Human Mining)** (3–5 days)
 7. **Minecraft PoP** (2–3 days)
 
 ### PHASE 2B (months 1–2)
