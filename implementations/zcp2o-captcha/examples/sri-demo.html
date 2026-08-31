@@ -1,25 +1,57 @@
 <!doctype html>
-<html><head><meta charset="utf-8"><title>ZCP2O — SRI Attack Simulation</title></head>
-<body style="font-family:sans-serif;max-width:560px;margin:40px auto">
-<h3>🎯 SRI Attack Simulation</h3>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ZCP2O — SRI Integrity Test</title>
+<style>
+  body { font-family: sans-serif; max-width: 720px; margin: 24px auto; padding: 0 16px; }
+  .status { padding: 12px; margin: 12px 0; border-radius: 6px; }
+  .ok { background: #0b3d0b; color: #7f7; border: 1px solid #7f7; }
+  .blocked { background: #3d0b0b; color: #f77; border: 1px solid #f77; }
+  pre { background: #0b1020; color: #7f7; padding: 12px; overflow-x: auto; }
+</style>
+</head>
+<body>
+<h3>🛡️ SRI Integrity Test</h3>
+<p>This page demonstrates <strong>Subresource Integrity (SRI)</strong> — a browser security feature that blocks scripts whose content has been tampered with.</p>
 
-<p><b>1. Hash SALAH</b> (simulasi: hacker mengganti file) → browser WAJIB blokir:</p>
-<div id="r1">menunggu…</div>
+<h4>Test 1: Load widget with CORRECT hash (should work)</h4>
+<script
+  src="https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/widget/zcp2o-human-proof.js"
+  integrity="sha384-HASH_AKAN_COCOK"
+  crossorigin="anonymous"
+  onload="document.getElementById('test1').innerHTML='✅ Script loaded successfully'"
+  onerror="document.getElementById('test1').innerHTML='❌ Script blocked by SRI'">
+</script>
+<div id="test1" class="status">⏳ Loading...</div>
 
-<p><b>2. Hash BENAR</b> (file asli) → browser WAJIB izinkan:</p>
-<div id="r2">menunggu…</div>
+<h4>Test 2: Load widget with WRONG hash (should be blocked)</h4>
+<script
+  src="https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/widget/zcp2o-human-proof.js"
+  integrity="sha384-WRONG_HASH_YANG_SALAH"
+  crossorigin="anonymous"
+  onload="document.getElementById('test2').innerHTML='❌ Script loaded (SRI failed!)'"
+  onerror="document.getElementById('test2').innerHTML='✅ Script blocked by SRI (correct behavior)'">
+</script>
+<div id="test2" class="status">⏳ Loading...</div>
 
-<script src="https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/widget/zcp2o-hp1.js"
-        integrity="sha384-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        crossorigin="anonymous"
-        onerror="document.getElementById('r1').innerHTML='🚨 BLOCKED — SRI mendeteksi file tidak autentik!'"
-        onload="document.getElementById('r1').innerHTML='❌ LOADED — ini seharusnya tidak terjadi!'"></script>
+<h4>Why This Matters</h4>
+<p>SRI ensures that even if an attacker compromises the CDN or GitHub Pages, they <strong>cannot inject malicious code</strong> into your widget — the browser will reject any file whose hash doesn't match.</p>
 
-<script src="https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/widget/zcp2o-hp2.js"
-        integrity="sha384-N4ofmxPrifTF1OG2noIUQh7vaAncjyb1rDCl4Q5PxSL6dg71S1cKMBPR/rabUSfB"
-        crossorigin="anonymous"
-        onerror="document.getElementById('r2').innerHTML='❌ BLOCKED — padahal hash harusnya cocok!'"
-        onload="document.getElementById('r2').innerHTML='✅ ALLOWED — hash cocok, file autentik.'"></script>
+<h4>How to Generate Correct Hashes</h4>
+<pre>
+# PowerShell (Windows)
+curl.exe -o temp.js "https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/widget/zcp2o-human-proof.js"
+$hash = (Get-FileHash -Algorithm SHA384 temp.js).Hash
+[System.Convert]::ToBase64String([System.Convert]::FromHexString($hash))
 
-<p style="color:#666;font-size:12px;margin-top:20px">Inilah bukti: mengganti/memalsukan file = diblokir browser secara otomatis.</p>
-</body></html>
+# Linux/Mac
+curl -o temp.js "https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/widget/zcp2o-human-proof.js"
+openssl dgst -sha384 -binary temp.js | openssl base64 -A
+</pre>
+
+<p><strong>⚠️ Important:</strong> Always generate hashes from the <strong>deployed file</strong> (GitHub Pages), not your local copy. Local files may have different line endings (CRLF vs LF) that change the hash.</p>
+
+<p><a href="https://ringga999.github.io/zcp2o-protocol">← Back to ZCP2O</a></p>
+</body>
+</html>
