@@ -67,7 +67,7 @@ A self-contained JavaScript widget that proves you're human — **on-device, 0 b
 
 ## ⚡ INTEGRATE IN ONE LINE
 
-Adopsi ZCP2O Human Proof **cukup satu baris `<script>`** — ala reCAPTCHA, tapi tanpa spying dan tanpa server:
+Adopt ZCP2O Human Proof with **a single<script>line** — reCAPTCHA-style, but without spying and without a server:
 
 ```html
 <div id="my-captcha"></div>
@@ -81,14 +81,14 @@ Adopsi ZCP2O Human Proof **cukup satu baris `<script>`** — ala reCAPTCHA, tapi
 <Zcp2oCaptcha threshold={70} onVerified={t => setToken(t)} />
 ```
 
-✅ Vanilla / React / Vue / Svelte — semua didukung via event `zcp2o:verified`
+✅ Vanilla / React / Vue / Svelte — all supported via the `zcp2o:verified`
 📖 **Full guide:** [`docs/integration.md`](docs/integration.md)
 
 ---
 
 ## 🏦 LIVE INFRASTRUCTURE
 
-ZCP2O bukan konsep di atas kertas — **protokol ini hidup di internet**:
+ZCP2O is not a paper concept — **the protocol lives on the internet**:
 
 | Komponen | URL | Status |
 |----------|-----|:---:|
@@ -97,7 +97,7 @@ ZCP2O bukan konsep di atas kertas — **protokol ini hidup di internet**:
 | 📊 Chain View Explorer | [chainview](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-chainview/) | 🟢 LIVE |
 | 🏦 Digital Bunker (public API, hardened v1.2 — SRI + anti-replay + server verify) | [kdewa.pythonanywhere.com](https://kdewa.pythonanywhere.com) | 🟢 LIVE |
 
-> Lihat status Bunker real-time (chain height, peers, trust-weighted consensus) di **Chain View Explorer**.
+> See real-time Bunker status (chain height, peers, trust-weighted consensus) in the **Chain View Explorer**.
 
 ---
 
@@ -204,6 +204,8 @@ Not Proof-of-Work (wasteful electricity). Not Proof-of-Stake (requires capital).
 3. **Local Bunker** validates via mesh network
 4. **1% protocol fee** auto-routed to the Bunker (infrastructure incentive)
 5. **Probationary Finality** (1-4 hours) prevents double-spend
+   
+   > *On-chain human attestation (identities co-signing transactions) is on the roadmap — see `docs/master-plan.md` B1.*
 
 **Zero-Capital Entry:** No token purchase required. Play, claim, earn $WEEKS for free.
 
