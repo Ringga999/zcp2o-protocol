@@ -6,6 +6,8 @@
 
 ---
 
+> **Two binaries:** `node.py` = offline mesh full node (UDP networking, sync, fork resolution). `api.py` = public REST Bunker (FastAPI) used for the live deployment. This README covers both; the v1.2 addendum at the bottom documents the REST API.
+
 ## Features
 
 - **Full Ledger Storage**: Maintains complete blockchain history (no pruning)
@@ -356,7 +358,7 @@ Digital Bunker
 ## Security Features
 
 - **Double-Spend Prevention**: Ledger validation + Async Sync conflict resolution
-- **Cryptographic Verification**: All transactions must have valid RSA-4096 signatures
+- **Cryptographic Verification**: All transactions must have valid RSA signatures (tiered: RSA-2048 Light / RSA-4096 Bunker, per ZWS)
 - **Trust-Weighted Consensus**: Only high-trust peers (>80) can influence ledger state
 - **Chain Integrity**: Automatic detection of tampered blocks via hash validation
 - **Peer Cleanup**: Automatic removal of inactive peers (>5 minutes)
@@ -658,4 +660,4 @@ Full threat model: [`docs/security-hardening.md`](../../docs/security-hardening.
 
 ## License
 
-MIT License - Part of the ZCP2O Protocol | Zero-Capital Play-to-Own Blockchain
+AGPL-3.0 - Part of the ZCP2O Protocol | Zero-Capital Play-to-Own Blockchain
