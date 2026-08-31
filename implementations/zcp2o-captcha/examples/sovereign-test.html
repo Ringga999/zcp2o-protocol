@@ -5,10 +5,10 @@
         data-container="#cap1" data-callback="onHuman1"></script>
 </head>
 <body style="font-family:sans-serif;max-width:720px;margin:24px auto">
-<h3>🪪 Sovereign Auth v2 — Ujian Tanpa API Key</h3>
-<p><b>Widget 1</b> = registrasi identitas (KTP kripto):</p>
+<h3>🪪 Sovereign Auth v2 — No API Key Test</h3>
+<p><b>Widget 1</b> = identity registration (crypto ID):</p>
 <div id="cap1"></div>
-<p><b>Widget 2</b> = request tertandatangani:</p>
+<p><b>Widget 2</b> = signed request:</p>
 <div id="cap2"></div>
 <pre id="log" style="background:#0b1020;color:#7f7;padding:12px;min-height:180px;white-space:pre-wrap"></pre>
 <script>
@@ -21,31 +21,31 @@ let KP=null,ZID=null;
 window.addEventListener("load",()=>{window.Zcp2oEmbed.mount("#cap2",{onVerified:onHuman2});});
 
 window.onHuman1=async token=>{
-  log("✅ [1] Human Proof #1 diterima");
+  log("✅ [1] Human Proof #1 accepted");
   KP=await crypto.subtle.generateKey({name:"RSA-PSS",modulusLength:2048,publicExponent:new Uint8Array([1,0,1]),hash:"SHA-256"},true,["sign","verify"]);
   const jwk=await crypto.subtle.exportKey("jwk",KP.publicKey);
-  log("🔑 Keypair RSA dibuat DI PERANGKAT");
+  log("🔑 RSA Keypair generated ON-DEVICE");
   const r=await fetch(B+"/identity/register",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({human_proof:token,pubkey:{kty:jwk.kty,n:jwk.n,e:jwk.e}})});
   const j=await r.json();
   log("📨 register → "+r.status+" "+JSON.stringify(j));
-  if(j.ok){ZID=j.identity_id;log("🪪 Identity aktif: "+ZID+"\n   → selesaikan Widget 2 untuk ujian tanda tangan!");}
+  if(j.ok){ZID=j.identity_id;log("🪪 Identity active: "+ZID+"\n   → complete Widget 2 for the signature test!");}
 };
 
 window.onHuman2=async token=>{
-  if(!ZID||!KP){log("⚠️ Registrasi belum selesai — selesaikan Widget 1 dulu!");return;}
-  log("✅ [2] Human Proof #2 diterima");
+  if(!ZID||!KP){log("⚠️ Registration not complete — please finish Widget 1 first!");return;}
+  log("✅ [2] Human Proof #2 accepted");
   const body=JSON.stringify({token:token});
   const ts=Math.floor(Date.now()/1000).toString();
   const nonce=b64url(crypto.getRandomValues(new Uint8Array(16)).buffer);
   const canonical=["POST","/verify",await sha256hex(body),ts,nonce].join("\n");
   const sig=b64url(await crypto.subtle.sign({name:"RSA-PSS",saltLength:32},KP.privateKey,new TextEncoder().encode(canonical)));
-  log("✍️ Request ditandatangani (TANPA API key!)");
+  log("✍️ Request signed (NO API key!)");
   const r=await fetch(B+"/verify",{method:"POST",
     headers:{"Content-Type":"application/json","X-ZCP2O-Identity":ZID,"X-ZCP2O-Timestamp":ts,"X-ZCP2O-Nonce":nonce,"X-ZCP2O-Signature":sig},
     body:body});
   const j=await r.json();
   log("📨 /verify → "+r.status+" "+JSON.stringify(j).slice(0,220));
-  if(r.status===200&&j.valid)log("🏆 SOVEREIGN BERHASIL! Identitas kripto Anda diterima Bunker — tanpa shared secret!");
+  if(r.status===200&&j.valid)log("🏆 SOVEREIGN SUCCESS! Your crypto identity was accepted by Bunker — without any shared secret!");
 };
 </script>
 </body></html>
