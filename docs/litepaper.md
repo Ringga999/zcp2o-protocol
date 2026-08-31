@@ -17,7 +17,7 @@ In ZCP2O, **everyone in the village holds a copy of the ledger**. When Andi send
 
 ## The $WEEKS Token Economy
 Value in ZCP2O is driven by utility, not speculation. 
-- **Rule #1: No Faucet, Only Play.** You cannot get $WEEKS for free; you must contribute (play, relay, validate).
+- **Rule #1: No Faucet, Only Play.** You cannot get $WEEKS for free; you must contribute (play, relay, validate). *A verified Human Proof counts as contribution — solving a challenge is "play" that secures the network. There is no free faucet: every coin is earned.*
 - **Transaction Fees:** A small, fixed fee (e.g., 1%) is distributed to Full Nodes (Archivers) as passive income for maintaining the network.
 - **Halving:** Rewards decrease over time to ensure scarcity and prevent inflation.
 
