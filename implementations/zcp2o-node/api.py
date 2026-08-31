@@ -124,7 +124,7 @@ async def root():
         "node_address": bunker.address,
         "chain_height": len(bunker.blockchain.chain) - 1,
         "active_peers": len(bunker.peer_registry),
-        "version": "1.1.0-hardened"
+        "version": "1.2.0-sovereign",
     }
 
 @app.get("/balance/{address}")
@@ -279,7 +279,7 @@ async def sovereign_cors(request, call_next):
     else:
         resp = await call_next(request)
     o = request.headers.get("origin", "")
-    if o == "https://ringga999.github.io" or o.endswith(".github.io"):
+    if o in ("https://ringga999.github.io", "https://zcp2o.is-a.dev"):
         resp.headers["Access-Control-Allow-Origin"] = o
         resp.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
         resp.headers["Access-Control-Allow-Headers"] = "Content-Type, X-ZCP2O-Identity, X-ZCP2O-Timestamp, X-ZCP2O-Nonce, X-ZCP2O-Signature"

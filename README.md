@@ -63,6 +63,8 @@ A self-contained JavaScript widget that proves you're human — **on-device, 0 b
 
 **Killer demo:** Open the page, verify once, then **turn on Airplane Mode** and verify again. Traditional CAPTCHAs die. **ZCP2O Human Proof still works.** 🛩️
 
+> *Proof generation is fully on-device (0 bytes out). Optional server-side verification is available via `/verify` for integrators who want backend assurance.*
+
 ---
 
 ## ⚡ INTEGRATE IN ONE LINE
