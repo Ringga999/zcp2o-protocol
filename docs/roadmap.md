@@ -1,3 +1,5 @@
+> ⚠️ **Historical planning document.** The canonical, up-to-date roadmap is [`master-plan.md`](master-plan.md). This file is kept for context.
+
 # ZCP2O Development Roadmap (Updated)
 
 ## Phase 1: Core Library & CLI (2024-2025)
