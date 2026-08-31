@@ -581,6 +581,81 @@ grep "Fork resolution" logs/MyBunker.log | wc -l
 
 ---
 
+## 🆕 v1.2 Addendum — Hardened API & Sovereign Auth (Aug 30, 2026)
+
+This addendum documents the v1.1/v1.2 security layers built **on top of**
+the original Bunker API documented above.
+Live instance: `https://kdewa.pythonanywhere.com`
+
+### New Environment Variables
+
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `ZCP2O_API_KEY` | *(unset)* | Legacy shared key (migration period only) |
+| `ZCP2O_RATE_LIMIT` | `30` | Max requests/minute per IP |
+| `ZCP2O_CORS` | `https://ringga999.github.io` | Allowed origin |
+| `ZCP2O_ENABLE_TRANSFER` | `0` | Set `1` to enable `/transfer` (scope-split) |
+
+### Authentication (Dual-Auth)
+
+Protected endpoints accept **either**:
+1. **Legacy:** header `X-API-Key: <key>` (deprecated)
+2. **Sovereign (recommended):** signed request with identity headers
+
+| Header | Value |
+|--------|-------|
+| `X-ZCP2O-Identity` | your `zid-...` identity id |
+| `X-ZCP2O-Timestamp` | unix seconds (±5 min window) |
+| `X-ZCP2O-Nonce` | random 16-byte base64url (single-use) |
+| `X-ZCP2O-Signature` | RSA-PSS signature over canonical string |
+
+**Canonical string** (joined by `\n`):
+`METHOD`, `/path`, `sha256_hex(body)`, `timestamp`, `nonce`
+
+Dogfood demo: [`examples/sovereign-test.html`](../zcp2o-captcha/examples/sovereign-test.html)
+
+### New Endpoints
+
+#### `POST /identity/register` — get a sovereign identity (NO API KEY)
+
+Onboarding is gated by **humanity**, not shared secrets.
+
+Body: `{ "human_proof": "<token v5>", "pubkey": {"kty":"RSA","n":"...","e":"AQAB"} }`
+`201` → `{ "ok": true, "identity_id": "zid-...", "trust": 50 }`
+Errors: `401 human_proof_rejected` • `409 proof_already_used` • `409 identity_exists`
+
+#### `POST /verify` — server-side token verification (dual-auth)
+
+Body: `{ "token": "<token v5>" }`
+`200` → `{ "valid": true, "reason": "verified", "payload": {...} }`
+`401` → reasons: `malformed_token | nonce_replay | token_expired | invalid_signature`
+
+#### `POST /transfer` — DISABLED by default
+
+Returns `403 Transfer disabled (sovereign auth v2 scope-split)` unless
+`ZCP2O_ENABLE_TRANSFER=1`.
+
+### Security Features (v1.1/v1.2)
+
+| Feature | Detail |
+|---------|--------|
+| Rate limiting | per-IP, configurable |
+| Security headers | nosniff, DENY, no-store |
+| Scope-split | `/transfer` off by default |
+| Anti-replay | nonce store + 5-min expiry (P4) |
+| Server-side RSA-PSS | full signature verification (P3) |
+| Sovereign identity | per-identity keys, revocable (P5) |
+
+Full threat model: [`docs/security-hardening.md`](../../docs/security-hardening.md)
+
+### Changelog
+
+- **v1.2** — Sovereign Auth v2 (identity registry, signed requests), scope-split
+- **v1.1** — Hardening: API key, rate-limit, CORS, headers, `/verify` (P1–P4)
+- **v1.0** — Initial Bunker
+
+---
+
 ## License
 
 MIT License - Part of the ZCP2O Protocol | Zero-Capital Play-to-Own Blockchain
