@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZCP2O Wallet — Sovereign Web Wallet (MVP)</title>
+<style>
+ body{font-family:'Segoe UI',sans-serif;background:#0d1520;color:#e8eef5;max-width:640px;margin:40px auto;padding:0 16px}
+ h1{color:#4ade80}
+ .card{background:#12202f;border:1px solid #23374c;border-radius:12px;padding:20px;margin:16px 0}
+ .addr{font-family:monospace;color:#7dd3fc;word-break:break-all;font-size:15px}
+ button{background:#4ade80;color:#0d1520;border:0;border-radius:8px;padding:10px 18px;font-weight:bold;cursor:pointer;margin:6px 6px 6px 0}
+ button.sec{background:#16283a;color:#7dd3fc;border:1px solid #23374c}
+ .bal{font-size:28px;color:#4ade80}
+ .warn{color:#fbbf24;font-size:12px}
+ .ok{color:#4ade80;font-size:12px}
+</style></head>
+<body>
+<h1>🏛️ ZCP2O Wallet <span style="font-size:12px;color:#94a3b8">MVP • ZWS-compatible address derivation</span></h1>
+
+<div class="card" id="setup">
+  <p>No wallet found on this device.</p>
+  <button onclick="createWallet()">🔑 Create Sovereign Wallet</button>
+  <p class="warn">Your private key NEVER leaves this device. Sovereignty means self-custody — backup is your responsibility.</p>
+</div>
+
+<div class="card" id="main" style="display:none">
+  <p style="margin:0;color:#94a3b8">Your address</p>
+  <p class="addr" id="addr"></p>
+  <p class="bal" id="bal">— $WEEKS</p>
+  <button onclick="refresh()">🔄 Refresh balance</button>
+  <button class="sec" onclick="backup()">💾 Backup private key</button>
+  <button class="sec" onclick="copyAddr()">📋 Copy address</button>
+  <p class="ok" id="status"></p>
+  <p class="warn">MVP stores your key in this browser's localStorage. Production path: offline Android wallet (roadmap Phase 2B).</p>
+</div>
+
+<script>
+const B="https://kdewa.pythonanywhere.com";
+let W=null;
+
+// --- ZWS-compatible address derivation (byte-identical to zcp2o-core) ---
+function b64bytes(buf){let s="";const u=new Uint8Array(buf);for(let i=0;i<u.length;i++)s+=String.fromCharCode(u[i]);return btoa(s);}
+function derToPem(der){const b64=b64bytes(der);return "-----BEGIN PUBLIC KEY-----\n"+b64.match(/.{1,64}/g).join("\n")+"\n-----END PUBLIC KEY-----\n";}
+async function addressFromSpki(der){
+  const pem=derToPem(der);
+  const d=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(pem));
+  return "WKS-"+[...new Uint8Array(d).slice(0,20)].map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+
+async function createWallet(){
+  document.getElementById("status").textContent="Generating RSA-2048 keypair on-device (ZWS Light tier)...";
+  const kp=await crypto.subtle.generateKey({name:"RSA-PSS",modulusLength:2048,publicExponent:new Uint8Array([1,0,1]),hash:"SHA-256"},true,["sign","verify"]);
+  const spki=await crypto.subtle.exportKey("spki",kp.publicKey);
+  const priv=await crypto.subtle.exportKey("jwk",kp.privateKey);
+  const pub=await crypto.subtle.exportKey("jwk",kp.publicKey);
+  const address=await addressFromSpki(spki);
+  W={address,priv,pub};
+  localStorage.setItem("zcp2o-wallet",JSON.stringify(W));
+  show();
+}
+
+function load(){const s=localStorage.getItem("zcp2o-wallet");if(s){W=JSON.parse(s);show();}}
+
+function show(){
+  document.getElementById("setup").style.display="none";
+  document.getElementById("main").style.display="block";
+  document.getElementById("addr").textContent=W.address;
+  refresh();
+}
+
+async function refresh(){
+  document.getElementById("status").textContent="Querying Bunker...";
+  try{
+    const r=await fetch(B+"/balance/"+W.address);
+    const j=await r.json();
+    document.getElementById("bal").textContent=j.balance+" $WEEKS";
+    document.getElementById("status").textContent="Balance synced from Bunker ✔";
+  }catch(e){
+    document.getElementById("bal").textContent="0 $WEEKS";
+    document.getElementById("status").textContent="Bunker unreachable (offline?) — showing 0.";
+  }
+}
+
+function backup(){
+  const blob=new Blob([JSON.stringify({format:"zcp2o-wallet-backup-v1",address:W.address,private_jwk:W.priv,public_jwk:W.pub},null,2)],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="zcp2o-wallet-backup.json";a.click();
+  document.getElementById("status").textContent="Backup downloaded — store it OFFLINE (air-gapped)!";
+}
+
+function copyAddr(){navigator.clipboard.writeText(W.address);document.getElementById("status").textContent="Address copied ✔";}
+
+load();
+</script>
+</body></html>
