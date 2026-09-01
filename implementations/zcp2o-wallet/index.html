@@ -19,6 +19,8 @@
 <div class="card" id="setup">
   <p>No wallet found on this device.</p>
   <button onclick="createWallet()">🔑 Create Sovereign Wallet</button>
+  <button class="sec" onclick="document.getElementById('file').click()">📂 Restore from backup</button>
+  <input type="file" id="file" style="display:none" accept=".json" onchange="restore(event)">
   <p class="warn">Your private key NEVER leaves this device. Sovereignty means self-custody — backup is your responsibility.</p>
 </div>
 
@@ -87,6 +89,20 @@ function backup(){
 }
 
 function copyAddr(){navigator.clipboard.writeText(W.address);document.getElementById("status").textContent="Address copied ✔";}
+
+async function restore(ev){
+  const f=ev.target.files[0]; if(!f) return;
+  const data=JSON.parse(await f.text());
+  if(data.format!=="zcp2o-wallet-backup-v1"){alert("Not a ZCP2O wallet backup file.");return;}
+  const pubKey=await crypto.subtle.importKey("jwk",data.public_jwk,{name:"RSA-PSS",hash:"SHA-256"},true,["verify"]);
+  const spki=await crypto.subtle.exportKey("spki",pubKey);
+  const address=await addressFromSpki(spki);
+  if(address!==data.address){alert("Address mismatch — backup corrupted.");return;}
+  W={address,priv:data.private_jwk,pub:data.public_jwk};
+  localStorage.setItem("zcp2o-wallet",JSON.stringify(W));
+  show();
+  document.getElementById("status").textContent="Wallet restored ✔ Welcome back, sovereign.";
+}
 
 load();
 </script>
