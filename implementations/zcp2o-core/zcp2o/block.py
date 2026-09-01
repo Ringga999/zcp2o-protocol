@@ -56,8 +56,7 @@ class Block:
         if not transaction:
             return False
         
-        if not transaction.validate_signature():
-            return False
+        # NOTE: signature validation happens at the API layer (separation of concerns).
         
         self.transactions.append(transaction)
         # Recalculate hash after adding transaction

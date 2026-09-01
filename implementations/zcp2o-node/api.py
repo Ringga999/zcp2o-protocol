@@ -127,6 +127,34 @@ async def root():
         "version": "1.2.0-sovereign",
     }
 
+@app.get("/pioneers")
+async def get_pioneers():
+    """Season 0 leaderboard: first sovereign identities (pseudonymous — no pubkeys exposed)."""
+    import json as _json
+    candidates = ["identities.json",
+                  os.path.join(os.path.dirname(os.path.abspath(__file__)), "identities.json")]
+    recs = {}
+    for p in candidates:
+        try:
+            with open(p) as f:
+                data = _json.load(f)
+            recs = data.get("identities", data) if isinstance(data, dict) else {}
+            break
+        except Exception:
+            continue
+    rows = []
+    for zid, rec in recs.items():
+        if isinstance(rec, dict) and rec.get("revoked"):
+            continue
+        rows.append({"zid": zid,
+                     "registered_at": rec.get("created_at", 0) if isinstance(rec, dict) else 0})
+    rows.sort(key=lambda r: r["registered_at"] or 0)
+    top = rows[:100]
+    return {"season": 0, "total": len(rows),
+            "pioneers": [{"rank": i + 1, "zid": r["zid"], "registered_at": r["registered_at"]}
+                         for i, r in enumerate(top)]}
+
+
 @app.get("/balance/{address}")
 async def get_balance(address: str):
     """Check the $WEEKS balance of a specific address."""
