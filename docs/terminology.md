@@ -59,6 +59,7 @@
 *   **Peer Registry**: A database maintained by each node that tracks the Trust Scores (0-100) of other known nodes in the network.
 *   **Professional Logging**: Dual-output logging system (Console + File) with daily rotation. Stores 30 days of audit trail for compliance.
 *   **UDP Broadcast**: User Datagram Protocol broadcast method used for local mesh communication. Allows nodes to discover each other without central servers.
+*   **Identity Equation**: Bitcoin: `P = k·G` (identity = secret scalar on curve secp256k1, math-only). ZCP2O: `zid = H(p·q)`, registered only if a Human Proof verifies — identity = secret RSA keypair **+ proven humanity**. See `tokenomics.md` and `crypto-agility.md`.
 
 ---
 
