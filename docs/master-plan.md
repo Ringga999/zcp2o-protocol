@@ -251,6 +251,46 @@ The most viral demo: *"mine diamond, earn crypto."*
 
 ---
 
+### C4. Browser Extension Wallet (ZWS Provider)
+
+**Concept:** MetaMask-style extension injecting a `window.zcp2o` provider;
+dApps request address / sign transfers / attest Human Proof without ever
+touching the keys.
+
+**Mechanism:** MV3 extension; keys in extension storage; popup approval flow.
+**Effort:** 1–2 days (MVP) | **Value:** 🔥🔥🔥 (real ZWS adoption path)
+
+---
+
+### C5. IoT Implementation (Sponsored Devices)
+
+**Concept:** IoT sensors earn $WEEKS by relaying mesh data or reporting
+verified sensor readings. Devices cannot prove humanity → device keys are
+**sponsored/attested by a human identity (zid)**; rewards split device↔owner.
+
+**Effort:** ~1 week (pilot) | **Value:** 🔥
+
+---
+
+### C6. Healthcare Credentials (Tamper-Proof Medical Records)
+
+**Concept:** Hospitals operate Digital Bunkers and issue signed credentials
+(vaccinations, diplomas); patients hold them in the wallet; verifiable
+offline via QR — no central database.
+
+**Effort:** ~1 week (pilot) | **Value:** 🔥🔥🔥 (social-impact narrative)
+
+---
+
+### C7. On-Chain View App (Explorer v2)
+
+**Concept:** Upgrade `zcp2o-chainview` into a full explorer: blocks,
+transactions, genesis inscription, credentials, per-address history.
+
+**Effort:** 2–3 days | **Value:** 🔥🔥 (transparency showcase)
+
+---
+
 ## D. Pending Tasks
 
 ### D1. Hygiene & Documentation (5 items)

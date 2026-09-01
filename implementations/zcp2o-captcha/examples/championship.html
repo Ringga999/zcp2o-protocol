@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZCP2O Championship — Season 0: First 100 Sovereign Identities</title>
+<script src="https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/widget/embed.js"
+        data-container="#cap" data-callback="onHuman"></script>
+<style>
+ body{font-family:'Segoe UI',sans-serif;background:#0d1520;color:#e8eef5;max-width:720px;margin:40px auto;padding:0 16px}
+ h1{color:#4ade80} h2{color:#4ade80;font-size:18px}
+ .card{background:#12202f;border:1px solid #23374c;border-radius:12px;padding:16px;margin:16px 0}
+ code{color:#7dd3fc}
+ .warn{color:#fbbf24;font-size:12px}
+ ol{margin:8px 0}
+</style></head>
+<body>
+<h1>🏆 ZCP2O Championship — Season 0</h1>
+<p><b>First 100 Sovereign Identities.</b> Prove you are human, register your
+crypto ID, and be etched into protocol history as a <b>Genesis Pioneer</b>.</p>
+
+<div id="cap"></div>
+<div id="result" class="card" style="display:none"></div>
+
+<h2>🥇 Pioneer Leaderboard</h2>
+<div id="board" class="card">Loading...</div>
+
+<p class="warn">Pseudonymous by design: only your zid hash is published —
+never your key, never your data, never your IP.</p>
+
+<script>
+const B="https://kdewa.pythonanywhere.com";
+
+window.onHuman=async token=>{
+  const kp=await crypto.subtle.generateKey({name:"RSA-PSS",modulusLength:2048,
+    publicExponent:new Uint8Array([1,0,1]),hash:"SHA-256"},true,["sign","verify"]);
+  const jwk=await crypto.subtle.exportKey("jwk",kp.publicKey);
+  const r=await fetch(B+"/identity/register",{method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({human_proof:token,pubkey:{kty:jwk.kty,n:jwk.n,e:jwk.e}})});
+  const j=await r.json();
+  const el=document.getElementById("result");
+  el.style.display="block";
+  if(j.ok){
+    const p=await fetch(B+"/pioneers").then(x=>x.json());
+    const me=p.pioneers.find(x=>x.zid===j.identity_id);
+    el.innerHTML="🎉 <b>You are Pioneer #"+(me?me.rank:"?")+"</b> of "+p.total+
+      "!<br><code>"+j.identity_id+"</code><br>When Genesis happens, the first 100 receive the Genesis Pioneer badge.";
+  }else{
+    el.innerHTML="⚠️ "+(j.error||"registration failed")+" — one human proof registers one identity.";
+  }
+  loadBoard();
+};
+
+async function loadBoard(){
+  try{
+    const p=await fetch(B+"/pioneers").then(x=>x.json());
+    document.getElementById("board").innerHTML=
+      "<p>Total pioneers: <b>"+p.total+"</b> / 100</p><ol>"+
+      p.pioneers.slice(0,10).map(x=>"<li><code>"+x.zid.slice(0,18)+"…</code></li>").join("")+
+      "</ol>";
+  }catch(e){document.getElementById("board").textContent="Bunker unreachable.";}
+}
+loadBoard();
+setInterval(loadBoard,15000);
+</script>
+</body></html>
