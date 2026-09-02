@@ -19,9 +19,9 @@ proven. ZCP2O = the privacy-first alternative (0 bytes exfiltrated, no KYC).
 |---|--------|------|------|:---:|:---:|----------|
 | 1 | LOGOS blockchain | comment | [issue #3058](https://github.com/logos-blockchain/logos-blockchain/issues/3058) | ✅ sent | 2026-09-02 | ⏳ |
 | 2 | pk910 PoWFaucet (upstream of Boba!) | new issue | [issue #528](https://github.com/pk910/PoWFaucet/issues/528) | ✅ sent | 2026-09-02 | ⏳ |
-| 3 | Boba Network Faucet | — | [repo](https://github.com/bobanetwork/Faucet) | 🚫 blocked | — | issues disabled + dormant 2y → pivoted to upstream (#2) |
-| 4 | rauljordan/eth-faucet | new issue | [repo](https://github.com/rauljordan/eth-faucet) | 📝 draft ready | — | — |
-| 5 | celestiaorg/ethermint-faucet | new issue | [repo](https://github.com/celestiaorg/ethermint-faucet) | 📝 draft ready | — | — |
+| 3 | rauljordan/eth-faucet | new issue | [issue link](https://github.com/rauljordan/eth-faucet/issues/9) | ✅ sent | 2026-09-02 | ⏳ |
+| 4 | Boba Network Faucet | — | [repo](https://github.com/bobanetwork/Faucet) | 🚫 blocked | — | Issues disabled + dormant 2y → pivoted to upstream pk910 |
+| 5 | celestiaorg/ethermint-faucet | — | [repo](https://github.com/celestiaorg/ethermint-faucet) | 🚫 blocked | — | Issues disabled; fork of archived Osmosis faucet |
 
 ---
 
