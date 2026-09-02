@@ -22,6 +22,7 @@ proven. ZCP2O = the privacy-first alternative (0 bytes exfiltrated, no KYC).
 | 3 | rauljordan/eth-faucet | new issue | [issue link](https://github.com/rauljordan/eth-faucet/issues/9) | ✅ sent | 2026-09-02 | ⏳ |
 | 4 | Boba Network Faucet | — | [repo](https://github.com/bobanetwork/Faucet) | 🚫 blocked | — | Issues disabled + dormant 2y → pivoted to upstream pk910 |
 | 5 | celestiaorg/ethermint-faucet | — | [repo](https://github.com/celestiaorg/ethermint-faucet) | 🚫 blocked | — | Issues disabled; fork of archived Osmosis faucet |
+| 6 | is-a.dev (`zcp2o.is-a.dev`) | PR | [#50393](https://github.com/is-a-dev/register/pull/50393) | ✅ checks green | 2026-09-02 | ⏳ awaiting maintainer review |
 
 ---
 
