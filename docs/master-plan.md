@@ -300,7 +300,7 @@ transactions, genesis inscription, credentials, per-address history.
 | 1 | **Translation sweep** (ID→EN): `sovereign-test.html`, `sri-demo.html`, `security-hardening.md`, code comments | 1–2 days |
 | 2 | **Landing `index.html`** — update "v1.1" → v1.2 + sovereign + crypto-agile | 30 min |
 | 3 | **`zcp2o-node/README.md`** — document new endpoints (`/verify`, `/identity/register`, signed headers) | 1 hr |
-| 4 | **is-a.dev PR #48571** (`zcp2o.is-a.dev`) — awaiting maintainer review | weekly check |
+| 4 | ~~is-a.dev PR #48571~~ | ❌ denied ("not software-related") → retry: root URL→repo, lalu nested subdomains |
 | 5 | **`security-hardening.md` v1.3** — add sovereign auth section (English) | 1 hr |
 
 ### D2. Strategic Decisions (Competition)
