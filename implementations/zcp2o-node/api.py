@@ -154,6 +154,55 @@ async def get_pioneers():
             "pioneers": [{"rank": i + 1, "zid": r["zid"], "registered_at": r["registered_at"]}
                          for i, r in enumerate(top)]}
 
+@app.get("/blocks")
+async def get_blocks(limit: int = 50):
+    """List blocks (newest first) for the explorer."""
+    if not bunker:
+        raise HTTPException(status_code=503, detail="Node is not initialized yet.")
+    chain = bunker.blockchain.chain
+    blocks = [{
+        "index": b.index,
+        "hash": b.hash,
+        "previous_hash": b.previous_hash,
+        "timestamp": b.timestamp,
+        "tx_count": len(b.transactions),
+    } for b in chain[-limit:][::-1]]
+    return {"height": len(chain) - 1, "count": len(blocks), "blocks": blocks}
+
+
+@app.get("/block/{index}")
+async def get_block(index: int):
+    """Single block detail with transactions."""
+    if not bunker:
+        raise HTTPException(status_code=503, detail="Node is not initialized yet.")
+    chain = bunker.blockchain.chain
+    if index < 0 or index >= len(chain):
+        raise HTTPException(status_code=404, detail="Block not found.")
+    b = chain[index]
+    return {
+        "index": b.index,
+        "hash": b.hash,
+        "previous_hash": b.previous_hash,
+        "timestamp": b.timestamp,
+        "transactions": [t.to_dict() for t in b.transactions],
+    }
+
+
+@app.get("/txs")
+async def get_txs(limit: int = 100):
+    """Flat list of transactions (newest first)."""
+    if not bunker:
+        raise HTTPException(status_code=503, detail="Node is not initialized yet.")
+    txs = []
+    for b in reversed(bunker.blockchain.chain):
+        for t in b.transactions:
+            d = t.to_dict()
+            d["block"] = b.index
+            txs.append(d)
+            if len(txs) >= limit:
+                return {"count": len(txs), "txs": txs}
+    return {"count": len(txs), "txs": txs}
+
 
 @app.get("/balance/{address}")
 async def get_balance(address: str):
