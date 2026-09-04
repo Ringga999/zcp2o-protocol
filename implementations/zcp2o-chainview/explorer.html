@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZCP2O Explorer v2 — On-Chain View</title>
+<style>
+ body{font-family:'Segoe UI',sans-serif;background:#0d1520;color:#e8eef5;max-width:960px;margin:0 auto;padding:24px 16px}
+ h1{color:#4ade80}
+ .muted{color:#94a3b8}
+ .stats{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}
+ .stat{background:#12202f;border:1px solid #23374c;border-radius:12px;padding:12px 20px}
+ .stat b{color:#4ade80;font-size:22px;display:block}
+ .tabs{display:flex;gap:8px;margin:20px 0 12px}
+ .tab{padding:8px 18px;border-radius:10px;border:1px solid #23374c;background:#12202f;color:#7dd3fc;cursor:pointer}
+ .tab.active{background:#4ade80;color:#06240f;border-color:#4ade80;font-weight:700}
+ table{width:100%;border-collapse:collapse;background:#12202f;border:1px solid #23374c}
+ th,td{padding:10px 12px;text-align:left;font-size:13px;border-bottom:1px solid #1b2c3d}
+ th{color:#94a3b8;background:#0f1a26}
+ td code{color:#7dd3fc;font-size:12px}
+ .badge{color:#fbbf24}
+</style></head>
+<body>
+<h1>🔭 ZCP2O Explorer <span class="muted">v2</span></h1>
+<p class="muted">Public on-chain view — blocks, transactions, Genesis Pioneers. Auto-refresh 15s.</p>
+
+<div class="stats">
+ <div class="stat"><b id="sHeight">–</b>Chain Height</div>
+ <div class="stat"><b id="sBlocks">–</b>Blocks</div>
+ <div class="stat"><b id="sTxs">–</b>Transactions</div>
+ <div class="stat"><b id="sPio">–</b>Pioneers</div>
+</div>
+
+<div class="tabs">
+ <button class="tab active" onclick="show('blocks')">🧱 Blocks</button>
+ <button class="tab" onclick="show('txs')">💸 Transactions</button>
+ <button class="tab" onclick="show('pio')">🏆 Pioneers</button>
+</div>
+
+<div id="v-blocks"><table><thead><tr><th>#</th><th>Hash</th><th>Time</th><th>Txs</th></tr></thead><tbody id="tbBlocks"></tbody></table></div>
+<div id="v-txs" style="display:none"><table><thead><tr><th>Block</th><th>Type</th><th>From</th><th>To</th><th>Amount</th></tr></thead><tbody id="tbTxs"></tbody></table></div>
+<div id="v-pio" style="display:none"><table><thead><tr><th>Rank</th><th>Sovereign ID (zid)</th><th>Registered</th></tr></thead><tbody id="tbPio"></tbody></table></div>
+
+<script>
+const B="https://kdewa.pythonanywhere.com";
+const esc=s=>String(s??"").replace(/[<>&"]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[c]));
+const short=h=>h?h.slice(0,10)+"…":"–";
+const time=t=>t?new Date(t*1000).toLocaleString():"–";
+
+async function load(){
+  try{
+    const [bl,tx,pi]=await Promise.all([
+      fetch(B+"/blocks").then(r=>r.json()),
+      fetch(B+"/txs").then(r=>r.json()),
+      fetch(B+"/pioneers").then(r=>r.json())
+    ]);
+    sHeight.textContent=bl.height;
+    sBlocks.textContent=bl.count;
+    sTxs.textContent=tx.count;
+    sPio.textContent=pi.total;
+    tbBlocks.innerHTML=bl.blocks.map(b=>
+      `<tr><td><b>${b.index}</b></td><td><code>${short(b.hash)}</code></td><td class="muted">${time(b.timestamp)}</td><td>${b.tx_count}</td></tr>`).join("");
+    tbTxs.innerHTML=(tx.txs.length?tx.txs:[{block:"–",tx_type:"–",sender:"–",receiver:"–",amount:"–"}]).map(t=>
+      `<tr><td>${t.block}</td><td><span class="badge">${esc(t.tx_type)}</span></td><td><code>${short(t.sender)}</code></td><td><code>${short(t.receiver)}</code></td><td>${t.amount}</td></tr>`).join("");
+    tbPio.innerHTML=pi.pioneers.map(p=>
+      `<tr><td><b>#${p.rank}</b></td><td><code>${esc(p.zid)}</code></td><td class="muted">${time(p.registered_at)}</td></tr>`).join("");
+  }catch(e){console.error(e);}
+}
+function show(v){
+  ["blocks","txs","pio"].forEach(x=>{document.getElementById("v-"+x).style.display=(x===v)?"":"none";});
+  document.querySelectorAll(".tab").forEach((t,i)=>{t.classList.toggle("active",["blocks","txs","pio"][i]===v);});
+}
+load(); setInterval(load,15000);
+</script>
+</body></html>
