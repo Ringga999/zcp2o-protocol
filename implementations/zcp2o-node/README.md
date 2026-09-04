@@ -176,7 +176,7 @@ YYYY-MM-DD HH:MM:SS | LEVEL | Message
 
 Example:
 2024-08-01 14:30:15 | INFO     | Digital Bunker initialized at WKS-a1b2c3d4...
-2024-08-01 14:30:20 | INFO     | Transaction accepted: 50 WEEKS from WKS-xyz...
+2024-08-01 14:30:20 | INFO     | Transaction accepted: 50 ZPRO from WKS-xyz...
 2024-08-01 14:30:21 | ERROR    | Reject: Insufficient funds for WKS-abc...
 2024-08-01 14:30:22 | WARNING  | Block hash mismatch, attempting resolution
 
@@ -314,9 +314,9 @@ bunker.apply_fork_resolution(remote_chain)
 
 Scenario: Double-Spend Attempt
 
-1. Alice has 100 WEEKS
-2. Alice sends 100 WEEKS to Bob (Node A validates, Trust: 90)
-3. Alice tries to send same 100 WEEKS to Charlie (Node B validates, Trust: 30 - suspicious new node)
+1. Alice has 100 ZPRO
+2. Alice sends 100 ZPRO to Bob (Node A validates, Trust: 90)
+3. Alice tries to send same 100 ZPRO to Charlie (Node B validates, Trust: 30 - suspicious new node)
 4. Node A and Node B sync, fork detected
 5. Fork Resolution:
    - Chain with Bob's transaction: Trust Weight = 90

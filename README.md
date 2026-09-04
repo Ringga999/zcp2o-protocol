@@ -124,7 +124,7 @@ ZCP2O is not a paper concept — **the protocol lives on the internet**:
 
 | Folder | Status | Description |
 |--------|--------|-------------|
-| 🎮 **alpha-drop** | 🟡 Dev | First Proof-of-Play game: claim $WEEKS coins in physical zones |
+| 🎮 **alpha-drop** | 🟡 Dev | First Proof-of-Play game: claim $ZPRO coins in physical zones |
 
 ### Future Modules (Phase 2-3)
 
@@ -202,14 +202,14 @@ A comprehensive dictionary of 60+ terms comparing ZCP2O to traditional blockchai
 Not Proof-of-Work (wasteful electricity). Not Proof-of-Stake (requires capital). **Proof-of-Play** distributes tokens based on **real human activity**:
 
 1. **Player** moves to a physical zone (GPS/mesh proximity)
-2. **Claim** $WEEKS coins in the Alpha Drop game
+2. **Claim** $ZPRO coins in the Alpha Drop game
 3. **Local Bunker** validates via mesh network
 4. **1% protocol fee** auto-routed to the Bunker (infrastructure incentive)
 5. **Probationary Finality** (1-4 hours) prevents double-spend
    
    > *On-chain human attestation (identities co-signing transactions) is on the roadmap — see `docs/master-plan.md` B1.*
 
-**Zero-Capital Entry:** No token purchase required. Play, claim, earn $WEEKS for free.
+**Zero-Capital Entry:** No token purchase required. Play, claim, earn $ZPRO for free.
 
 ---
 

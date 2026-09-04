@@ -133,13 +133,13 @@ verification. Human Proof tokens become **trust-weighted consensus votes**.
 
 ---
 
-### B2. $WEEKS Tokenomics + Genesis Block
+### B2. $ZPRO Tokenomics + Genesis Block
 
 **Concept:** Fair launch (no premine/ICO). Emission only via PoP activity.
 1% protocol fee routed to Bunker (infrastructure incentive).
 
 **Existing foundations:**
-- ✅ SQLite ledger in Bunker (`/balance/{address}` returns `$WEEKS`)
+- ✅ SQLite ledger in Bunker (`/balance/{address}` returns `$ZPRO`)
 - ✅ `zcp2o-core` ledger + consensus primitives
 - ✅ Fair-launch principle agreed
 
@@ -152,14 +152,14 @@ verification. Human Proof tokens become **trust-weighted consensus votes**.
 
 ---
 
-### B3. $WEEKS Mining (Human Activity = Work)
+### B3. $ZPRO Mining (Human Activity = Work)
 
 **Concept:** Mining in PoP is NOT hash computation — it is **verified human
 activity**. The user becomes Miner #1 (like Satoshi mining genesis).
 
 **Mining loop:**
 ```
-Solve CAPTCHA → token v5 → signed request → Bunker verify → MINT $WEEKS
+Solve CAPTCHA → token v5 → signed request → Bunker verify → MINT $ZPRO
 ```
 
 **Effort:** = same as B4 (Claim Portal) | **Value:** 🔥🔥
@@ -168,7 +168,7 @@ Solve CAPTCHA → token v5 → signed request → Bunker verify → MINT $WEEKS
 
 ### B4. PoP Claim Portal (Human Mining) (Minimal Viable PoP Economy)
 
-**Concept:** Solve CAPTCHA = earn $WEEKS. The reference implementation that
+**Concept:** Solve CAPTCHA = earn $ZPRO. The reference implementation that
 unifies B1+B2+B3.
 
 **To build (`zcp2o-claim`):**
@@ -236,7 +236,7 @@ problem-solving. Inspired by NVIDIA's multi-agent "vibes coding."
 
 ### C3. Minecraft Implementation (PoP Mining Game)
 
-**Concept:** Mining blocks/farming → PoP verification → exchange to $WEEKS.
+**Concept:** Mining blocks/farming → PoP verification → exchange to $ZPRO.
 The most viral demo: *"mine diamond, earn crypto."*
 
 **Mechanism (`zcp2o-minecraft`):**
@@ -264,7 +264,7 @@ touching the keys.
 
 ### C5. IoT Implementation (Sponsored Devices)
 
-**Concept:** IoT sensors earn $WEEKS by relaying mesh data or reporting
+**Concept:** IoT sensors earn $ZPRO by relaying mesh data or reporting
 verified sensor readings. Devices cannot prove humanity → device keys are
 **sponsored/attested by a human identity (zid)**; rewards split device↔owner.
 

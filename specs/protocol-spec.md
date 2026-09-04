@@ -57,7 +57,7 @@ All data exchanged over the mesh is formatted in compact JSON.
   "sender_pk": "WKS-9f8a7b...",
   "receiver_pk": "WKS-1c2d3e...",
   "amount": 50.00,
-  "currency": "WEEKS",
+  "currency": "ZPRO",
   "timestamp": 1698765432,
   "logical_clock": 458,
   "payload_hash": "sha256_abc...",

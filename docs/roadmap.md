@@ -93,11 +93,11 @@ Developer can integrate ZCP2O into their app in under 1 day.
 
 - **Offline Chat** (Messaging app)
   - ✅ End-to-end encryption
-  - ✅ Mesh relay (earn $WEEKS)
+  - ✅ Mesh relay (earn $ZPRO)
   - ✅ Works without internet
 
 **Success Metric:**
-Your grandmother can send $WEEKS without asking for help.
+Your grandmother can send $ZPRO without asking for help.
 
 ---
 
@@ -131,7 +131,7 @@ Your grandmother can send $WEEKS without asking for help.
 
 ### Beginner-Friendly Features:
 - ✅ **Interactive tutorials** (like Codecademy)
-- ✅ **Sandbox mode** (test without real $WEEKS)
+- ✅ **Sandbox mode** (test without real $ZPRO)
 - ✅ **Community support** (Discord/Forum with mentors)
 - ✅ **Video guides** (YouTube playlist)
 - ✅ **FAQ database** (Searchable, updated weekly)

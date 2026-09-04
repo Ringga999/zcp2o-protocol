@@ -7,9 +7,9 @@
 
 ## 💰 VALUE & WALLET
 
-**WEEKS ($WEEKS)** — The native unit of value in ZCP2O; time-based value earned through presence and participation.
+**ZPRO ($ZPRO)** — The native unit of value in ZCP2O; time-based value earned through presence and participation.
 
-**HOUR** *(proposed)* — The smallest sub-unit of WEEKS. 1 WEEKS = 168 HOURS.
+**HOUR** *(proposed)* — The smallest sub-unit of ZPRO. 1 ZPRO = 168 HOURS.
 
 **Address (WKS-…)** — A public identifier for receiving funds, derived from the hash of an RSA public key. Example: `WKS-b74acadc…`
 
@@ -21,11 +21,11 @@
 
 **Recovery Phrase** *(roadmap)* — A word-based backup of the wallet key. Currently keys are stored as files; mnemonic backup is planned.
 
-**Transaction** — A signed instruction to move WEEKS between addresses.
+**Transaction** — A signed instruction to move ZPRO between addresses.
 
 **Protocol Fee (1%)** — A fixed, predictable transfer fee — not an auction-based fee market like Bitcoin.
 
-**Balance** — The total WEEKS owned by an address on the account ledger.
+**Balance** — The total ZPRO owned by an address on the account ledger.
 
 ---
 

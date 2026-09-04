@@ -28,7 +28,7 @@ receiver_address = "WKS-abcdef1234567890abcdef1234567890abcdef12"
 tx = Transaction.create(sender, receiver_address, 50.0)
 
 print(f"Transaction: {tx}")
-# Output: Transaction(WKS-... -> WKS-...: 50.0 WEEKS)
+# Output: Transaction(WKS-... -> WKS-...: 50.0 ZPRO)
 
 # Get transaction hash (for block inclusion)
 print(f"Hash: {tx.get_hash()}")

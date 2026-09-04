@@ -206,14 +206,14 @@ async def get_txs(limit: int = 100):
 
 @app.get("/balance/{address}")
 async def get_balance(address: str):
-    """Check the $WEEKS balance of a specific address."""
+    """Check the $ZPRO balance of a specific address."""
     if not bunker:
         raise HTTPException(status_code=503, detail="Node is not initialized yet.")
     balance = bunker.get_balance(address)
     return {
         "address": address,
         "balance": balance,
-        "currency": "$WEEKS"
+        "currency": "$ZPRO"
     }
 
 @app.post("/transfer")
@@ -243,7 +243,7 @@ async def create_transfer(request: TransferRequest, req: Request):
     # TODO (v2): bunker.validate_and_add_transaction(tx) dengan signature verification
     return {
         "status": "accepted",
-        "message": f"Transaction of {request.amount} $WEEKS from "
+        "message": f"Transaction of {request.amount} $ZPRO from "
                    f"{request.sender_address[:16]}... to "
                    f"{request.receiver_address[:16]}... is being processed.",
         "new_sender_balance": sender_balance - request.amount
