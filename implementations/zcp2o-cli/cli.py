@@ -100,13 +100,13 @@ def cmd_balance(args):
     bunker = DigitalBunker(DEFAULT_NODE_NAME)
     balance = bunker.get_balance(args.address)
     
-    print(f"\n📊 Balance: {balance} $WEEKS")
+    print(f"\n📊 Balance: {balance} $ZPRO")
     print("⚠️  Note: This shows local node balance. For global balance, sync with Gateway Node.")
 
 
 def cmd_send(args):
-    """Sends $WEEKS to another address."""
-    print(f"💸 Sending {args.amount} $WEEKS to {args.to}...")
+    """Sends $ZPRO to another address."""
+    print(f"💸 Sending {args.amount} $ZPRO to {args.to}...")
     
     # Load sender wallet
     wallet = load_wallet(args.from_wallet, args.password)
@@ -117,7 +117,7 @@ def cmd_send(args):
     print(f"\n✅ Transaction created!")
     print(f"   From: {tx.sender}")
     print(f"   To: {tx.to}")
-    print(f"   Amount: {tx.amount} $WEEKS")
+    print(f"   Amount: {tx.amount} $ZPRO")
     print(f"   Hash: {tx.get_hash()[:32]}...")
     print(f"   Signature: {tx.signature[:32]}...")
     
@@ -151,7 +151,7 @@ Usage: python cli.py <command> [options]
 Commands:
   create-wallet    Create a new ZCP2O wallet
   balance          Check wallet balance
-  send             Send $WEEKS to another address
+  send             Send $ZPRO to another address
   node-status      Show Digital Bunker node status
   help             Show this help message
 
@@ -187,7 +187,7 @@ def main():
     balance_parser.set_defaults(func=cmd_balance)
     
     # send command
-    send_parser = subparsers.add_parser("send", help="Send $WEEKS to another address")
+    send_parser = subparsers.add_parser("send", help="Send $ZPRO to another address")
     send_parser.add_argument("--from", dest="from_wallet", required=True, help="Sender wallet name")
     send_parser.add_argument("--to", required=True, help="Receiver address")
     send_parser.add_argument("--amount", type=float, required=True, help="Amount to send")

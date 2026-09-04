@@ -162,7 +162,7 @@ class DigitalBunker:
 
         try:
             self.blockchain.add_transaction(transaction)
-            self.logger.info(f"Transaction accepted: {transaction.amount} WEEKS from {transaction.sender[:16]}...")
+            self.logger.info(f"Transaction accepted: {transaction.amount} ZPRO from {transaction.sender[:16]}...")
             
             if self.network:
                 self.network.broadcast_transaction(transaction.to_dict())

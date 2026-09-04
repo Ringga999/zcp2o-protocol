@@ -24,7 +24,7 @@
 | **Transaction Fee** | 💵 $1-50 (volatile) |  $5-100 (volatile) |  $0.10-1 | 💵 $0.10-1 | 💵 **1% fixed** |
 | **Primary Use Case** | Store of Value | Smart Contracts | DeFi/DApps | Research/Academic | **Offline Access/ Gaming** |
 | **Target Users** | Investors/HODLers | Developers | Traders/DeFi | Academics | **Unbanked/Offline Communities** |
-| **Native Token** | BTC | ETH | BNB | ADA | **$WEEKS** |
+| **Native Token** | BTC | ETH | BNB | ADA | **$ZPRO** |
 
 ---
 

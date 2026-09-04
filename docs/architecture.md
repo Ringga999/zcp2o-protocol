@@ -41,7 +41,7 @@ The architecture is built on three main node types:
 
 ## 🕸️ 3. Local Mesh Consensus (Proof-of-Play)
 
-When a transaction occurs (e.g., Player A claims 50 $WEEKS in Alpha Drop), it does not wait for global confirmation.
+When a transaction occurs (e.g., Player A claims 50 $ZPRO in Alpha Drop), it does not wait for global confirmation.
 
 1. **Broadcast:** The transaction is broadcast via Bluetooth/Wi-Fi Direct to nearby nodes (Flood Algorithm).
 2. **Validation:** Nearby Full Nodes (Digital Bunkers) and reputable Light Nodes verify the transaction against the local ledger state.
@@ -49,7 +49,7 @@ When a transaction occurs (e.g., Player A claims 50 $WEEKS in Alpha Drop), it do
    - At least **one (1) verified Full Node (Digital Bunker)**, OR
    - At least **three (3) Light Nodes** that have a **Trust Score > 80** (verified through historical valid activity and physical mesh encounters).
    - New nodes (Trust Score = 0) can broadcast transactions, but **cannot** act as validators for consensus.
-4. **Reward:** The activity is logged, and $WEEKS are minted/allocated locally.
+4. **Reward:** The activity is logged, and $ZPRO are minted/allocated locally.
 
 ---
 
@@ -68,7 +68,7 @@ This is the magic that prevents "State Bloat" and handles network partitions (is
 
 To ensure Light Nodes don't crash from storage bloat, ZCP2O strictly separates data types:
 
-1. **Permanent Ledger (On-Chain):** Financial transactions ($WEEKS transfers, asset ownership). This is pruned periodically using **State Snapshots** (saving only the latest balance state, discarding old history for Light Nodes).
+1. **Permanent Ledger (On-Chain):** Financial transactions ($ZPRO transfers, asset ownership). This is pruned periodically using **State Snapshots** (saving only the latest balance state, discarding old history for Light Nodes).
 2. **Ephemeral Data (Off-Chain):** Chat messages, game telemetry, large files. These are transmitted via the mesh but **NOT** stored permanently on the ledger. Only a cryptographic hash (Proof-of-Delivery) is recorded. Once delivered, the payload is deleted from relay nodes to save battery and storage.
 
 ---

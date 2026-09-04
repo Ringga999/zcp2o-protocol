@@ -30,7 +30,7 @@
 <div class="card" id="main" style="display:none">
   <p style="margin:0;color:#94a3b8">Active wallet: <b id="wname" style="color:#e8eef5"></b></p>
   <p class="addr" id="addr"></p>
-  <p class="bal" id="bal">— $WEEKS</p>
+  <p class="bal" id="bal">— $ZPRO</p>
   <button onclick="refresh()">🔄 Refresh balance</button>
   <button class="sec" onclick="backup()">💾 Backup private key</button>
   <button class="sec" onclick="copyAddr()">📋 Copy address</button>
@@ -118,10 +118,10 @@ async function refresh(){
   try{
     const r=await fetch(B+"/balance/"+w.address);
     const j=await r.json();
-    document.getElementById("bal").textContent=j.balance+" $WEEKS";
+    document.getElementById("bal").textContent=j.balance+" $ZPRO";
     status("Balance synced from Bunker ✔");
   }catch(e){
-    document.getElementById("bal").textContent="0 $WEEKS";
+    document.getElementById("bal").textContent="0 $ZPRO";
     status("Bunker unreachable (offline?) — showing 0.");
   }
 }

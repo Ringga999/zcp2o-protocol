@@ -14,7 +14,7 @@
 
 | Lapisan | Fungsi | Contoh Aset |
 | :--- | :--- | :--- |
-| **Public** | Ledger terbuka, validasi oleh semua pemain terverifikasi | Coin ($WEEKS), XP, Silver Ticket |
+| **Public** | Ledger terbuka, validasi oleh semua pemain terverifikasi | Coin ($ZPRO), XP, Silver Ticket |
 | **Private** | Kontrol developer terbatas (Burn/Mint khusus) | Golden Ticket (Mint via Burn) |
 | **Consortium** | Multi-game ecosystem | Shared ledger, cross-game transfer |
 
@@ -38,18 +38,18 @@
 
 ### World System
 *   **World 2 (Free Zone):** Akses gratis. Fungsi: Farming XP.
-*   **World 1 (Premium Zone):** Akses butuh Silver/Golden Ticket. Fungsi: Claim Coin ($WEEKS) & XP.
+*   **World 1 (Premium Zone):** Akses butuh Silver/Golden Ticket. Fungsi: Claim Coin ($ZPRO) & XP.
 
 ### Token System & Flow
 | Token | Supply | Cara Dapat | Fungsi & Durasi |
 | :--- | :--- | :--- | :--- |
 | **XP** | Unlimited | Farming di World 2 | Tukar ke Silver Ticket (100 XP = 1 Ticket) |
 | **Silver Ticket** | Dari XP | Exchange di World 2 | Akses World 1 (Durasi: 15 menit) |
-| **Coin ($WEEKS)** | 100.000.000 (Halving) | Claim di World 1 | Mata uang utama, beli Golden Ticket |
-| **Golden Ticket** | **Dynamic (via Burn)** | **Burn 5.000 $WEEKS** | Akses World 1 Premium (Durasi: 30 menit) |
+| **Coin ($ZPRO)** | 100.000.000 (Halving) | Claim di World 1 | Mata uang utama, beli Golden Ticket |
+| **Golden Ticket** | **Dynamic (via Burn)** | **Burn 5.000 $ZPRO** | Akses World 1 Premium (Durasi: 30 menit) |
 
 **Alur Ekonomi:** 
-`World 2 (Farm XP) → Exchange to Silver → World 1 (Claim $WEEKS) → Burn $WEEKS for Golden Ticket → Extended Premium Play`
+`World 2 (Farm XP) → Exchange to Silver → World 1 (Claim $ZPRO) → Burn $ZPRO for Golden Ticket → Extended Premium Play`
 
 ---
 
@@ -83,17 +83,17 @@
 Alih-alih menghapus aset (yang berisiko false-positive akibat lag/bug), ZCP2O menggunakan sistem **Shadow Realm**:
 *   **Tahap 1:** Peringatan visual (game menjadi "berat" / slow motion).
 *   **Tahap 2:** Lag + glitch effect.
-*   **Tahap 3 (Shadow Realm):** **Reward Multiplier = 0.0x**. Player tetap bisa bermain, tapi **earn 0 $WEEKS**. Aset tidak dihapus, tetapi aktivitas menjadi tidak menguntungkan secara ekonomi. Trust Score dapat pulih seiring waktu dengan perilaku normal.
+*   **Tahap 3 (Shadow Realm):** **Reward Multiplier = 0.0x**. Player tetap bisa bermain, tapi **earn 0 $ZPRO**. Aset tidak dihapus, tetapi aktivitas menjadi tidak menguntungkan secara ekonomi. Trust Score dapat pulih seiring waktu dengan perilaku normal.
 
 ---
 
-## 💰 6. EKONOMI TOKEN $WEEKS
+## 💰 6. EKONOMI TOKEN $ZPRO
 
 *   **Total Supply:** 100.000.000
 *   **Halving:** Setiap 1.000.000 coin di-claim. 
     *   *Formula:* `base_reward / pow(2, floor(circulating_supply / HALVING_INTERVAL))`
 *   **Genesis Pool:** 1.000.000 coin khusus untuk 100 pemain pertama (Bonus 10.000 coin).
-*   **Deflationary Burn:** Pembelian Golden Ticket (5.000 $WEEKS) dikirim ke `Null Address` (`WKS-000...`), mengurangi supply secara permanen.
+*   **Deflationary Burn:** Pembelian Golden Ticket (5.000 $ZPRO) dikirim ke `Null Address` (`WKS-000...`), mengurangi supply secara permanen.
 
 ---
 

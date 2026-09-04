@@ -1,6 +1,6 @@
 # ZCP2O Anti-Bot Mitigation: Implicit Proof-of-Humanity
 
-> **Protecting the $WEEKS Ecosystem from Automation and Sybil Attacks**
+> **Protecting the $ZPRO Ecosystem from Automation and Sybil Attacks**
 > 
 > In Play-to-Earn (P2E) ecosystems, bot auto-play is the number one killer of tokenomics. Bots drain the supply, cause hyperinflation, and drive away real human players. ZCP2O does not rely on annoying CAPTCHAs; instead, we make botting mathematically unprofitable.
 
@@ -23,20 +23,20 @@ ZCP2O employs a "Defense in Depth" strategy. We do not rely on a single mechanis
 
 *   **Mechanism:** Randomly (e.g., every 15-30 minutes), the game spawns an "Anomaly".
 *   **Example:** Suddenly, 3 objects appear, and the player must shoot the *red* one within 3 seconds. Or, the player must press buttons in a specific sequence shown briefly.
-*   **Penalty:** If failed, the player is not instantly banned. Instead, their **$WEEKS reward multiplier drops to 0.1x** for the next hour.
+*   **Penalty:** If failed, the player is not instantly banned. Instead, their **$ZPRO reward multiplier drops to 0.1x** for the next hour.
 *   **Advantage:** Simple macro bots fail this. Advanced AI bots (computer vision) can pass, but the development cost for such AI is higher than the potential reward.
 
 ### Layer 3: Hardware Binding & Rate Limiting
 *Preventing one person from running 100 bot accounts on a single PC.*
 
 *   **Hardware Fingerprinting:** Upon first launch, the ZCP2O SDK extracts a unique hash of the device's MAC Address, GPU UUID, and OS Serial Number.
-*   **Rule:** Maximum 1 active $WEEKS account per Hardware Fingerprint per 24 hours.
+*   **Rule:** Maximum 1 active $ZPRO account per Hardware Fingerprint per 24 hours.
 *   **Shadow Ban:** If 5 accounts are detected logging in from the same hardware, 4 of them are silently moved to the "Shadow Realm" (farming mode with 0 rewards).
 
 ### Layer 4: The "Shadow Realm" & Diminishing Returns (Economic Defense)
 *This is the most powerful weapon. Don't just ban bots; make them useless.*
 
-*   **Diminishing Returns (Exponential Decay):** The longer a player plays *without* social interaction (without meeting other human nodes in the Mesh Network) or *without* gameplay variation, their $WEEKS reward drops exponentially.
+*   **Diminishing Returns (Exponential Decay):** The longer a player plays *without* social interaction (without meeting other human nodes in the Mesh Network) or *without* gameplay variation, their $ZPRO reward drops exponentially.
 *   **The Formula:** 
     ```text
     Final Reward = Base Reward × Trust Score × (1 / (1 + Hours_Played_Today))
@@ -44,7 +44,7 @@ ZCP2O employs a "Defense in Depth" strategy. We do not rely on a single mechanis
 *   **Social Verification (Mesh Trust):** If a player's device physically encounters (via Bluetooth Mesh) another player with a high "Verified Human" trust score, their own Trust Score increases, and their reward multiplier resets to normal.
 *   **Result:** A bot left to auto-play for 24 hours will earn a lot in Hour 1, but by Hour 10, its reward approaches zero. Botting becomes **mathematically unprofitable**.
 *   **No Asset Destruction Policy:** Unlike traditional games that might ban accounts or confiscate assets (which can be triggered falsely by network lag or bugs), ZCP2O **never deletes user assets**. Instead, it targets the *income stream*. 
-*   **The Shadow Realm Effect:** When a node's Trust Score drops below a critical threshold (due to bot-like behavior, teleporting, or isolated farming), its **Reward Multiplier is set to 0.0x**. The player can still move and interact in the game, but they will earn **0 $WEEKS**. This makes botting mathematically unprofitable (wasting electricity/time) without causing false-positive asset loss for legitimate players experiencing technical issues.
+*   **The Shadow Realm Effect:** When a node's Trust Score drops below a critical threshold (due to bot-like behavior, teleporting, or isolated farming), its **Reward Multiplier is set to 0.0x**. The player can still move and interact in the game, but they will earn **0 $ZPRO**. This makes botting mathematically unprofitable (wasting electricity/time) without causing false-positive asset loss for legitimate players experiencing technical issues.
 ---
 
 ##  Integration in Alpha Drop (Godot Implementation)
@@ -74,4 +74,4 @@ func calculate_weeks_reward(base_amount: float) -> float:
 
 🌐 The Philosophy: "Implicit Proof-of-Humanity"
 ZCP2O rejects the concept of "Hard CAPTCHAs" that ruin user experience. Instead, we rely on Implicit Proof-of-Humanity.
-By combining behavioral biometrics, dynamic gameplay challenges, hardware binding, and an economic "Shadow Realm" for isolated actors, ZCP2O ensures that the $WEEKS ecosystem remains sustainable, fair, and dominated by real human value creation.
+By combining behavioral biometrics, dynamic gameplay challenges, hardware binding, and an economic "Shadow Realm" for isolated actors, ZCP2O ensures that the $ZPRO ecosystem remains sustainable, fair, and dominated by real human value creation.

@@ -130,4 +130,4 @@ class Transaction:
             return False
     
     def __repr__(self):
-        return f"Transaction({self.sender} -> {self.receiver}: {self.amount} WEEKS)"
+        return f"Transaction({self.sender} -> {self.receiver}: {self.amount} ZPRO)"

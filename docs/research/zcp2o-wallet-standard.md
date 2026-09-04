@@ -89,7 +89,7 @@ philosophy of institutional and individual data sovereignty.
 | Parameter | Required | Type | Example | Description |
 |-----------|----------|------|---------|-------------|
 | `address` (path) | ✅ Yes | String | `WKS-b74acadc...` | Destination ZCP2O address |
-| `amount` | ❌ No | Decimal | `100.5` | Amount in $WEEKS |
+| `amount` | ❌ No | Decimal | `100.5` | Amount in $ZPRO |
 | `label` | ❌ No | String | `Warung Bu Sari` | Human-readable recipient name |
 | `message` | ❌ No | String | `Bayar kopi` | Transaction memo / note |
 | `zone` | ❌ No | String | `kampus-01` | Mesh zone identifier (offline context) |
@@ -108,7 +108,7 @@ philosophy of institutional and individual data sovereignty.
 2. **String values** (`label`, `message`, `zone`) — must be URL-encoded
    (space → `%20`, `&` → `%26`, etc.), per RFC 3986.
 3. **Amount** — decimal notation using `.` as the separator; no thousands
-   separators; up to 6 decimal places (MicroWeek precision).
+   separators; up to 6 decimal places (Zat precision).
 4. **Zone** — alphanumeric plus hyphen (`a-z`, `0-9`, `-`), max 64 characters.
 5. **Network** — must be exactly one of: `mainnet`, `testnet`, `devnet`.
    If omitted, wallets assume `mainnet`.

@@ -1,4 +1,4 @@
-# 🪙 ZCP2O Tokenomics — $WEEKS
+# 🪙 ZCP2O Tokenomics — $ZPRO
 
 **Version:** 1.0 (September 1, 2026)
 **Status:** Canonical economic specification
@@ -9,7 +9,7 @@
 
 ## Principles (non-negotiable, from Litepaper)
 
-1. **No Faucet, Only Play.** Every $WEEKS is earned through verifiable
+1. **No Faucet, Only Play.** Every $ZPRO is earned through verifiable
    contribution (play, relay, validate, human-proof). There is no free money.
 2. **Zero-Capital Entry.** No token purchase is ever required to participate.
 3. **Utility over speculation.** Value is driven by use, not hype.
@@ -22,7 +22,7 @@
 
 | Parameter | Value |
 |-----------|-------|
-| **Total supply cap** | **100,000,000 $WEEKS** (hard cap, never exceeded) |
+| **Total supply cap** | **100,000,000 $ZPRO** (hard cap, never exceeded) |
 | **Premine** | **0%** — fair launch, no insider allocation |
 | **ICO / presale** | **None** — zero-capital philosophy |
 | **Treasury** | **0%** — infrastructure earns via the 1% fee, not allocation |
@@ -36,14 +36,14 @@ i.e., verified human activity:
 
 | Parameter | Value |
 |-----------|-------|
-| **Base reward** | **10 $WEEKS** per verified Human Proof |
+| **Base reward** | **10 $ZPRO** per verified Human Proof |
 | **Quality scaling** | reward × (human-ness score / 100) |
 | **Trust multiplier** | × (identity trust / 100), capped at ×1.5 |
 | **Daily cap per identity** | **20 proofs/day** (anti-bot-farm) |
 | **Diminishing returns** | proofs 11–20 earn 50% |
 
 **Example:** a new identity (trust 50) with score 80 earns
-10 × 0.80 × 0.50 = **4 $WEEKS** per proof, up to 20 proofs/day.
+10 × 0.80 × 0.50 = **4 $ZPRO** per proof, up to 20 proofs/day.
 
 ---
 
@@ -117,6 +117,6 @@ identity = secret RSA keypair **+ proven humanity**.
 
 ## Summary
 
-$WEEKS is a **proof-of-humanity asset**: scarce (100M hard cap), fairly
+$ZPRO is a **proof-of-humanity asset**: scarce (100M hard cap), fairly
 launched (0 premine), earned only by being human, and maintained by a
 self-funded infrastructure (1% fee).

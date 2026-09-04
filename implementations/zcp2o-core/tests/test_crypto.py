@@ -27,8 +27,8 @@ def test_sign_and_verify():
 def test_tampered_message_fails():
     """Test security: Verify should fail if the message is altered."""
     private_key, public_key = generate_key_pair()
-    original_message = b"Send 50 WEEKS to Alice"
-    tampered_message = b"Send 5000 WEEKS to Alice"
+    original_message = b"Send 50 ZPRO to Alice"
+    tampered_message = b"Send 5000 ZPRO to Alice"
     
     signature = sign_message(private_key, original_message)
     

@@ -15,15 +15,15 @@ ZCP2O (Zero-Capital Play-to-Own) is an offline-first blockchain protocol. It ena
 Imagine a village ledger. In traditional systems, only the "Village Chief" (central server) holds it. If the chief is sick, the system halts. 
 In ZCP2O, **everyone in the village holds a copy of the ledger**. When Andi sends 1 coin to Budi, he broadcasts it via Bluetooth. Nearby neighbors (Nodes) hear it and record it in their ledgers. Once a majority agrees, the transaction is valid. No cell signal required.
 
-## The $WEEKS Token Economy
+## The $ZPRO Token Economy
 Value in ZCP2O is driven by utility, not speculation. 
-- **Rule #1: No Faucet, Only Play.** You cannot get $WEEKS for free; you must contribute (play, relay, validate). *A verified Human Proof counts as contribution — solving a challenge is "play" that secures the network. There is no free faucet: every coin is earned.*
+- **Rule #1: No Faucet, Only Play.** You cannot get $ZPRO for free; you must contribute (play, relay, validate). *A verified Human Proof counts as contribution — solving a challenge is "play" that secures the network. There is no free faucet: every coin is earned.*
 - **Transaction Fees:** A small, fixed fee (e.g., 1%) is distributed to Full Nodes (Archivers) as passive income for maintaining the network.
 - **Halving:** Rewards decrease over time to ensure scarcity and prevent inflation.
 
 ## Beyond Gaming: Real-World Use Cases
 While *Alpha Drop* is our first game, ZCP2O is built for the real world:
-- **Offline Secure Chat:** Encrypted messaging via Bluetooth Mesh. Relayers earn $WEEKS.
+- **Offline Secure Chat:** Encrypted messaging via Bluetooth Mesh. Relayers earn $ZPRO.
 - **Digital Credentials:** Schools in remote areas can issue tamper-proof diplomas stored on a local node, verifiable without internet.
 - **Disaster Resilience:** A communication and transaction mesh that survives when global infrastructure fails.
 

@@ -27,22 +27,22 @@ python cli.py balance --address WKS-a1b2c3d4e5f6...
 Output:
 💰 Checking balance for: WKS-a1b2c3d4e5f6...
 
-📊 Balance: 0.0 $WEEKS
+📊 Balance: 0.0 $ZPRO
 ⚠️  Note: This shows local node balance. For global balance, sync with Gateway Node.
 
-### 3. Send $WEEKS
+### 3. Send $ZPRO
 
 python cli.py send --from mywallet --to WKS-xyz789... --amount 50
 
 Output:
-💸 Sending 50.0 $WEEKS to WKS-xyz789...
+💸 Sending 50.0 $ZPRO to WKS-xyz789...
 ⚠️  Note: Wallet loading from file is simplified in this version.
  Loaded address: WKS-a1b2c3d4e5f6...
 
 ✅ Transaction created!
    From: WKS-a1b2c3d4e5f6...
    To: WKS-xyz789...
-   Amount: 50.0 $WEEKS
+   Amount: 50.0 $ZPRO
    Hash: 7f8a9b2c3d4e5f6a...
    Signature: abc123def456...
 
@@ -99,7 +99,7 @@ Expected output: `5 passed`
 |---------|-------------|-------------------|
 | `create-wallet` | Create a new ZCP2O wallet | `--name` |
 | `balance` | Check wallet balance | `--address` |
-| `send` | Send $WEEKS to another address | `--from`, `--to`, `--amount` |
+| `send` | Send $ZPRO to another address | `--from`, `--to`, `--amount` |
 | `node-status` | Show Digital Bunker status | None |
 | `help` | Show help message | None |
 

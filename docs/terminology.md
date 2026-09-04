@@ -8,18 +8,18 @@
 
 ## ⚡ 1. QUICK REFERENCE (A-Z)
 
-*   **$WEEKS**: The primary utility token and native currency of the ZCP2O ecosystem. Used for in-game transactions, premium asset purchases, and validator rewards.
+*   **$ZPRO**: The primary utility token and native currency of the ZCP2O ecosystem. Used for in-game transactions, premium asset purchases, and validator rewards.
 *   **Activity Proof**: Cryptographic proof that a user is performing real, verifiable activity (not a bot). Replaces traditional Proof-of-Work.
 *   **Activity Script**: A predefined, verified script for specific use cases (gaming, supply chain) that replaces Turing-complete smart contracts in ZCP2O.
 *   **Async Sync (Asynchronous Synchronization)**: The mechanism by which locally validated ledger data (generated while offline) is automatically synchronized with the global mainnet once a Gateway Node establishes an internet connection.
-*   **Burn Mechanism**: The permanent removal of tokens from circulation by sending them to an unspendable "Null Address" (e.g., `WKS-000...`). Example: Purchasing a Golden Ticket requires burning 5,000 $WEEKS.
+*   **Burn Mechanism**: The permanent removal of tokens from circulation by sending them to an unspendable "Null Address" (e.g., `WKS-000...`). Example: Purchasing a Golden Ticket requires burning 5,000 $ZPRO.
 *   **Consensus**: The decentralized agreement among network nodes that a transaction or block is valid. In ZCP2O, this requires a Trust-Weighted Dynamic Quorum.
 *   **Dynamic Quorum**: Adaptive number of validators required based on local node density, inspired by Avalanche consensus principles.
 *   **Digital Bunker**: The ZCP2O term for a Full Node. Typically operated by institutions (universities, internet cafes, clinics) to store the local ledger, validate transactions, and provide network stability in offline environments.
 *   **Fee-to-Spawn**: A unique economic loop where the 1% transaction fee is not destroyed or hoarded, but physically spawned as new coins in the game world, ensuring continuous local liquidity.The 1% protocol fee applies universally to all network activities, including PoP claims (minting) and P2P transfers. For PoP claims, the fee is deducted at the source and routed to the local Digital Bunker to incentivize infrastructure maintenance from Day 1
 *   **FastAPI**: A modern, high-performance web framework for building APIs with Python. Used by ZCP2O to expose node functions to external apps (Godot, Web).
-*   **Genesis Pool**: A reserved allocation of 1,000,000 $WEEKS distributed as a bonus to the first 100 active players to bootstrap the initial network economy.
-*   **Golden Ticket**: Premium access pass for extended gameplay in World 1 (30 minutes). Acquired by burning 5,000 $WEEKS.
+*   **Genesis Pool**: A reserved allocation of 1,000,000 $ZPRO distributed as a bonus to the first 100 active players to bootstrap the initial network economy.
+*   **Golden Ticket**: Premium access pass for extended gameplay in World 1 (30 minutes). Acquired by burning 5,000 $ZPRO.
 *   **HTTP Endpoint**: A specific URL path on a server where an API receives requests (e.g., `/api/v1/balance`).
 *   **In-Memory Storage**: Storing data inside RAM (memory). It is fast but volatile (data is lost when power is off). ZCP2O uses this for temporary caching before saving to SQLite.
 *   **Light Node**: A lightweight mobile device (smartphone) that stores only the user's balance and recent transactions. Requires ~50MB storage.
@@ -33,7 +33,7 @@
 *   **Proof-of-Relay**: Earning rewards for relaying other people's messages/transactions through the mesh network.
 *   **Querying**: The process of requesting or retrieving specific data from the database using SQL (e.g., `SELECT balance FROM ledger WHERE address = 'WKS-...'`).
 *   **Swagger UI (OpenAPI)**: An interactive, auto-generated web interface that allows developers to test API endpoints directly from their browser without writing code.
-*   **Shadow Realm**: A non-destructive anti-cheat penalty state. Instead of banning accounts or deleting assets (which risks false positives from lag), offending nodes have their **Reward Multiplier set to 0.0x**. They can still interact, but earn zero $WEEKS, making botting mathematically unprofitable.
+*   **Shadow Realm**: A non-destructive anti-cheat penalty state. Instead of banning accounts or deleting assets (which risks false positives from lag), offending nodes have their **Reward Multiplier set to 0.0x**. They can still interact, but earn zero $ZPRO, making botting mathematically unprofitable.
 *   **Silver Ticket**: Free access pass for World 1 (15 minutes). Earned by farming XP in World 2 (100 XP = 1 Silver Ticket).
 *   **Smart Contract Avoidance**: ZCP2O deliberately avoids Turing-complete smart contracts in favor of predefined Activity Scripts for security, auditability, and offline compatibility.
 *   **Trust-Based Decentralization (Federated Decentralization)**: Decentralization model where Full Nodes are operated by trusted institutions (universities, hospitals) rather than anonymous participants.
@@ -74,7 +74,7 @@ A conversion dictionary for developers familiar with legacy blockchain architect
 | **Mining** | **Validation / Archiving** | No energy-burning "mining". It's about network maintenance through data storage and transaction validation. |
 | **Block** | **Local Ledger / Zone Block** | In ZCP2O, blocks can be local (per zone/mesh) before syncing to the global network. Not strictly linear. |
 | **Gas Fee** | **Transaction Fee (1%)** | Fixed 1% fee, 100% distributed to local Full Nodes as incentive. No complex "gas limit" concepts. |
-| **Satoshi** | **MicroWeek** | Smallest unit. 1 $WEEKS = 1,000,000 MicroWeeks. |
+| **Satoshi** | **Zat** | Smallest unit. 1 $ZPRO = 1,000,000 Zat. |
 | **Wallet Address** | **Public Key ID (RSA)** | Wallet address derived from RSA 4096-bit Public Key. Format: `WKS-...` |
 | **Private Key** | **Private Key (RSA)** | Same concept, but uses RSA 4096-bit (more secure against certain attacks than ECC). |
 | **Recovery Phrase** | **Seed Phrase / Recovery Key** | Standard 12-24 words, or RSA key file backup. |
@@ -168,15 +168,15 @@ A conversion dictionary for developers familiar with legacy blockchain architect
 
 | **Term** | **Explanation** |
 |----------|-----------------|
-| **World 1 (Premium Zone)** | The main economic zone where players claim $WEEKS. Requires Silver or Golden Ticket for access. |
+| **World 1 (Premium Zone)** | The main economic zone where players claim $ZPRO. Requires Silver or Golden Ticket for access. |
 | **World 2 (Free Zone)** | The entry-level zone where players farm XP for free. No ticket required. |
 | **XP (Experience Points)** | Unlimited resource earned in World 2. Can be exchanged for Silver Tickets (100 XP = 1 Ticket). |
 | **Silver Ticket** | Free access pass for World 1 (15 minutes duration). Earned by farming XP in World 2. |
-| **Golden Ticket** | Premium access pass for World 1 (30 minutes duration). Acquired by burning 5,000 $WEEKS. |
-| **Coin Claim** | The act of collecting spawned $WEEKS coins in World 1. Requires proximity validation (< 50px distance). |
+| **Golden Ticket** | Premium access pass for World 1 (30 minutes duration). Acquired by burning 5,000 $ZPRO. |
+| **Coin Claim** | The act of collecting spawned $ZPRO coins in World 1. Requires proximity validation (< 50px distance). |
 | **Dynamic Spawn** | Coin spawning mechanism based on player density in a zone. More players = more coins spawned. |
 | **Auto Spawn** | Automatic coin spawning when no transactions occur for 30 seconds. **Only activates if active players > 0** to prevent inflation. |
-| **Genesis Bonus** | Special reward of 10,000 $WEEKS for the first 100 players who claim coins in the network. |
+| **Genesis Bonus** | Special reward of 10,000 $ZPRO for the first 100 players who claim coins in the network. |
 | **Halving Interval** | Every 1,000,000 coins claimed, the base reward is halved to control inflation. |
 | **Zone** | A geographic area (500x500m) managed by local Full Nodes. Auto-splits if player density exceeds 500. |
 | **Cooldown** | 2-second delay between coin claims to prevent spam and botting. |
@@ -239,12 +239,12 @@ A conversion dictionary for developers familiar with legacy blockchain architect
 
 | **Term** | **Explanation** |
 |----------|-----------------|
-| **DAO (Decentralized Autonomous Organization)** | Future governance model where $WEEKS holders and Full Node operators vote on protocol upgrades and fee parameters. |
+| **DAO (Decentralized Autonomous Organization)** | Future governance model where $ZPRO holders and Full Node operators vote on protocol upgrades and fee parameters. |
 | **Treasury** | Community fund allocated from transaction fees or initial supply to finance development, audits, and grants. |
 | **Null Address** | Unspendable address (`WKS-000...`) where burned tokens are sent. Reduces circulating supply permanently. |
-| **Circulating Supply** | Total $WEEKS in active circulation. Decreases via burn mechanism; increases via gameplay rewards. |
+| **Circulating Supply** | Total $ZPRO in active circulation. Decreases via burn mechanism; increases via gameplay rewards. |
 | **Inflation Rate** | Controlled via halving schedule. New issuance decreases over time while burn mechanism creates deflationary pressure. |
-| **Utility Token** | Legal classification of $WEEKS. Used for network fees and in-game purchases, NOT classified as a security. |
+| **Utility Token** | Legal classification of $ZPRO. Used for network fees and in-game purchases, NOT classified as a security. |
 | **GDPR Compliance** | ZCP2O supports "Right to be Forgotten" via local data pruning. Chat/game logs are ephemeral; only financial transactions are permanent. |
 | **Gateway Node** | Special node with internet access that bridges local mesh networks to the global mainnet. Earns fees for sync services. |
 | **Oracle** | Future feature where Gateway Nodes provide external data (e.g., fiat exchange rates) to the local mesh. |
@@ -256,7 +256,7 @@ A conversion dictionary for developers familiar with legacy blockchain architect
 ### For Bitcoin Developers:
 ```text
 Bitcoin:     Mine Block → Get BTC → Pay Fee → Broadcast → Confirm
-ZCP2O:       Play/Relay → Get $WEEKS → Pay Fee → Mesh Flood → Local Consensus
+ZCP2O:       Play/Relay → Get $ZPRO → Pay Fee → Mesh Flood → Local Consensus
 
 For Bitcoin Users:
 Bitcoin:     Needs Internet + Buy BTC + Pay Gas Fee
@@ -269,8 +269,8 @@ ZCP2O Light Node:   Only 50MB, perfect for mobile, no fee earning
 
 For Alpha Drop Players:
 World 2 (Free):    Farm XP → Exchange 100 XP = 1 Silver Ticket
-World 1 (Premium): Use Silver (15min) or Golden (30min) Ticket → Claim $WEEKS
-Golden Ticket:     Burn 5,000 $WEEKS → Extended premium access
+World 1 (Premium): Use Silver (15min) or Golden (30min) Ticket → Claim $ZPRO
+Golden Ticket:     Burn 5,000 $ZPRO → Extended premium access
 
 ## ❓ 10. FREQUENTLY ASKED QUESTIONS (FAQ)
 
@@ -284,9 +284,9 @@ Q: What happens if a legitimate player is falsely flagged as a bot due to lag?
 A: ZCP2O employs a No Asset Deletion Policy. Instead of banning or confiscating assets, the account enters the Shadow Realm (0x reward multiplier). The player retains their assets and can recover their Trust Score through normal, verified interactions over time.
 Q: How does the network function in a complete internet blackout?
 A: ZCP2O thrives in this environment. Transactions are validated locally by nearby Digital Bunkers via Bluetooth or Wi-Fi Direct. The ledger remains fully functional. Once a Gateway Node connects to the internet, all local data is securely Async Synced to the global mainnet.
-Q: Is $WEEKS a security or utility token?
-A: $WEEKS is classified as a Utility Token. It is used exclusively for network fees, in-game purchases, and validator rewards. It is not designed as an investment vehicle.
+Q: Is $ZPRO a security or utility token?
+A: $ZPRO is classified as a Utility Token. It is used exclusively for network fees, in-game purchases, and validator rewards. It is not designed as an investment vehicle.
 Q: How do I start playing without buying any tokens?
-A: Simply download the Alpha Drop game, create a ZCP2O wallet (free), and start farming XP in World 2. Exchange XP for Silver Tickets to access World 1 and begin earning $WEEKS. Zero capital required.
+A: Simply download the Alpha Drop game, create a ZCP2O wallet (free), and start farming XP in World 2. Exchange XP for Silver Tickets to access World 1 and begin earning $ZPRO. Zero capital required.
 Q: What prevents someone from creating 100 bot accounts?
 A: Multiple layers: (1) Hardware fingerprinting limits accounts per device, (2) Trust Score system requires physical mesh encounters, (3) Shadow Realm makes botting unprofitable (0x rewards), (4) Trust-Weighted Consensus prevents new nodes from validating their own transactions.
