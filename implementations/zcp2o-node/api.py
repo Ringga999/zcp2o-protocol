@@ -9,6 +9,11 @@ import os
 import time
 import hmac
 import uvicorn
+import hashlib
+from cryptography.hazmat.primitives.serialization import load_der_public_key
+from cryptography.hazmat.backends import default_backend
+from zcp2o.transaction import Transaction
+from zcp2o.crypto import verify_signature
 from collections import defaultdict
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
@@ -100,11 +105,14 @@ async def startup_event():
 # 2. DATA MODELS (Pydantic)
 # ==========================================
 
-class TransferRequest(BaseModel):
-    sender_address: str
-    receiver_address: str
-    amount: float
-    # TODO (v2): signature: str — ditutup di hardening v1.1 signature-verify
+class SignedTransfer(BaseModel):
+    sender_address: str       # WKS-... (derived by sender)
+    sender_pubkey_pem: str    # PEM public key (used for verify + binding check)
+    receiver_address: str     # WKS-...
+    amount_zat: int           # amount in ZAT (integer, no float!)
+    timestamp: int            # unix epoch seconds
+    signature_hex: str        # hex of RSA-PSS signature of canonical JSON
+    tx_type: str = "TRANSFER" # must be uppercase! (anti-inflation guard)
 
 class PeerResponse(BaseModel):
     address: str
@@ -206,47 +214,93 @@ async def get_txs(limit: int = 100):
 
 @app.get("/balance/{address}")
 async def get_balance(address: str):
-    """Check the $ZPRO balance of a specific address."""
     if not bunker:
-        raise HTTPException(status_code=503, detail="Node is not initialized yet.")
-    balance = bunker.get_balance(address)
+        raise HTTPException(503, "Node not initialized")
+    bal_zpro = bunker.get_balance(address)
     return {
         "address": address,
-        "balance": balance,
-        "currency": "$ZPRO"
+        "balance_zpro": bal_zpro,
+        "balance_zat": int(bal_zpro * 1_000_000),
+        "currency": "$ZPRO",
     }
 
+def _canonical(sender: str, receiver: str, amount_zat: int, timestamp: int) -> bytes:
+    """Canonical JSON matching exactly what the JS wallet signs.
+    Python json.dumps default separators = (', ', ': ') — must match JS builder."""
+    import json
+    payload = {
+        "amount": amount_zat,
+        "receiver": receiver,
+        "sender": sender,
+        "timestamp": timestamp,
+        "tx_type": "TRANSFER",
+    }
+    return json.dumps(payload, sort_keys=True).encode("utf-8")
+
+def _address_from_pem(pem_str: str) -> str:
+    """Derive WKS- address from PEM public key (matches wallet.py logic)."""
+    pem = pem_str.encode("utf-8") if isinstance(pem_str, str) else pem_str
+    h = hashlib.sha256(pem).digest()[:20].hex()
+    return f"WKS-{h}"
+
 @app.post("/transfer")
-async def create_transfer(request: TransferRequest, req: Request):
+async def create_transfer_v2(body: SignedTransfer, req: Request):
     """
-    Create and validate a new transfer transaction.
-    Hardened: requires X-API-Key if ZCP2O_API_KEY diset.
+    Signed transfer v2 — no API key needed, signature IS the auth.
+    Four safety checks:
+      1. tx_type == "TRANSFER" (anti-inflation, see Ranjau #1)
+      2. pubkey → address binding (sender can't lie about their address)
+      3. RSA-PSS signature valid on canonical JSON
+      4. sufficient balance
     """
-    import os as _os
-    if _os.environ.get("ZCP2O_ENABLE_TRANSFER", "0") != "1":
-        raise HTTPException(status_code=403, detail="Transfer disabled (sovereign auth v2 scope-split)")
-    require_api_key(req)  # 🔒 auth gate
-
     if not bunker:
-        raise HTTPException(status_code=503, detail="Node is not initialized yet.")
+        raise HTTPException(503, "Node not initialized")
 
-    if request.amount <= 0:
-        raise HTTPException(status_code=400, detail="Amount must be positive.")
+    # CHECK 1: anti-inflation tx_type
+    if body.tx_type != "TRANSFER":
+        raise HTTPException(400, f"Invalid tx_type: {body.tx_type} (must be 'TRANSFER')")
 
-    sender_balance = bunker.get_balance(request.sender_address)
-    if sender_balance < request.amount:
-        raise HTTPException(
-            status_code=400,
-            detail=f"Insufficient funds. Balance: {sender_balance}, Required: {request.amount}"
+    # CHECK 2: pubkey binding
+    if _address_from_pem(body.sender_pubkey_pem) != body.sender_address:
+        raise HTTPException(401, "Sender address does not match pubkey")
+
+    # CHECK 3: signature
+    canonical = _canonical(body.sender_address, body.receiver_address,
+                           body.amount_zat, body.timestamp)
+    try:
+        from cryptography.hazmat.primitives.serialization import load_pem_public_key
+        pem_bytes = body.sender_pubkey_pem.encode("utf-8")
+        pub = load_pem_public_key(pem_bytes, backend=default_backend())
+        from cryptography.hazmat.primitives.asymmetric import padding
+        from cryptography.hazmat.primitives import hashes
+        sig_bytes = bytes.fromhex(body.signature_hex)
+        pub.verify(
+            sig_bytes, canonical,
+            padding.PSS(mgf=padding.MGF1(hashes.SHA256()),
+                        salt_length=padding.PSS.MAX_LENGTH),
+            hashes.SHA256()
         )
+    except Exception as e:
+        raise HTTPException(401, f"Invalid signature: {e}")
 
-    # TODO (v2): bunker.validate_and_add_transaction(tx) dengan signature verification
+    # CHECK 4: balance (in ZAT)
+    if body.amount_zat <= 0:
+        raise HTTPException(400, "Amount must be positive (in ZAT)")
+    sender_zat = int(bunker.get_balance(body.sender_address) * 1_000_000)
+    if sender_zat < body.amount_zat:
+        raise HTTPException(400,
+            f"Insufficient ZAT. Have: {sender_zat}, Need: {body.amount_zat}")
+
+    if not bunker.validate_and_add_transaction(tx):
+        raise HTTPException(400, "Transaction rejected by node")
+
+    block = bunker.mine_block(validator_trust_score=100)
     return {
-        "status": "accepted",
-        "message": f"Transaction of {request.amount} $ZPRO from "
-                   f"{request.sender_address[:16]}... to "
-                   f"{request.receiver_address[:16]}... is being processed.",
-        "new_sender_balance": sender_balance - request.amount
+        "status": "confirmed",
+        "block": block.index,
+        "block_hash": block.hash,
+        "tx_hash": block.hash[:16] + "-" + str(block.index),
+        "new_sender_zat": sender_zat - body.amount_zat,
     }
 
 @app.get("/chain/height")
