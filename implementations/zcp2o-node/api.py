@@ -12,8 +12,6 @@ import uvicorn
 import hashlib
 from cryptography.hazmat.primitives.serialization import load_der_public_key
 from cryptography.hazmat.backends import default_backend
-from zcp2o.transaction import Transaction
-from zcp2o.crypto import verify_signature
 from collections import defaultdict
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
@@ -33,6 +31,8 @@ if current_dir not in sys.path:
 # ==========================================
 
 from node import DigitalBunker
+from zcp2o.transaction import Transaction
+from zcp2o.crypto import verify_signature
 
 # ==========================================
 # 1. INITIALIZATION & STATE MANAGEMENT
