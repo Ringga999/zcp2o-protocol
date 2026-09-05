@@ -21,3 +21,6 @@ body.json
 tr.json
 reg.json
 identities.json
+
+__pycache__/
+*.pyc
