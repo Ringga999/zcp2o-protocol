@@ -1,10 +1,15 @@
 <div align="center">
 
+<img src="logo-z2.png" width="140" alt="ZCP2O — Z2 mark">
+
 # 🏛️ ZCP2O Protocol
 
-### Zero-Capital Play-to-Own
-
 **The offline-first, zero-capital, sovereign blockchain — for the 2.6 billion people the internet forgot.**
+
+> **🏆 SEASON 0 IS LIVE — the First 100 Sovereign Identities.**
+> Solve a 3-second human proof, register your sovereign ID, and get etched
+> in protocol history as a Genesis Pioneer. No coins, no capital — just history.
+> 👉 [Claim your slot](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/examples/championship.html) · [Live Explorer](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-chainview/explorer.html)
 
 [![Status](https://img.shields.io/badge/Status-Production%20Ready-35d07f)](https://kdewa.pythonanywhere.com)
 [![License](https://img.shields.io/badge/License-AGPL--3.0-blue)](LICENSE)
@@ -98,6 +103,9 @@ ZCP2O is not a paper concept — **the protocol lives on the internet**:
 | ⚡ One-line Integration | [examples](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/examples/vanilla.html) | 🟢 LIVE |
 | 📊 Chain View Explorer | [chainview](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-chainview/) | 🟢 LIVE |
 | 🏦 Digital Bunker (public API, hardened v1.2 — SRI + anti-replay + server verify) | [kdewa.pythonanywhere.com](https://kdewa.pythonanywhere.com) | 🟢 LIVE |
+| 🏆 Season 0 Championship (First 100 Sovereign Identities) | [championship](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/examples/championship.html) | 🟢 LIVE |
+| 🔭 Explorer v2 (blocks, txs, pioneers) | [explorer](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-chainview/explorer.html) | 🟢 LIVE |
+| 👛 Web Wallet v3 (multi-wallet, ZWS) | [wallet](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-wallet/index.html) | 🟢 LIVE |
 
 > See real-time Bunker status (chain height, peers, trust-weighted consensus) in the **Chain View Explorer**.
 
@@ -111,13 +119,14 @@ ZCP2O is not a paper concept — **the protocol lives on the internet**:
 |--------|--------|-------------|
 | 🛡️ **zcp2o-captcha** | 🟢 **LIVE** | Human Proof: on-device human verification. No spying, no internet. **LIVE DEMO** |
 | 📊 **zcp2o-chainview** | 🟢 **LIVE** | Transparency dashboard: live Bunker explorer with real-time indicators. **VIEW** |
+| 👛 **zcp2o-wallet** | 🟢 **LIVE** | Self-custody web wallet v3: multi-wallet, ZWS-compatible addresses. **OPEN** |
 
 ### Core Infrastructure
 
 | Folder | Status | Description |
 |--------|--------|-------------|
 | ⚙️ **zcp2o-core** | 🟡 Dev | Core protocol: RSA-4096/2048 cryptography, ledger, PoP consensus |
-| 🏦 **zcp2o-node** | 🟢 **LIVE API** | Digital Bunker: offline Full Node with REST API (FastAPI + SQLite), hardened v1.1 |
+| 🏦 **zcp2o-node** | 🟢 **LIVE API** | Digital Bunker: offline Full Node with REST API (FastAPI + SQLite), hardened v1.2 |
 | 💻 **zcp2o-cli** | 🟡 Dev | Terminal wallet for command-line interaction |
 
 ### Reference Implementation
@@ -130,7 +139,6 @@ ZCP2O is not a paper concept — **the protocol lives on the internet**:
 
 | Folder | Status | Description |
 |--------|--------|-------------|
-| 📱 **zcp2o-wallet** | 🔮 Planned | Standalone wallet (Web/Mobile), ZWS-compliant |
 | 🧰 **zcp2o-sdk** | 🔮 Planned | Developer toolkit for building third-party dApps |
 | 🌐 **zcp2o-testnet** | 🔮 Planned | Multi-node test network via Docker Compose |
 
@@ -165,6 +173,19 @@ A comprehensive dictionary of 60+ terms comparing ZCP2O to traditional blockchai
 - 🛡️ Threat Model — Security analysis and mitigations
 - ❓ FAQ — Common questions
 - 🔌 [Integration Guide](docs/integration.md) — embed.js, React, events, backend verification
+
+---
+
+## 🔷 $ZPRO — the Proof-of-Presence token
+
+| Parameter | Value |
+|-----------|-------|
+| **Total supply cap** | 100,000,000 ZPRO |
+| **Premine / ICO** | 0 / 0 — every coin is mined by verified humans |
+| **Smallest unit** | 1 Zat = 0.000001 ZPRO |
+| **Distribution** | Proof-of-Presence: activity-based halving rewards |
+
+📖 Full math: `docs/math/tokenomics.md`
 
 ---
 
