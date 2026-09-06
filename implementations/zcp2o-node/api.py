@@ -216,11 +216,11 @@ async def get_txs(limit: int = 100):
 async def get_balance(address: str):
     if not bunker:
         raise HTTPException(503, "Node not initialized")
-    bal_zpro = bunker.get_balance(address)
+    bal_zat = int(bunker.get_balance(address))
     return {
         "address": address,
-        "balance_zpro": bal_zpro,
-        "balance_zat": int(bal_zpro * 1_000_000),
+        "balance_zpro": bal_zat / 1_000_000,
+        "balance_zat": bal_zat,
         "currency": "$ZPRO",
     }
 
@@ -286,7 +286,7 @@ async def create_transfer_v2(body: SignedTransfer, req: Request):
     # CHECK 4: balance (in ZAT)
     if body.amount_zat <= 0:
         raise HTTPException(400, "Amount must be positive (in ZAT)")
-    sender_zat = int(bunker.get_balance(body.sender_address) * 1_000_000)
+    sender_zat = int(bunker.get_balance(body.sender_address))
     if sender_zat < body.amount_zat:
         raise HTTPException(400,
             f"Insufficient ZAT. Have: {sender_zat}, Need: {body.amount_zat}")
