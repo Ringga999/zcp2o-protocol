@@ -292,6 +292,15 @@ async def create_transfer_v2(body: SignedTransfer, req: Request):
         raise HTTPException(400,
             f"Insufficient ZAT. Have: {sender_zat}, Need: {body.amount_zat}")
 
+    # Build + mine
+    tx = Transaction(
+        sender=body.sender_address,
+        receiver=body.receiver_address,
+        amount=body.amount_zat,
+        timestamp=body.timestamp,
+        signature=body.signature_hex,
+        tx_type="TRANSFER",
+    )
     if not bunker.validate_and_add_transaction(tx):
         raise HTTPException(400, "Transaction rejected by node")
 
