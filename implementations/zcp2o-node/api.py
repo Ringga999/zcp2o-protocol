@@ -303,6 +303,53 @@ async def create_transfer_v2(body: SignedTransfer, req: Request):
         "new_sender_zat": sender_zat - body.amount_zat,
     }
 
+class ClaimRequest(BaseModel):
+    address: str
+    human_proof: str
+
+CLAIM_REWARD_ZAT = 10 * 1_000_000   # 10 ZPRO per verified human
+CLAIM_COOLDOWN_S = 24 * 3600        # 24 jam
+_last_claim: dict = {}              # MVP cooldown (in-memory)
+
+@app.post("/claim")
+async def claim_zpro(body: ClaimRequest):
+    """Season 0 testnet mint: 10 ZPRO per verified human, once per 24h."""
+    if not bunker:
+        raise HTTPException(503, "Node not initialized")
+    if not body.address.startswith("WKS-"):
+        raise HTTPException(400, "address must be a WKS- address")
+
+    # CHECK 1: humanity (anti-replay nonce sudah di verify.py)
+    res = _vt(body.human_proof)
+    if not res["valid"]:
+        raise HTTPException(401, "human proof rejected: " + res.get("reason", "?"))
+
+    # CHECK 2: cooldown 24h
+    now = time.time()
+    last = _last_claim.get(body.address, 0)
+    if now - last < CLAIM_COOLDOWN_S:
+        raise HTTPException(429,
+            f"already claimed today — next claim in {(CLAIM_COOLDOWN_S - (now - last)) / 3600:.1f} h")
+
+    # MINT: tx REWARD (sender tidak didebit; receiver dikredit oleh mine_block)
+    tx = Transaction(
+        sender="GENESIS-FAUCET",
+        receiver=body.address,
+        amount=CLAIM_REWARD_ZAT,
+        signature="GENESIS-MINT",
+        tx_type="REWARD",
+    )
+    if not bunker.validate_and_add_transaction(tx):
+        raise HTTPException(400, "claim rejected by node")
+    block = bunker.mine_block()
+    _last_claim[body.address] = now
+    return {
+        "status": "minted",
+        "reward_zpro": CLAIM_REWARD_ZAT / 1_000_000,
+        "block": block.index,
+        "block_hash": block.hash,
+    }
+
 @app.get("/chain/height")
 async def get_chain_height():
     """Get the current height of the blockchain."""

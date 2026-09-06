@@ -39,6 +39,13 @@
  <p class="bal" id="bal">— $ZPRO</p>
 
  <div class="sendbox">
+  <b>⛏️ Claim 10 $ZPRO</b> <span class="muted">(Season 0 testnet mint — 1x/24h, human proof required)</span>
+  <div id="claim-captcha"></div>
+  <button class="primary" onclick="claimZpro()">⛏️ Claim (setelah solve proof)</button>
+ </div>
+ <script src="../zcp2o-captcha/widget/embed.js" data-container="#claim-captcha" data-callback="onHumanProof"></script>
+
+ <div class="sendbox">
   <b>📨 Send $ZPRO</b>
   <input id="sendTo" placeholder="WKS-... (receiver address)">
   <input id="sendAmt" type="number" step="0.000001" min="0.000001" placeholder="Amount (ZPRO)">
@@ -190,6 +197,22 @@ async function sendZpro(){
     document.getElementById("sendAmt").value="";
     refresh();
   }catch(e){status("❌ Network error: "+e.message);}
+}
+
+let lastProof="";
+function onHumanProof(token){ lastProof=token; status("Human proof ready ✔ — tekan Claim!"); }
+async function claimZpro(){
+  const w=cur(); if(!w) return;
+  if(!lastProof){ status("❌ Solve the human proof dulu."); return; }
+  status("Minting via Bunker...");
+  try{
+    const r=await fetch(B+"/claim",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({address:w.address,human_proof:lastProof})});
+    const j=await r.json();
+    if(!r.ok){ status("❌ "+(j.detail||r.statusText)); return; }
+    status("✅ Minted "+j.reward_zpro+" $ZPRO in block #"+j.block+"!");
+    lastProof="";
+    refresh();
+  }catch(e){ status("❌ Network error: "+e.message); }
 }
 
 // ---------- render ----------
