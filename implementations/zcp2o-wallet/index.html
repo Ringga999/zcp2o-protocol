@@ -41,7 +41,7 @@
  <div class="sendbox">
   <b>⛏️ Claim 10 $ZPRO</b> <span class="muted">(Season 0 testnet mint — 1x/24h, human proof required)</span>
   <div id="claim-captcha"></div>
-  <button class="primary" onclick="claimZpro()">⛏️ Claim (setelah solve proof)</button>
+  <button class="primary" onclick="claimZpro()">⛏️ Claim (solve the proof first)</button>
  </div>
  <script src="../zcp2o-captcha/widget/embed.js" data-container="#claim-captcha" data-callback="onHumanProof"></script>
 
@@ -200,10 +200,10 @@ async function sendZpro(){
 }
 
 let lastProof="";
-function onHumanProof(token){ lastProof=token; status("Human proof ready ✔ — tekan Claim!"); }
+function onHumanProof(token){ lastProof=token; status("Human proof ready ✔ — press Claim!"); }
 async function claimZpro(){
   const w=cur(); if(!w) return;
-  if(!lastProof){ status("❌ Solve the human proof dulu."); return; }
+  if(!lastProof){ status("❌ Solve the human proof first."); return; }
   status("Minting via Bunker...");
   try{
     const r=await fetch(B+"/claim",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({address:w.address,human_proof:lastProof})});
