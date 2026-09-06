@@ -96,7 +96,8 @@ async def startup_event():
     """Initialize the Digital Bunker when the API server starts."""
     global bunker
     print("🚀 Starting ZCP2O Digital Bunker API (v1.1 hardened)...")
-    bunker = DigitalBunker("API_Bunker", enable_networking=False, db_path="zcp2o_node.db")
+    bunker = DigitalBunker("API_Bunker", enable_networking=False,
+                           db_path=os.path.join(current_dir, "zcp2o_node.db"))
     print(f"✅ Node initialized at {bunker.address}")
     print(f"🔒 Hardening: API_KEY={'set' if ZCP2O_API_KEY else 'off'}, "
           f"Rate={ZCP2O_RATE_LIMIT}/min, CORS={ZCP2O_CORS}")
