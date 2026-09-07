@@ -113,6 +113,28 @@ Status: <span class="badge">QUEUED — not yet implemented</span> · <a href="..
 <h3>Widget bug to fix</h3>
 <p>Console shows <code>Uncaught SyntaxError: Identifier 'vmB' has already been declared</code> across zcp2o-hp*.js → challenge scripts share global scope. <b>Fix:</b> wrap each challenge file in an IIFE.</p>
 
+<h2 id="captcha-validator">SPEC-04 · Captcha-as-Validator Infrastructure (Mass Adoption)</h2>
+<p><b>Goal:</b> enable any developer to embed ZCP2O captcha as human verification, where every solve contributes to chain consensus as validator attestation.</p>
+<h3>Architecture layers</h3>
+<ul>
+ <li><b>Registration</b> — solve captcha → register as validator → get <code>validator_id</code> on-chain (0 cost)</li>
+ <li><b>Contribution</b> — each solve tracked off-chain (Bunker DB) + checkpoint on-chain per 100 solves/day (scalability)</li>
+ <li><b>Validator selection</b> — high trust-score validators co-sign blocks via <code>block.validator_signatures</code></li>
+ <li><b>Micro-rewards</b> — reward per 10 validations (incentive alignment)</li>
+ <li><b>Domain stats</b> — endpoint <code>/stats/{domain}</code> for each developer</li>
+ <li><b>Explorer visibility</b> — per-domain contribution card: "X solves → Y validated blocks"</li>
+</ul>
+<h3>Challenges &amp; solutions</h3>
+<table>
+ <tr><th>Challenge</th><th>Solution</th></tr>
+ <tr><td>Scalability (1000s solves/day)</td><td>Batch validation + off-chain tracking</td></tr>
+ <tr><td>Sybil resistance</td><td>Rate-limit + cooldown + origin-binding + human-ness telemetry</td></tr>
+ <tr><td>Incentive alignment</td><td>Micro-rewards per 10 validations</td></tr>
+ <tr><td>Observability</td><td>Domain stats endpoint + Explorer card</td></tr>
+</table>
+<h3>Principle anchor</h3>
+<p>This spec realizes the core ZCP2O principle: <b>"captcha = validator"</b> — not metaphor, but technical attestation on-chain.</p>
+
 <p class="muted" style="margin-top:32px">— locked by Ringga999 + Mr. Architect, 2026-09-07 · ZCP2O Foundation</p>
 </body>
 </html>
