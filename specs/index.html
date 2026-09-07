@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZCP2O Spec Queue — designs in incubation</title>
+<style>
+ body{font-family:'Segoe UI',sans-serif;background:#0d1520;color:#e8eef5;max-width:860px;margin:0 auto;padding:24px 16px;line-height:1.6}
+ h1{color:#4ade80} h2{color:#7dd3fc;border-bottom:1px solid #23374c;padding-bottom:6px;margin-top:36px}
+ h3{color:#e8eef5} .muted{color:#94a3b8}
+ .badge{background:#16283a;color:#fbbf24;border:1px solid #23374c;border-radius:8px;padding:2px 10px;font-size:12px}
+ table{border-collapse:collapse;width:100%;margin:12px 0}
+ th,td{border:1px solid #23374c;padding:8px;text-align:left;font-size:14px}
+ th{background:#12202f;color:#7dd3fc}
+ code{background:#12202f;padding:2px 6px;border-radius:6px;color:#4ade80}
+ .card{background:#12202f;border:1px solid #23374c;border-radius:12px;padding:16px;margin:16px 0}
+ a{color:#7dd3fc}
+ ul{margin:8px 0}
+</style>
+</head>
+<body>
+<h1>🧪 ZCP2O Spec Queue</h1>
+<p class="muted">Design specifications in incubation — locked on 2026-09-07 so nothing is forgotten.
+Status: <span class="badge">QUEUED — not yet implemented</span> · <a href="../index.html">← back home</a></p>
+
+<div class="card">
+<b>Contents:</b>
+<ul>
+ <li><a href="#hashlib">SPEC-01 · Explorer Hash Lib</a></li>
+ <li><a href="#circle">SPEC-02 · Circle Launcher (Proof-of-Play game)</a></li>
+ <li><a href="#stats">SPEC-03 · Human-Proof Stats &amp; widget hygiene</a></li>
+</ul>
+</div>
+
+<h2 id="hashlib">SPEC-01 · Explorer Hash Lib</h2>
+<p><b>Goal:</b> complete the Explorer with hash transparency &amp; verification, so anyone can audit chain integrity from the browser.</p>
+<h3>Features</h3>
+<ul>
+ <li><b>Chain Integrity card</b> — new endpoint <code>GET /chain/valid</code> returning <code>bunker.is_chain_valid()</code>; Explorer shows <code>✅ Chain intact</code> or a warning.</li>
+ <li><b>Block detail drawer</b> — click a block → full hash, previous hash, transaction list.</li>
+ <li><b>Per-block verify</b> — new endpoint <code>GET /block/{i}/verify</code> → server recomputes the block hash → <code>true/false</code>.</li>
+</ul>
+<h3>Design rule</h3>
+<p>Canonical hashing stays <b>server-side only</b>. The browser must NOT recompute hashes (serialization must be byte-identical; keep one source of truth).</p>
+
+<h2 id="circle">SPEC-02 · Circle Launcher (Proof-of-Play game)</h2>
+<p><b>Goal:</b> a light, addictive PoP game (simpler than Alpha Drop) that turns players into contributing nodes/validators.</p>
+<h3>Core loop</h3>
+<ul>
+ <li><b>Player</b> = blue circle; <b>enemies</b> = red circles.</li>
+ <li><b>World</b> = a "block server" of 10,000 px, max <b>100 players</b> per block server.</li>
+ <li><b>World 1</b> — entry: solve ZCP2O captcha. Prize: gold tokens. Session 5–15 min (random, anti-bot-farm).</li>
+ <li><b>World 2</b> — entry: captcha + spend 100 gold/session. Prize: gold, XP, and <code>$ZPRO</code>. Session 5–15 min (random).</li>
+ <li><b>Currency spawn</b> is backed by on-chain activity: coins appear because the blockchain is active; a player who claims is a node/validator contributing to the chain.</li>
+</ul>
+<h3>Objectives</h3>
+<ul>
+ <li>Become a <b>validator</b> under Proof-of-Play.</li>
+ <li>World 1 → earn a <b>silver ticket</b>. World 2 → earn <b>$ZPRO</b>.</li>
+</ul>
+<h3>Features</h3>
+<ul>
+ <li>Main menu · World 1 · World 2</li>
+ <li>In-game wallet (transfer / receive)</li>
+ <li>Leaderboards: XP, earliest players, monthly / yearly / all-time (framed as <i>activity recognition</i>, not dark-pattern)</li>
+</ul>
+<h3>Block-server sharding &amp; fill policy</h3>
+<ul>
+ <li>Full block server (100) → chain auto-generates a new block server.</li>
+ <li>When players leave, the <b>earliest</b> block recruits first.
+  <br>Example: A=100, B=100 → A−3, B−2 → new player joins A → A=98, B=98.</li>
+</ul>
+<h3>Asset &amp; data mapping (on-chain vs off-chain)</h3>
+<table>
+ <tr><th>Asset / data</th><th>Location</th><th>Reason</th></tr>
+ <tr><td>$ZPRO reward</td><td>on-chain (REWARD/transfer)</td><td>real value</td></tr>
+ <tr><td>Silver ticket</td><td>on-chain (<code>tx_type="TICKET"</code>)</td><td>season proof</td></tr>
+ <tr><td>Session result + XP delta</td><td>on-chain (settlement tx)</td><td>auditable</td></tr>
+ <tr><td>Gold token</td><td>off-chain (game DB)</td><td>fast, no chain bloat</td></tr>
+ <tr><td>Positions / enemies / ticks</td><td>off-chain (session memory)</td><td>ephemeral</td></tr>
+ <tr><td>Leaderboard</td><td>off-chain cache + on-chain checkpoint per session</td><td>fast view, auditable root</td></tr>
+</table>
+<h3>Validator anchor</h3>
+<p>Players co-sign block hashes into the existing <code>block.validator_signatures</code> field — a real attestation hook already present in the core (used by fork-resolution). No multi-node rebuild needed for MVP.</p>
+<h3>Anti-bot layers</h3>
+<ul>
+ <li>Captcha gate per session · random session length · cooldown</li>
+ <li><b>Motor human-ness score</b> from the captcha telemetry seeds player trust (too-perfect bots get a smaller reward pool)</li>
+</ul>
+<h3>Transport reality</h3>
+<p>Free-tier hosting has no WebSocket → use <b>tick-based polling (2–3 s)</b>, server-authoritative. The block-server sharding also spreads load, which suits free-tier limits.</p>
+<h3>Phasing</h3>
+<ul>
+ <li><b>G0</b> — this spec + offline canvas prototype (game feel)</li>
+ <li><b>G1</b> — captcha gate + tick sessions + $ZPRO rewards via existing plumbing + leaderboard checkpoints</li>
+ <li><b>G2</b> — multi block-server + gold economy + validator_signatures attestation</li>
+</ul>
+
+<h2 id="stats">SPEC-03 · Human-Proof Stats &amp; widget hygiene</h2>
+<h3>Finding</h3>
+<p>The wallet captcha and the standalone <code>zcp2o-captcha</code> demo use the <b>same engine</b> (embed.js + zcp2o-hp*.js). The difference is only whether the token is submitted to the Bunker:</p>
+<table>
+ <tr><th>Where</th><th>Token submitted?</th><th>On-chain?</th></tr>
+ <tr><td>Wallet (claim / register)</td><td>yes → <code>/claim</code>, <code>/identity/register</code></td><td>yes (REWARD tx / pioneer)</td></tr>
+ <tr><td>Standalone demo</td><td>no (token stays local)</td><td>no — <b>by design</b></td></tr>
+</table>
+<p>Raw solves are intentionally NOT on-chain (privacy-first: 0 bytes exfiltrated). Only <i>submitted events</i> (claim, transfer, register) become on-chain records.</p>
+<h3>Proposal</h3>
+<ul>
+ <li>New aggregate endpoint <code>GET /stats</code> → count of verified proofs (no identity).</li>
+ <li>Explorer card: <i>"Human proofs verified: N"</i> — visibility without surveillance.</li>
+</ul>
+<h3>Widget bug to fix</h3>
+<p>Console shows <code>Uncaught SyntaxError: Identifier 'vmB' has already been declared</code> across zcp2o-hp*.js → challenge scripts share global scope. <b>Fix:</b> wrap each challenge file in an IIFE.</p>
+
+<p class="muted" style="margin-top:32px">— locked by Ringga999 + Mr. Architect, 2026-09-07 · ZCP2O Foundation</p>
+</body>
+</html>

@@ -173,6 +173,8 @@ A comprehensive dictionary of 60+ terms comparing ZCP2O to traditional blockchai
 - 🛡️ Threat Model — Security analysis and mitigations
 - ❓ FAQ — Common questions
 - 🔌 [Integration Guide](docs/integration.md) — embed.js, React, events, backend verification
+- 🧪 Spec Queue — Explorer Hash Lib, Circle Launcher (PoP game), Human-Proof Stats → [`specs/index.html`](specs/index.html)
+
 
 ---
 
