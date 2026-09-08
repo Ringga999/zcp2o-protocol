@@ -194,6 +194,7 @@ async def get_block(index: int):
         "hash": b.hash,
         "previous_hash": b.previous_hash,
         "timestamp": b.timestamp,
+        "validator_signatures": len(getattr(b, "validator_signatures", []) or []), 
         "transactions": [t.to_dict() for t in b.transactions],
     }
 
