@@ -370,6 +370,24 @@ async def get_chain_height():
         "total_blocks": len(bunker.blockchain.chain)
     }
 
+
+@app.get("/chain/valid")
+async def chain_valid():
+    """Public chain integrity check: index continuity + link + hash recompute."""
+    chain = bunker.blockchain.chain
+    ok, reason = True, ""
+    for i, b in enumerate(chain):
+        bh = getattr(b, "hash", None)
+        ph = getattr(b, "previous_hash", getattr(b, "prev_hash", None))
+        if getattr(b, "index", i) != i:
+            ok, reason = False, f"index gap at {i}"; break
+        if i > 0 and ph != getattr(chain[i - 1], "hash", None):
+            ok, reason = False, f"broken link at block {i}"; break
+        rc = getattr(b, "compute_hash", None)
+        if callable(rc) and rc() != bh:
+            ok, reason = False, f"hash mismatch at block {i}"; break
+    return {"valid": ok, "blocks": len(chain), "reason": reason}
+
 @app.get("/peers")
 async def get_peers():
     """List all known peers and their trust scores."""
