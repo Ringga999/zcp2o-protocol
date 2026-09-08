@@ -174,6 +174,7 @@ async def get_blocks(limit: int = 50):
         "hash": b.hash,
         "previous_hash": b.previous_hash,
         "timestamp": b.timestamp,
+        "validator_signatures": len(getattr(b, "validator_signatures", []) or []),
         "tx_count": len(b.transactions),
     } for b in chain[-limit:][::-1]]
     return {"height": len(chain) - 1, "count": len(blocks), "blocks": blocks}
@@ -387,16 +388,6 @@ async def chain_valid():
         if callable(rc) and rc() != bh:
             ok, reason = False, f"hash mismatch at block {i}"; break
     return {"valid": ok, "blocks": len(chain), "reason": reason}
-def _tx_view(t):
-    d = t if isinstance(t, dict) else (
-        getattr(t, "to_dict", None)() if callable(getattr(t, "to_dict", None)) else {})
-    return {
-        "tx_type": d.get("tx_type", getattr(t, "tx_type", "")),
-        "sender": d.get("sender", getattr(t, "sender", "")),
-        "receiver": d.get("receiver", getattr(t, "receiver", "")),
-        "amount": d.get("amount", getattr(t, "amount", 0)),
-    }
-
 
 @app.get("/block/{i}")
 async def get_block(i: int):
