@@ -254,32 +254,36 @@
   <span class="live-dot"></span> Production-ready protocol • Built in Indonesia for the unconnected world.
 </footer>
 
-</body>
-  <!-- Auto-refresh network stats -->
-  <script>
-    async function fetchNetworkStats() {
-      try {
-        const bunkerUrl = 'https://kdewa.pythonanywhere.com';
-        
-        // Fetch chain height
-        const heightRes = await fetch(`${bunkerUrl}/chain/height`);
-        const heightData = await heightRes.json();
-        document.getElementById('chain-height').textContent = heightData.height || '0';
-        
-        // Fetch transactions
-        const txsRes = await fetch(`${bunkerUrl}/txs?limit=100`);
-        const txsData = await txsRes.json();
-        document.getElementById('tx-count').textContent = txsData.count || '0';
-        
-        // Fetch pioneers (from explorer API or estimate)
-        document.getElementById('pioneer-count').textContent = '4'; // Could fetch from /pioneers endpoint
-      } catch (e) {
-        console.error('Failed to fetch network stats:', e);
-      }
+<!-- Auto-refresh network stats -->
+<script>
+  async function fetchNetworkStats() {
+    try {
+      const bunkerUrl = 'https://kdewa.pythonanywhere.com';
+      
+      // Fetch chain height
+      const heightRes = await fetch(`${bunkerUrl}/chain/height`);
+      const heightData = await heightRes.json();
+      document.getElementById('chain-height').textContent = heightData.height || '0';
+      
+      // Fetch transactions
+      const txsRes = await fetch(`${bunkerUrl}/txs?limit=100`);
+      const txsData = await txsRes.json();
+      document.getElementById('tx-count').textContent = txsData.count || '0';
+      
+      // Fetch pioneers (from explorer API or estimate)
+      document.getElementById('pioneer-count').textContent = '4'; // Could fetch from /pioneers endpoint
+    } catch (e) {
+      console.error('Failed to fetch network stats:', e);
     }
-    
-    // Fetch on load and refresh every 15 seconds
-    fetchNetworkStats();
-    setInterval(fetchNetworkStats, 15000);
+  }
+  
+  // Fetch on load and refresh every 15 seconds
+  fetchNetworkStats();
+  setInterval(fetchNetworkStats, 15000);
+</script>
+
+</body>
+</html>
+</body>
   </script>
 </html>
