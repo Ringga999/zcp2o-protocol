@@ -3,13 +3,13 @@
 <img src="logo-z2.png" width="140" alt="ZCP2O — Z2 mark">
 
 # 🏛️ ZCP2O Protocol
-
+[![Tests](https://github.com/Ringga999/zcp2o-protocol/actions/workflows/tests.yml/badge.svg)](https://github.com/Ringga999/zcp2o-protocol/actions/workflows/tests.yml)
 **The offline-first, zero-capital, sovereign blockchain — for the 2.6 billion people the internet forgot.**
 
 > **🏆 SEASON 0 IS LIVE — the First 100 Sovereign Identities.**
 > Solve a 3-second human proof, register your sovereign ID, and get etched
-> in protocol history as a Genesis Pioneer. No coins, no capital — just history.
-> 👉 [Claim your slot](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/examples/championship.html) · [Live Explorer](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-chainview/explorer.html)
+> in protocol history as a Genesis Pioneer. No capital required — just prove you're human and claim your first testnet $ZPRO.
+> 👉 Claim your slot · Live Explorer
 
 [![Status](https://img.shields.io/badge/Status-Production%20Ready-35d07f)](https://kdewa.pythonanywhere.com)
 [![License](https://img.shields.io/badge/License-AGPL--3.0-blue)](LICENSE)
