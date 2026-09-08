@@ -387,6 +387,55 @@ async def chain_valid():
         if callable(rc) and rc() != bh:
             ok, reason = False, f"hash mismatch at block {i}"; break
     return {"valid": ok, "blocks": len(chain), "reason": reason}
+def _tx_view(t):
+    d = t if isinstance(t, dict) else (
+        getattr(t, "to_dict", None)() if callable(getattr(t, "to_dict", None)) else {})
+    return {
+        "tx_type": d.get("tx_type", getattr(t, "tx_type", "")),
+        "sender": d.get("sender", getattr(t, "sender", "")),
+        "receiver": d.get("receiver", getattr(t, "receiver", "")),
+        "amount": d.get("amount", getattr(t, "amount", 0)),
+    }
+
+
+@app.get("/block/{i}")
+async def get_block(i: int):
+    """Full block detail: hashes, signatures count, transactions."""
+    if not bunker:
+        raise HTTPException(status_code=503, detail="Node is not initialized yet.")
+    chain = bunker.blockchain.chain
+    if i < 0 or i >= len(chain):
+        raise HTTPException(status_code=404, detail="Block not found")
+    b = chain[i]
+    return {
+        "index": getattr(b, "index", i),
+        "hash": getattr(b, "hash", ""),
+        "previous_hash": getattr(b, "previous_hash", getattr(b, "prev_hash", "")),
+        "timestamp": getattr(b, "timestamp", 0),
+        "validator_signatures": len(getattr(b, "validator_signatures", []) or []),
+        "transactions": [_tx_view(t) for t in getattr(b, "transactions", [])],
+    }
+
+
+@app.get("/block/{i}/verify")
+async def verify_block(i: int):
+    """Per-block audit: recompute hash + check previous-link."""
+    if not bunker:
+        raise HTTPException(status_code=503, detail="Node is not initialized yet.")
+    chain = bunker.blockchain.chain
+    if i < 0 or i >= len(chain):
+        raise HTTPException(status_code=404, detail="Block not found")
+    b = chain[i]
+    ok, reason = True, ""
+    rc = getattr(b, "compute_hash", None)
+    if callable(rc) and rc() != getattr(b, "hash", None):
+        ok, reason = False, "hash mismatch"
+    elif i > 0:
+        ph = getattr(b, "previous_hash", getattr(b, "prev_hash", None))
+        if ph != getattr(chain[i - 1], "hash", None):
+            ok, reason = False, "broken link"
+    return {"valid": ok, "reason": reason}
+
 
 @app.get("/peers")
 async def get_peers():

@@ -41,6 +41,8 @@
 </div>
 
 <div id="v-blocks"><table><thead><tr><th>#</th><th>Hash</th><th>Time</th><th>Txs</th></tr></thead><tbody id="tbBlocks"></tbody></table></div>
+<p class="muted" style="font-size:12px;margin-top:6px">💡 click a block row for full detail &amp; verification</p>
+<div id="block-drawer" style="display:none;background:#12202f;border:1px solid #23374c;border-radius:12px;padding:16px;margin-top:8px;"></div>
 <div id="v-txs" style="display:none"><table><thead><tr><th>Block</th><th>Type</th><th>From</th><th>To</th><th>Amount (Zat)</th></tr></thead><tbody id="tbTxs"></tbody></table></div>
 <div id="v-pio" style="display:none"><table><thead><tr><th>Rank</th><th>Sovereign ID (zid)</th><th>Registered</th></tr></thead><tbody id="tbPio"></tbody></table></div>
 
@@ -88,5 +90,36 @@ async function refreshIntegrity(){
   }catch(e){}
 }
 refreshIntegrity(); setInterval(refreshIntegrity, 15000);
+</script>
+<script>
+const BUNKER_BLK = "https://kdewa.pythonanywhere.com";
+const drawer = document.getElementById("block-drawer");
+document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => { drawer.style.display = "none"; }));
+document.getElementById("tbBlocks").addEventListener("click", async (ev) => {
+  const tr = ev.target.closest("tr");
+  if (!tr || !tr.parentElement || tr.parentElement.tagName !== "TBODY") return;
+  const idx = parseInt(tr.cells[0].textContent, 10);
+  if (Number.isNaN(idx)) return;
+  try {
+    const [b, v] = await Promise.all([
+      fetch(BUNKER_BLK + "/block/" + idx).then(r => r.json()),
+      fetch(BUNKER_BLK + "/block/" + idx + "/verify").then(r => r.json())
+    ]);
+    const txrows = (b.transactions || []).map(t =>
+      `<tr><td>${t.tx_type || ""}</td><td><code>${(t.sender || "").slice(0, 12)}…</code></td><td><code>${(t.receiver || "").slice(0, 12)}…</code></td><td>${t.amount || 0}</td></tr>`
+    ).join("") || `<tr><td colspan="4" class="muted">no transactions (genesis)</td></tr>`;
+    drawer.style.display = "block";
+    drawer.innerHTML = `
+      <b style="color:#4ade80">Block #${b.index}</b>
+      <span style="float:right">${v.valid ? "✅ verified" : "⚠️ " + (v.reason || "")}</span>
+      <div style="margin-top:10px;font-size:12px;color:#94a3b8">
+        hash: <code style="color:#7dd3fc">${b.hash}</code><br>
+        prev: <code style="color:#7dd3fc">${b.previous_hash}</code><br>
+        validator signatures: ${b.validator_signatures}
+      </div>
+      <table style="margin-top:10px"><tr><th>Type</th><th>From</th><th>To</th><th>Amount (Zat)</th></tr>${txrows}</table>`;
+    drawer.scrollIntoView({behavior: "smooth", block: "nearest"});
+  } catch (e) { console.error(e); }
+});
 </script>
 </body></html>
