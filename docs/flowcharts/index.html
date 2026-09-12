@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZCP2O Flowcharts — Visual Architecture</title>
+<style>
+  body{font-family:'Segoe UI',sans-serif;background:#0d1520;color:#e8eef5;max-width:1000px;margin:0 auto;padding:32px 20px;line-height:1.6}
+  h1{color:#4ade80}
+  h2{color:#7dd3fc;margin-top:40px;border-bottom:1px solid #23374c;padding-bottom:6px}
+  .muted{color:#94a3b8}
+  a{color:#7dd3fc}
+  .back{display:inline-block;padding:8px 16px;background:#16283a;color:#7dd3fc;border:1px solid #23374c;border-radius:8px;text-decoration:none;margin-bottom:24px}
+  .card{background:#12202f;border:1px solid #23374c;border-radius:12px;padding:24px;margin:20px 0;overflow-x:auto}
+  .mermaid{display:flex;justify-content:center}
+  footer{margin-top:40px;color:#64748b;font-size:12px;text-align:center}
+</style>
+</head>
+<body>
+<a class="back" href="../../">← back to home</a>
+<h1>🗺️ ZCP2O Flowcharts</h1>
+<p class="muted">Two canonical diagrams of the protocol — because humans understand pictures faster than paragraphs.<br>
+Raw sources: <a href="ecosystem.mmd">ecosystem.mmd</a> · <a href="../../implementations/zcp2o-circle/circle-launcher.mmd">circle-launcher.mmd</a> — export PNG/SVG via <a href="https://mermaid.live">mermaid.live</a>.</p>
+
+<h2>1️⃣ ZCP2O Ecosystem — End-to-End</h2>
+<div class="card">
+<pre class="mermaid">
+flowchart TB
+    subgraph L1["1️⃣ HUMAN LAYER — zero capital, zero spy"]
+        U(["👤 Anyone with a phone"])
+        CAP["🛡️ zcp2o-captcha&lt;br/&gt;3s motoric proof&lt;br/&gt;on-device, 0 bytes out"]
+    end
+
+    subgraph L2["2️⃣ APP LAYER — where humans act"]
+        WAL["👛 Web Wallet v3&lt;br/&gt;self-custody, multi-wallet"]
+        AD["🎮 Alpha Drop&lt;br/&gt;offline mesh PoP game"]
+        CL["🎮 Circle Launcher&lt;br/&gt;online tick PoP game"]
+    end
+
+    subgraph L3["3️⃣ BUNKER LAYER — the institution node"]
+        API["🏦 zcp2o-node API&lt;br/&gt;FastAPI + SQLite ledger"]
+        CORE["⚙️ zcp2o-core&lt;br/&gt;RSA-4096/2048 + PoP consensus"]
+    end
+
+    subgraph L4["4️⃣ CHAIN LAYER — immutable truth"]
+        CH[("⛓️ Blocks&lt;br/&gt;GENESIS · REWARD&lt;br/&gt;TRANSFER · TICKET")]
+        PIO[("🏅 Genesis Pioneers&lt;br/&gt;sovereign IDs")]
+    end
+
+    subgraph L5["5️⃣ TRANSPARENCY LAYER — public audit"]
+        EXP["🔭 Explorer v2&lt;br/&gt;blocks · txs · human proofs"]
+    end
+
+    U -->|"solve proof"| CAP
+    CAP -->|"proof token"| WAL
+    CAP -->|"proof token"| AD
+    CAP -->|"proof token"| CL
+    WAL -->|"register · claim · transfer"| API
+    AD -->|"settlement tx via mesh"| API
+    CL -->|"settlement tx via tick 2-3s"| API
+    API --> CORE
+    CORE --> CH
+    CH --> PIO
+    CH --> EXP
+</pre>
+</div>
+
+<h2>2️⃣ Circle Launcher — Proof-of-Play Loop</h2>
+<div class="card">
+<pre class="mermaid">
+flowchart TB
+    A(["👤 Player opens game"]) --> B{"🛡️ Human proof&lt;br/&gt;solved?"}
+    B -- fail --> X["❌ Entry denied&lt;br/&gt;motor score logged"]
+    B -- pass --> C["🌍 WORLD 1 — free entry&lt;br/&gt;10k px server · max 100 players"]
+    C --> D["🕹️ Session 5-15 min&lt;br/&gt;blue vs red circles"]
+    D --> E["🪙 GOLD collected&lt;br/&gt;off-chain game DB"]
+    E --> F["📤 Settlement tx on-chain&lt;br/&gt;XP delta + session result"]
+    F --> G{"💰 Gold >= 100&lt;br/&gt;+ fresh captcha?"}
+    G -- no --> C
+    G -- yes --> H["🌍 WORLD 2 — 100 gold entry"]
+    H --> I["🕹️ Session 5-15 min"]
+    I --> J["💎 $ZPRO REWARD tx on-chain"]
+    J --> K["✍️ Co-sign block hash&lt;br/&gt;validator_signatures"]
+    K --> L(["🏆 Player = contributing validator"])
+    D -.- T["🔄 Tick polling 2-3s&lt;br/&gt;Bunker API = source of truth"]
+    H -.- T
+</pre>
+</div>
+
+<footer>ZCP2O Protocol · Flowcharts locked by Ringga999 + Mr. Architect · 2026</footer>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+</script>
+</body>
+</html>
