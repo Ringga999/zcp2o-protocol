@@ -21,7 +21,7 @@
 <body>
 <h1>🧪 ZCP2O Spec Queue</h1>
 <p class="muted">Design specifications in incubation — locked on 2026-09-07 so nothing is forgotten.
-Status: <span class="badge">QUEUED — not yet implemented</span> · <a href="../index.html">← back home</a></p>
+Status: <span class="badge" style="background:#164a2f;color:#4ade80">✅ LIVE</span> · <span class="badge">SPEC-01 & SPEC-03 shipped</span> · <a href="../index.html">← back home</a></p>
 
 <div class="card">
 <b>Contents:</b>
@@ -29,6 +29,7 @@ Status: <span class="badge">QUEUED — not yet implemented</span> · <a href="..
  <li><a href="#hashlib">SPEC-01 · Explorer Hash Lib</a></li>
  <li><a href="#circle">SPEC-02 · Circle Launcher (Proof-of-Play game)</a></li>
  <li><a href="#stats">SPEC-03 · Human-Proof Stats &amp; widget hygiene</a></li>
+  <li><a href="#persistence">SPEC-05 · Runtime State Sovereignty</a></li>
 </ul>
 </div>
 
@@ -134,6 +135,23 @@ Status: <span class="badge">QUEUED — not yet implemented</span> · <a href="..
 </table>
 <h3>Principle anchor</h3>
 <p>This spec realizes the core ZCP2O principle: <b>"captcha = validator"</b> — not metaphor, but technical attestation on-chain.</p>
+
+<h2 id="persistence">SPEC-05 · Runtime State Sovereignty</h2>
+<p><b>Goal:</b> ensure node runtime state (SQLite database, logs) is NEVER tracked by Git, so restarts/pulls don't wipe chain history.</p>
+<h3>Problem discovered</h3>
+<ul>
+ <li><code>zcp2o_node.db</code> was tracked → <code>git pull --hard</code> overwrote live database → chain reset to genesis</li>
+ <li>Logs were tracked → merge conflicts on every restart</li>
+</ul>
+<h3>Solution</h3>
+<ul>
+ <li>Untrack <code>*.db</code> and <code>logs/</code> via <code>git rm --cached</code></li>
+ <li>Add to <code>.gitignore</code>: <code>*.db</code> and <code>implementations/zcp2o-node/logs/</code></li>
+ <li>Backup/restore workflow during Git sync</li>
+</ul>
+<h3>Status</h3>
+<p><span class="badge" style="background:#164a2f;color:#4ade80">✅ LIVE</span> — database and logs now sovereign, immune to Git operations.</p>
+
 
 <p class="muted" style="margin-top:32px">— locked by Ringga999 + Mr. Architect, 2026-09-07 · ZCP2O Foundation</p>
 </body>
