@@ -27,6 +27,7 @@
  <div class="stat"><b id="sBlocks">–</b>Blocks</div>
  <div class="stat"><b id="sTxs">–</b>Transactions</div>
  <div class="stat"><b id="sPio">–</b>Pioneers</div>
+ <div class="stat"><b id="sProofs">-</b>Human Proofs</div>
 </div>
 
 <div style="background:#12202f;border:1px solid #23374c;border-radius:12px;padding:16px 24px;">
@@ -54,11 +55,13 @@ const time=t=>t?new Date(t*1000).toLocaleString():"–";
 
 async function load(){
   try{
-    const [bl,tx,pi]=await Promise.all([
-      fetch(B+"/blocks").then(r=>r.json()),
-      fetch(B+"/txs").then(r=>r.json()),
-      fetch(B+"/pioneers").then(r=>r.json())
-    ]);
+const [bl,tx,pi,st]=await Promise.all([
+  fetch(B+"/blocks").then(r=>r.json()),
+  fetch(B+"/txs").then(r=>r.json()),
+  fetch(B+"/pioneers").then(r=>r.json()),
+  fetch(B+"/stats").then(r=>r.json())
+]);
+document.getElementById("sProofs").textContent=st.human_proofs_verified;
     sHeight.textContent=bl.height;
     sBlocks.textContent=bl.count;
     sTxs.textContent=tx.count;
