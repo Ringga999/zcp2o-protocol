@@ -191,6 +191,15 @@ A comprehensive dictionary of 60+ terms comparing ZCP2O to traditional blockchai
 
 ---
 
+## 🗺️ Visual Architecture (Quick Map)
+
+> **Prefer diagrams over paragraphs?** See the end-to-end protocol flow and Circle Launcher game loop in rendered Mermaid flowcharts:
+> 
+> 📂 **[`docs/flowcharts/`](docs/flowcharts/)** — 2 canonical diagrams (ecosystem + game loop)
+
+---
+
+
 ## 🏗️ Core Architecture
 
 ```
