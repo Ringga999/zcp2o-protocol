@@ -156,7 +156,7 @@ Commands:
   help             Show this help message
 
 Examples:
-  python cli.py create-wallet --name mywallet --password secret123
+  python cli.py create-wallet --name mywallet --password <password>
   python cli.py balance --address WKS-abc123...
   python cli.py send --from mywallet --to WKS-xyz789... --amount 50
   python cli.py node-status
