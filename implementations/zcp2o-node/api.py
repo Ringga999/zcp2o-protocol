@@ -163,6 +163,40 @@ async def get_pioneers():
             "pioneers": [{"rank": i + 1, "zid": r["zid"], "registered_at": r["registered_at"]}
                          for i, r in enumerate(top)]}
 
+@app.get("/stats")
+async def get_stats():
+    """Aggregate live KPIs for the Explorer (Investor-facing metrics)."""
+    if not bunker:
+        raise HTTPException(status_code=503, detail="Node is not initialized yet.")
+
+    # 1. Hitung Pioneer aktif (dari identities.json)
+    import json as _json
+    pios = 0
+    for p in ["identities.json",
+              os.path.join(os.path.dirname(os.path.abspath(__file__)), "identities.json")]:
+        try:
+            with open(p) as f:
+                data = _json.load(f)
+            recs = data.get("identities", data) if isinstance(data, dict) else {}
+            pios = sum(1 for r in recs.values()
+                       if not (isinstance(r, dict) and r.get("revoked")))
+            break
+        except Exception:
+            continue
+
+    # 2. Hitung metrik Chain & Human Proofs (setiap tx REWARD = 1 proof)
+    chain = bunker.blockchain.chain
+    txs = [t for b in chain for t in b.transactions]
+    rewards = sum(1 for t in txs if getattr(t, "tx_type", "") == "REWARD")
+
+    return {
+        "pioneers": pios,
+        "chain_height": len(chain) - 1,
+        "total_blocks": len(chain),
+        "total_transactions": len(txs),
+        "human_proofs_verified": pios + rewards,
+    }
+
 @app.get("/blocks")
 async def get_blocks(limit: int = 50):
     """List blocks (newest first) for the explorer."""
