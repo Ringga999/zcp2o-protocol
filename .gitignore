@@ -24,3 +24,6 @@ identities.json
 
 __pycache__/
 *.pyc
+# runtime state — NEVER track
+*.db
+implementations/zcp2o-node/logs/
