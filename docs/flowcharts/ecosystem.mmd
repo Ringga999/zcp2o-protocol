@@ -1,0 +1,37 @@
+flowchart TB
+    subgraph L1["1️⃣ HUMAN LAYER — zero capital, zero spy"]
+        U(["👤 Anyone with a phone"])
+        CAP["🛡️ zcp2o-captcha<br/>3s motoric proof<br/>on-device, 0 bytes out"]
+    end
+
+    subgraph L2["2️⃣ APP LAYER — where humans act"]
+        WAL["👛 Web Wallet v3<br/>self-custody, multi-wallet"]
+        AD["🎮 Alpha Drop<br/>offline mesh PoP game"]
+        CL["🎮 Circle Launcher<br/>online tick PoP game"]
+    end
+
+    subgraph L3["3️⃣ BUNKER LAYER — the institution node"]
+        API["🏦 zcp2o-node API<br/>FastAPI + SQLite ledger"]
+        CORE["⚙️ zcp2o-core<br/>RSA-4096/2048 + PoP consensus"]
+    end
+
+    subgraph L4["4️⃣ CHAIN LAYER — immutable truth"]
+        CH[("⛓️ Blocks<br/>GENESIS · REWARD<br/>TRANSFER · TICKET")]
+        PIO[("🏅 Genesis Pioneers<br/>sovereign IDs")]
+    end
+
+    subgraph L5["5️⃣ TRANSPARENCY LAYER — public audit"]
+        EXP["🔭 Explorer v2<br/>blocks · txs · human proofs"]
+    end
+
+    U -->|"solve proof"| CAP
+    CAP -->|"proof token"| WAL
+    CAP -->|"proof token"| AD
+    CAP -->|"proof token"| CL
+    WAL -->|"register · claim · transfer"| API
+    AD -->|"settlement tx via mesh"| API
+    CL -->|"settlement tx via tick 2-3s"| API
+    API --> CORE
+    CORE --> CH
+    CH --> PIO
+    CH --> EXP

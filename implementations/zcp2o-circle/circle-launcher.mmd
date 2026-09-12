@@ -1,0 +1,16 @@
+flowchart TB
+    A(["👤 Player opens game"]) --> B{"🛡️ Human proof<br/>solved?"}
+    B -- fail --> X["❌ Entry denied<br/>motor score logged"]
+    B -- pass --> C["🌍 WORLD 1 — free entry<br/>10k px server · max 100 players"]
+    C --> D["🕹️ Session 5-15 min<br/>blue vs red circles"]
+    D --> E["🪙 GOLD collected<br/>off-chain game DB"]
+    E --> F["📤 Settlement tx on-chain<br/>XP delta + session result"]
+    F --> G{"💰 Gold >= 100<br/>+ fresh captcha?"}
+    G -- no --> C
+    G -- yes --> H["🌍 WORLD 2 — 100 gold entry"]
+    H --> I["🕹️ Session 5-15 min"]
+    I --> J["💎 $ZPRO REWARD tx on-chain"]
+    J --> K["✍️ Co-sign block hash<br/>validator_signatures"]
+    K --> L(["🏆 Player = contributing validator"])
+    D -.- T["🔄 Tick polling 2-3s<br/>Bunker API = source of truth"]
+    H -.- T

@@ -85,4 +85,38 @@ To protect intellectual property, API keys, and Play Store signing credentials, 
 *   **G2:** Multi block-server sharding (max 100 players/server) + full gold economy + `validator_signatures` attestation.
 
 ---
+
+
+## 🗺️ Proof-of-Play Flow
+
+> The raw Mermaid source for this diagram lives in [`circle-launcher.mmd`](circle-launcher.mmd).
+
+```mermaid
+flowchart TB
+    A(["👤 Player opens game"]) --> B{"🛡️ Human proof<br/>solved?"}
+    B -- fail --> X["❌ Entry denied<br/>motor score logged"]
+    B -- pass --> C["🌍 WORLD 1 — free entry<br/>10k px server · max 100 players"]
+    C --> D["🕹️ Session 5-15 min<br/>blue vs red circles"]
+    D --> E["🪙 GOLD collected<br/>off-chain game DB"]
+    E --> F["📤 Settlement tx on-chain<br/>XP delta + session result"]
+    F --> G{"💰 Gold >= 100<br/>+ fresh captcha?"}
+    G -- no --> C
+    G -- yes --> H["🌍 WORLD 2 — 100 gold entry"]
+    H --> I["🕹️ Session 5-15 min"]
+    I --> J["💎 $ZPRO REWARD tx on-chain"]
+    J --> K["✍️ Co-sign block hash<br/>validator_signatures"]
+    K --> L(["🏆 Player = contributing validator"])
+    D -.- T["🔄 Tick polling 2-3s<br/>Bunker API = source of truth"]
+    H -.- T
+```
+
+**The 6-beat loop:**
+1. Entry is gated by human proof — bots are denied & scored.
+2. World 1 is free: play, collect GOLD (off-chain, fast).
+3. Every session settles on-chain (XP + result) — the chain stays alive.
+4. 100 gold + fresh captcha unlocks World 2 (gold sink = anti-inflation).
+5. World 2 pays $ZPRO via on-chain REWARD transactions.
+6. Players co-sign block hashes → the game feeds SPEC-04 validators.
+
+
 *Locked by Ringga999 + Mr. Architect · ZCP2O Foundation*
