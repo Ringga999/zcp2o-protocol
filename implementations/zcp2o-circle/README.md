@@ -118,5 +118,83 @@ flowchart TB
 5. World 2 pays $ZPRO via on-chain REWARD transactions.
 6. Players co-sign block hashes → the game feeds SPEC-04 validators.
 
+---
+
+## 🎮 Game Balance Principles
+
+Circle Launcher is designed around **fair competition, not punishment**. The following principles ensure the game remains engaging, economically sound, and aligned with ZCP2O's zero-capital philosophy.
+
+### 1. Enemy Guard, Not Collect
+Enemies **cannot** add coins to their inventory. Instead, they **"guard"** coins by standing on them. A guarded coin becomes temporarily unavailable to players until the enemy moves away.
+
+```
+Player takes coin → +1 gold
+Enemy stands on coin → coin locked (unavailable)
+Enemy moves away → coin unlocked (available again)
+```
+
+**Why:** Prevents "massive coin drop" scenarios when enemies are defeated. No server-side validation bottleneck.
+
+### 2. Coin Cap per Enemy (Max 3)
+A single enemy can guard at most **3 coins simultaneously**. If it moves to a 4th coin, the oldest guarded coin becomes unlocked (FIFO queue).
+
+```
+Enemy guards coin A → locked
+Enemy moves to coin B → B locked
+Enemy moves to coin C → C locked
+Enemy moves to coin D → D locked, A unlocked (FIFO)
+```
+
+**Why:** Prevents enemy monopoly over the map. Players always have alternative coins to pursue.
+
+### 3. Random Enemy Spawn
+Each session spawns enemies at **random locations** (not fixed spawn points).
+
+```gdscript
+position = Vector2(
+    randf_range(1000, 9000),
+    randf_range(1000, 9000)
+)
+```
+
+**Why:** No "camp spots" that players can memorize or exploit. Every session feels fresh.
+
+### 4. Coin Spread (Min 500px)
+Coins spawn with a **minimum distance of 500 pixels** between each other.
+
+```gdscript
+if pos.distance_to(other_coin) < 500.0:
+    return false  # reject spawn
+```
+
+**Why:** Prevents coin clustering that allows enemies to guard multiple coins at once.
+
+### 5. Tiered Enemy Behavior
+Enemies follow a priority queue:
+
+```
+1. If player within 800px → chase player
+2. If no player nearby → seek nearest unguarded coin → guard it
+3. If already guarding 3 coins → patrol randomly (wait for player)
+```
+
+**Why:** Enemies are never passive, but also never "over-farm" coins. Natural competition loop.
+
+### 6. Light Knockback (No Death)
+Player-enemy collision results in **light knockback** (player pushed back ~100px), **not** coin loss or session termination.
+
+**Why:** No "economic punishment" (aligned with zero-capital philosophy). Player retains agency (dodge, don't touch).
+
+### 7. Enemy Immortality (No Kill Reward)
+Enemies **do not die** in World 1. If an enemy moves too far from the active play area (>3000px from player), it respawns at a random location after 30 seconds.
+
+**Why:** Enemies are **permanent competitors**, not targets. Focus remains on coin competition, not combat.
+
+---
+
+### 🧪 Anti-Bot Side Effect
+
+The "dodge, zig-zag, panic-then-calm" motor patterns required to compete with enemies generate **richer telemetry** than straight-line coin collection. This naturally strengthens the motor human-ness score from the captcha gate, making Circle Launcher a **living proof-of-humanity system**.
+
 
 *Locked by Ringga999 + Mr. Architect · ZCP2O Foundation*

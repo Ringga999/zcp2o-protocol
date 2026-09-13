@@ -83,6 +83,19 @@ Status: <span class="badge" style="background:#164a2f;color:#4ade80">✅ LIVE</s
 </table>
 <h3>Validator anchor</h3>
 <p>Players co-sign block hashes into the existing <code>block.validator_signatures</code> field — a real attestation hook already present in the core (used by fork-resolution). No multi-node rebuild needed for MVP.</p>
+<h3>Enemy behavior &amp; balance</h3>
+<p>Enemies are <b>competitors, not killers</b>. They cannot "steal" coins into an inventory — they only <b>guard</b> coins by standing on them, temporarily locking them from players.</p>
+<table>
+ <tr><th>Principle</th><th>Rule</th><th>Why</th></tr>
+ <tr><td>Guard, not collect</td><td>Enemy stands on coin → locked. Moves away → unlocked.</td><td>No massive drops, no server bottleneck.</td></tr>
+ <tr><td>3-coin cap</td><td>Max 3 guarded coins per enemy (FIFO).</td><td>Prevents map monopoly.</td></tr>
+ <tr><td>Random spawn</td><td>Enemy positions randomized per session.</td><td>No camp spots.</td></tr>
+ <tr><td>Coin spread</td><td>Min 500px between any two coins.</td><td>Prevents coin clustering.</td></tr>
+ <tr><td>Tiered behavior</td><td>Chase player → seek coin → patrol.</td><td>Never passive, never over-farming.</td></tr>
+ <tr><td>Light knockback</td><td>Player-enemy touch = 100px push, no coin loss.</td><td>No economic punishment.</td></tr>
+ <tr><td>Immortal enemies</td><td>No death, respawn if &gt;3000px from player.</td><td>Competitor, not target.</td></tr>
+</table>
+<p class="muted">Side effect: dodge/zig-zag patterns from enemy competition enrich the captcha motor-ness telemetry, strengthening anti-bot signals.</p>
 <h3>Anti-bot layers</h3>
 <ul>
  <li>Captcha gate per session · random session length · cooldown</li>
