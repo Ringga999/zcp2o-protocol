@@ -197,5 +197,80 @@ Enemies **do not die** in World 1. If an enemy moves too far from the active pla
 
 The "dodge, zig-zag, panic-then-calm" motor patterns required to compete with enemies generate **richer telemetry** than straight-line coin collection. This naturally strengthens the motor human-ness score from the captcha gate, making Circle Launcher a **living proof-of-humanity system**.
 
+---
+
+## 💰 Economic Parameters
+
+Circle Launcher's economy is designed around **zero-capital entry**, **anti-inflation mechanisms**, and **scalable validation rewards**. All parameters are server-authoritative and can be adjusted per season.
+
+### Core Tokenomics
+
+| Parameter | Value | Rationale |
+| :--- | :--- | :--- |
+| **Total $ZPRO supply** | 100,000,000 (hard cap) | Scarcity guarantee |
+| **Premine / ICO** | 0 / 0 | Every coin mined by verified humans |
+| **Smallest unit** | 1 Zat = 0.000001 $ZPRO | Micro-rewards capable |
+| **Base reward (Season 0)** | 10 $ZPRO per claim | Testnet incentive |
+| **Halving interval** | Every 10,000 human proofs | Supply control |
+| **Session length** | 5–15 minutes (random) | Anti-bot farming |
+
+### Game Balance Parameters
+
+| Parameter | Value | Why |
+| :--- | :--- | :--- |
+| **Max guard time** | 30 seconds per coin | Prevent enemy monopoly |
+| **Coin spread** | Min 500px between coins | Prevent clustering, fair distribution |
+| **Enemy:Player ratio** | 1:10 (scalable) | Balanced competition |
+| **Guard cap per enemy** | Max 3 coins (FIFO) | Fair access for players |
+| **Coin spawn count** | 15–50 (dynamic) | Scales with player count |
+| **Knockback distance** | ~100px | Light penalty, no death |
+
+### Reward Scaling (Demand-Based)
+
+| Network Load | Reward Multiplier | Condition |
+| :--- | :--- | :--- |
+| **Low** (1–10 tx/block) | 1.0× (base) | Normal operation |
+| **Medium** (11–50 tx/block) | 1.2× – 1.5× | High demand bonus |
+| **High** (>50 tx/block) | 0.7× – 0.9× | Anti-spam, queue system |
+
+**Trust Score Impact:**
+- Motor-ness score from captcha ≥ 0.8 → **full reward**
+- Motor-ness score 0.5–0.8 → **70% reward**
+- Motor-ness score < 0.5 → **30% reward** (suspected bot)
+
+### Settlement Mechanics
+
+Off-chain (fast):
+- Gold collection: instant (game DB)
+- Enemy guard state: real-time (session memory)
+- Player positions: tick-based (2–3s polling)
+On-chain (auditable):
+- Session settlement: every 5–15 min
+- $ZPRO distribution: batch processing
+- Validator signatures: co-sign blocks
+
+
+**Queue Policy:** If >100 settlements/minute, Bunker queues requests (FIFO) with priority:
+1. High trust-score players
+2. Earlier session completion
+3. Random tie-breaker
+
+---
+
+## 🔐 Security & Anti-Bot Layers
+
+| Layer | Mechanism | Impact |
+| :--- | :--- | :--- |
+| **Captcha gate** | 3s motoric proof + telemetry | Entry filtering |
+| **Random session length** | 5–15 min (uniform distribution) | Unpredictable farming |
+| **Guard timer** | 30s max per coin | Prevent camping |
+| **Coin spread** | 500px minimum | Anti-clustering |
+| **Trust score** | Motor-ness + captcha history | Reward multiplier |
+| **Rate limiting** | 1 claim per 24h (Season 0) | Sybil resistance |
+| **Origin binding** | IP + user-agent hash | Multi-account detection |
+
+**Side Effect:** The "dodge, zig-zag, panic-then-calm" motor patterns required to compete with enemies generate **richer telemetry** than straight-line coin collection. This naturally strengthens the motor human-ness score from the captcha gate, making Circle Launcher a **living proof-of-humanity system**.
+
+---
 
 *Locked by Ringga999 + Mr. Architect · ZCP2O Foundation*
