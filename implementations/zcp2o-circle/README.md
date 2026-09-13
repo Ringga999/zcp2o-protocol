@@ -49,7 +49,7 @@ To prevent chain bloat and ensure scalability, assets are strictly partitioned:
 To protect intellectual property, API keys, and Play Store signing credentials, this project follows a dual-repo architecture:
 
 1. **Public Repo (`zcp2o-protocol`):** Contains this `README.md`, design specifications (`specs/SPEC-02.md`), and API integration contracts.
-2. **Private Repo (`zcp2o-circle-game`):** Contains the full Godot 4.x source code (`src/`), game assets (`assets/`), build configurations (`builds/`), and environment variables (`.env`).
+2. **Private Repo (`circle-launcher`):** Contains the full Godot 4.x source code (`src/`), game assets (`assets/`), build configurations (`builds/`), and environment variables (`.env`).
 
 *Access to the private repository is restricted to core ZCP2O Foundation developers.*
 
@@ -57,14 +57,14 @@ To protect intellectual property, API keys, and Play Store signing credentials, 
 
 ## 🚀 How to Run (Local Development)
 
-*Note: Requires access to the private `zcp2o-circle-game` repository.*
+*Note: Requires access to the private `circle-launcher` repository.*
 
 1. Download and install **Godot Engine 4.x**.
 2. Clone the private repository:
 
    ```bash
-   git clone https://github.com/Ringga999/zcp2o-circle-game.git
-   cd zcp2o-circle-game
+   git clone https://github.com/Ringga999/circle-launcher.git
+   cd circle-launcher
    ```
 
 3. Open the `project.godot` file in Godot Engine.
