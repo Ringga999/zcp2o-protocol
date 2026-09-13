@@ -70,8 +70,9 @@ flowchart TB
     B -- fail --> X["❌ Entry denied<br/>motor score logged"]
     B -- pass --> C["🌍 WORLD 1 — free entry<br/>10k px server · max 100 players"]
     C --> D["🕹️ Session 5-15 min<br/>blue vs red circles"]
-    D --> E["🪙 GOLD collected<br/>off-chain game DB"]
+    D --> E["🪙 GOLD guarded<br/>off-chain game DB<br/>(enemy max 3 coins)"]
     E --> F["📤 Settlement tx on-chain<br/>XP delta + session result"]
+    E -.- N["⚔️ Enemy = competitor<br/>(guard, not kill)<br/>light knockback, no death"]
     F --> G{"💰 Gold >= 100<br/>+ fresh captcha?"}
     G -- no --> C
     G -- yes --> H["🌍 WORLD 2 — 100 gold entry"]
