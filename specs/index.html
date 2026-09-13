@@ -67,10 +67,27 @@ Status: <span class="badge" style="background:#164a2f;color:#4ade80">✅ LIVE</s
 </ul>
 <h3>Block-server sharding &amp; fill policy</h3>
 <ul>
- <li>Full block server (100) → chain auto-generates a new block server.</li>
- <li>When players leave, the <b>earliest</b> block recruits first.
-  <br>Example: A=100, B=100 → A−3, B−2 → new player joins A → A=98, B=98.</li>
+ <li><b>Capacity:</b> Max <b>100 players</b> per block server.</li>
+ <li><b>Auto-scaling:</b> Full block server (100) → chain auto-generates a new block server.</li>
+ <li><b>Dormant policy:</b> Block server dengan 0 players masuk status <b>DORMANT</b> (tidak dihapus, data blockchain tetap).</li>
+ <li><b>Fill priority (NEW players):</b>
+   <ol>
+     <li>Fill dormant blocks (0 players) → <b>Priority 1</b></li>
+     <li>Fill active blocks (&lt;100 players) → <b>Priority 2</b></li>
+     <li>Create new block (jika semua full) → <b>Last resort</b></li>
+   </ol>
+ </li>
+ <li><b>Dynamic NPC population:</b> Untuk engagement, block server yang sepi diisi NPC/enemy:
+   <table>
+     <tr><th>Player Count</th><th>NPC Count</th><th>Rationale</th></tr>
+     <tr><td>1–9</td><td>15–6</td><td>Fill world, prevent loneliness</td></tr>
+     <tr><td>10–29</td><td>10</td><td>Balanced competition</td></tr>
+     <tr><td>30–59</td><td>5</td><td>Natural gameplay</td></tr>
+     <tr><td>60–100</td><td>2</td><td>Minimal (base challenge)</td></tr>
+   </table>
+ </li>
 </ul>
+<p class="muted"><b>Principle:</b> "First-fill existing blocks before creating new ones" — efficient resource usage + fair distribution.</p>
 <h3>Asset &amp; data mapping (on-chain vs off-chain)</h3>
 <table>
  <tr><th>Asset / data</th><th>Location</th><th>Reason</th></tr>

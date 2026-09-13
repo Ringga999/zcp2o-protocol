@@ -1,7 +1,7 @@
 flowchart TB
     A(["👤 Player opens game"]) --> B{"🛡️ Human proof<br/>solved?"}
     B -- fail --> X["❌ Entry denied<br/>motor score logged"]
-    B -- pass --> C["🌍 WORLD 1 — free entry<br/>10k px server · max 100 players"]
+    B -- pass --> C[" WORLD 1 — free entry<br/>10k px server · max 100 players<br/>+ dynamic NPCs (fill quiet worlds)"]
     C --> D["🕹️ Session 5-15 min<br/>blue vs red circles"]
     D --> E["🪙 GOLD guarded&lt;br/&gt;off-chain game DB&lt;br/&gt;(enemy max 3 coins)"]
     E --> F["📤 Settlement tx on-chain&lt;br/&gt;XP delta + session result"]

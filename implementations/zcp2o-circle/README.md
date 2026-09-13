@@ -273,4 +273,65 @@ On-chain (auditable):
 
 ---
 
+---
+
+## 🤖 Dynamic NPC Population
+
+Circle Launcher uses **intelligent NPC filling** to ensure engaging gameplay regardless of player count. NPCs (enemies) act as dummy players/validators when the world is quiet.
+
+### Fill Policy
+
+| Player Count | NPC Count | Behavior |
+| :--- | :--- | :--- |
+| **1–9** | 15–6 | Aggressive fill (world feels alive) |
+| **10–29** | 10 | Balanced competition |
+| **30–59** | 5 | Natural gameplay |
+| **60–100** | 2 | Minimal (base challenge only) |
+
+### NPC Roles
+
+1. **World Engagement** — Prevents loneliness for new players
+2. **Economic Actors** — Guard coins, create scarcity
+3. **Validator Simulation** — Act as dummy nodes for consensus testing
+4. **Resource Efficiency** — Scale down when world is busy
+
+### Transparency Rule
+
+**NPCs are clearly marked:**
+- Visual: Red circles (vs blue for real players)
+- Minimap: Red dots (distinct from player white dots)
+- **No deception** — system never pretends NPCs are real players
+
+### Block Server Lifecycle
+1. NEW → ACTIVE (1-99 players) → FULL (100) → Spawn child block
+2. ACTIVE → DORMANT (0 players) → Retained (blockchain data intact)
+3. DORMANT + New Player → REACTIVATED (Priority 1 fill)
+
+**Fill Priority Algorithm:**
+1. Find dormant blocks (0 players) → Fill first
+2. Find active blocks (<100 players) → Fill second
+3. All blocks full → Create new block
+
+**Benefit:** Efficient resource usage + fair player distribution across the network.
+
+---
+
+## 🏗️ Block Server Architecture
+
+Each block server is an independent **shard** of the game world:
+
+| Property | Value |
+| :--- | :--- |
+| **Max capacity** | 100 players + dynamic NPCs |
+| **World size** | 10,000 × 10,000 px |
+| **Tick rate** | 2–3 second HTTP polling |
+| **Consensus** | Server-authoritative + validator signatures |
+| **Persistence** | On-chain settlement + off-chain cache |
+
+**Sharding Trigger:** When Block A reaches 100 players → auto-create Block B.
+
+**De-sharding:** Block dengan 0 players → status DORMANT (tidak dihapus, data blockchain tetap utuh untuk audit).
+
+---
+
 *Locked by Ringga999 + Mr. Architect · ZCP2O Foundation*
