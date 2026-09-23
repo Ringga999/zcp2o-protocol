@@ -1,6 +1,6 @@
 # ☕ From Coffee to Credit
 
-> *A Rp 15,000 coffee sale unlocks a Rp 50,000,000 loan. Here's how.*
+> *A $1 coffee sale unlocks a $3,200 loan. Here's how.*
 
 ```mermaid
 flowchart TD
@@ -13,16 +13,15 @@ flowchart TD
     classDef outcome fill:#fef9c3,stroke:#ca8a04,stroke-width:3px,color:#713f12
 
     %% Flow
-    A[🛒 Kopi terjual<br/>Rp 15.000]:::warung --> B[📓 Dicatat di NotaPeer<br/>Offline-first, di perangkat]:::local
-    B --> C[🌳 Akhir bulan<br/>Merkle tree terbentuk]:::crypto
+    A[🛒 Coffee sold<br/>$1.00]:::warung --> B[📓 Recorded in NotaPeer<br/>Offline-first, on device]:::local
+    B --> C[🌳 Month ends<br/>Merkle tree formed]:::crypto
     C --> D[⚓ Anchor on-chain<br/>Merkle root → Sepolia]:::chain
-    D --> E[📊 Credit score lahir<br/>Data terverifikasi publik]:::score
-    E --> F[💰 Pinjaman Rp 50 JUTA<br/>Tanpa agunan]:::outcome
+    D --> E[📊 Credit score born<br/>Public verifiable data]:::score
+    E --> F[💰 $3,200 LOAN<br/>No collateral]:::outcome
 
     %% Side notes
-    D -.->|Merkle root saja<br/>bukan data mentah| G[🔒 Privasi terjaga]:::chain
-    E -.->|Bisa diaudit siapa pun<br/>di Etherscan| H[👁️ Transparansi penuh]:::score
-```
+    D -.->|Only Merkle root<br/>not raw data| G[🔒 Privacy preserved]:::chain
+    E -.->|Auditable by anyone<br/>on Etherscan| H[👁️ Full transparency]:::score
 
 ---
 
