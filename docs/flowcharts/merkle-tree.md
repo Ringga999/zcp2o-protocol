@@ -2,6 +2,8 @@
 
 > *How a warung's entire month of transactions becomes a single cryptographic proof — without exposing a single detail.*
 
+*(Amounts shown in USD at ~Rp 15,000 = $1 for global readability.)*
+
 ```mermaid
 flowchart TD
     %% Styling
@@ -14,12 +16,12 @@ flowchart TD
     %% Layer 1: Raw transactions
     subgraph DEVICE["📱 Warung's Device (30 days)"]
         direction TB
-        L1["☕ Rp 15.000<br/>1 Sep 08:12"]:::leaf
-        L2["🍜 Rp 25.000<br/>1 Sep 12:30"]:::leaf
-        L3["🍚 Rp 12.000<br/>1 Sep 19:45"]:::leaf
-        L4["🥤 Rp 8.000<br/>2 Sep 10:15"]:::leaf
+        L1["☕ $1.00<br/>1 Sep 08:12"]:::leaf
+        L2["🍜 $1.70<br/>1 Sep 12:30"]:::leaf
+        L3["🍚 $0.80<br/>1 Sep 19:45"]:::leaf
+        L4["🥤 $0.50<br/>2 Sep 10:15"]:::leaf
         LN["... 2,847 more"]:::leaf
-        L99["☕ Rp 15.000<br/>30 Sep 22:01"]:::leaf
+        L99["☕ $1.00<br/>30 Sep 22:01"]:::leaf
     end
 
     %% Layer 2: Leaves (hashed)
@@ -74,7 +76,7 @@ flowchart TD
 | 1 | Raw transactions (thousands) | 📱 Local device only |
 | 2 | Each tx hashed to 32 bytes | 📱 Local device only |
 | 3 | Hashes paired & re-hashed | 📱 Local device only |
-| 4 | **Single Merkle Root** (32 bytes) | 📱 → ⛓️ Goes on-chain |
+| 4 | **Single Merkle Root** (32 bytes) | 📱 → ️ Goes on-chain |
 | 5 | Verification proof for anyone | 🌍 Public on blockchain |
 
 ---
@@ -88,7 +90,7 @@ flowchart TD
 
 ### ✅ Verifiable by Anyone
 - A lender can cryptographically verify ANY single transaction
-- Using a "Merkle proof" (5 sibling hashes), they confirm: *"Yes, this Rp 15,000 coffee was part of the anchored month"*
+- Using a "Merkle proof" (5 sibling hashes), they confirm: *"Yes, this $1 coffee was part of the anchored month"*
 - No need to download 2,851 transactions — just 5 hashes
 
 ### ✅ Cheap to Anchor
@@ -100,7 +102,7 @@ flowchart TD
 
 ## 🔍 Verification Example
 
-> *"Did this warung really sell Rp 15,000 coffee on September 1st at 08:12?"*
+> *"Did this warung really sell a $1 coffee on September 1st at 08:12?"*
 
 **Proof needed:**
 1. The transaction itself (from warung)
