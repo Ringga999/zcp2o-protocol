@@ -5,7 +5,9 @@
 >
 > **Author:** Ringga A.K.D (ZCP2O Core Team)
 >
-> **Tagline:** *Prove you're human — without being spied on, without the internet.*
+> **Tagline:** _Produce a sovereign Human Proof Token — without being spied on, without the internet._
+> 
+> ⚠️ **Important:** The token's integrity is cryptographically guaranteed, but its human-ness claim is a self-attestation (assurance: `self`). For adversarial-grade proof, mesh/Bunker co-signing is required (roadmap v0.2+). See [architecture.md §8](./docs/architecture.md#appendix-a-token-forgery--progressive-assurance) for honest limitations.
 
 ---
 
@@ -29,15 +31,18 @@ It is not a CAPTCHA that watches you. It is a **sovereign proof of humanity**.
 
 ## ✨ What It Is
 
-A **self-contained JavaScript widget** that verifies a user is human using:
+A **self-contained JavaScript widget** that produces a **self-attested Human Proof Token** using:
 
 - **Implicit Proof of Humanity** — analyzes natural human motor signals
-  (micro-jitter, timing, movement entropy). Bots are "too perfect"; humans
-  have natural noise.
-- **On-device verification** — all analysis happens in the browser. No server.
+(micro-jitter, timing, movement entropy). Bots are "too perfect"; humans
+have natural noise. This blocks naive automation.
+- **On-device analysis** — all scoring happens in the browser. No server.
 - **Web Crypto signing** — the result is signed with an RSA key generated
-  locally via the browser's native Web Crypto API (free, no backend).
+locally via the browser's native Web Crypto API (free, no backend).
 - **Offline-first** — works with no internet connection at all.
+
+> **What the token guarantees:** integrity (not altered) + anti-replay (nonce + expiry).  
+> **What the token does NOT guarantee (v0.1):** that a real human performed the challenge. A determined attacker controlling the execution environment can forge a token with any score they want. This is inherent to all client-side proof systems. Higher assurance requires mesh/Bunker co-signing (roadmap).
 
 ---
 
@@ -63,8 +68,10 @@ A **self-contained JavaScript widget** that verifies a user is human using:
    signs a **Human Proof Token** — entirely on-device.
 5. The page receives the signed token. **Nothing is uploaded.**
 
-**The killer demo:** open the demo, verify once, then **turn off the internet**
-and verify again. reCAPTCHA-style tools die. **ZCP2O Human Proof still works.**
+**The killer demo:** open the demo, generate a token once, then **turn off the internet**
+and generate another. reCAPTCHA-style tools die. **ZCP2O Human Proof still works.**
+
+> ⚠️ **Important distinction:** the widget works offline because it never needed a server to begin with — it is a **self-attestation engine**, not a verification service. The token it produces is cryptographically signed (integrity guaranteed), but the claim "a human did this" comes from the device itself, not from a trusted authority. For use cases requiring adversarial hardness, deploy with mesh/Bunker co-signers (roadmap v0.2+).
 
 ---
 

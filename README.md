@@ -58,17 +58,15 @@ ZCP2O is a **sovereign blockchain protocol** designed from the ground up for the
 
 **👉 [TRY IT NOW](https://ringga999.github.io/zcp2o-protocol/implementations/zcp2o-captcha/demo/)**
 
-A self-contained JavaScript widget that proves you're human — **on-device, 0 bytes sent, works without internet**. Unlike Google reCAPTCHA (which surveils you) or Cloudflare Turnstile (which requires a connection).
+A self-contained JavaScript widget that **produces a self-attested Human Proof Token** — **on-device, 0 bytes sent, works without internet**. Unlike Google reCAPTCHA (which surveils you) or Cloudflare Turnstile (which requires a connection).
 
 **How it works:**
 1. Hold your cursor inside a circle for 3 seconds
 2. The engine analyzes natural human motor signals (micro-jitter, timing, velocity)
 3. If you pass, an RSA key is generated locally and signs a **Human Proof Token**
-4. **✅ VERIFIED** — no server, no tracking, no internet
+4. **🔏 TOKEN GENERATED** — no server, no tracking, no internet
 
-**Killer demo:** Open the page, verify once, then **turn on Airplane Mode** and verify again. Traditional CAPTCHAs die. **ZCP2O Human Proof still works.** 🛩️
-
-> *Proof generation is fully on-device (0 bytes out). Optional server-side verification is available via `/verify` for integrators who want backend assurance.*
+> _Token generation is fully on-device (0 bytes out). The token's **integrity** is cryptographically guaranteed (RSA-PSS), but its **human-ness claim** is a self-attestation (assurance: `self`). For higher assurance, see progressive co-signing in [docs/architecture.md §8.3](./docs/architecture.md#83-progressive-assurance-layered-co-signing)._
 
 ---
 
@@ -249,16 +247,16 @@ Not Proof-of-Work (wasteful electricity). Not Proof-of-Stake (requires capital).
 
 ### Threat Model
 
-| Threat | ZCP2O Mitigation |
-|--------|------------------|
-| **Bot Farms** | Motor analysis + Terminal Phase + SRI integrity + Challenge binding + Nonce/Expiry + Server-side RSA-PSS |
-| **File Tampering** | Subresource Integrity (SRI) — browser blocks hash mismatch |
-| **Token Forgery** | RSA-PSS signature verified server-side by Bunker |
-| **Token Replay** | Nonce (16-byte unique) + Expiry (5 min) + server-side nonce store |
-| **Double Spend** | Vector Clocks + Trust-Weighted Consensus |
-| **Sybil Attacks** | Trust Score system (requires mesh encounters) |
-| **Nation-State Actors** | RSA-4096 + roadmap to Post-Quantum Crypto (2028) |
-| **Surveillance Capitalism** | 0-byte tracking, on-device verification, no centralized servers |
+| Threat | v0.1 Mitigation | Limitation |
+| --- | --- | --- |
+| **Naive bots (scripted clicks)** | Motor challenge + Terminal Phase + SRI integrity + Challenge binding + Nonce/Expiry | Blocks most automation |
+| **Sophisticated spoofing** | Raises attack cost (real-time motor noise is hard to fake in real browsers) | Determined attacker can still bypass |
+| **Token tampering** | RSA-PSS signature (integrity check) | ✅ Token cannot be altered after signing |
+| **Token replay** | Nonce (16-byte unique) + Expiry (5 min) + server-side nonce store | ✅ Token cannot be reused |
+| **Score forgery (self-issued key)** | NOT mitigated in v0.1 | See [architecture.md §8.2](./docs/architecture.md#82-the-forgery-scenario-self-issued-key-attack) — higher assurance requires mesh/Bunker co-signing (roadmap v0.2+) |
+| **File tampering** | Subresource Integrity (SRI) — browser blocks hash mismatch | ✅ Widget code cannot be altered in transit |
+
+> **Honest positioning:** v0.1 optimizes for **privacy + offline + blocking naive bots**, not maximum adversarial hardness. Token integrity and anti-replay are guaranteed; proof-of-human is a self-attestation until mesh/Bunker co-signing lands.
 
 ### Privacy-First Design
 
