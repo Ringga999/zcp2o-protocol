@@ -332,6 +332,13 @@ ZCP2O uses a **layered protection model** to balance openness with sovereignty:
 
 ---
 
+
+## 🏪 Implementations
+
+Living proof that the protocol works:
+
+- [NotaPeer — sovereign books for warungs](docs/implementations/notapeer.md) · first implementation · genesis witness at Sepolia block 11814611
+
 <div align="center">
 
 **"Born in the archipelago. Built for the unconnected world."**
