@@ -131,5 +131,41 @@ sound before we hand them to thousands of miners.
 
 ---
 
-*This document is a reservation, not a promise. The ecosystem earns these
-visions by proving itself in NotaPeer first.*
+##  ZproAI — Sovereign Ambient Assistant (Android)
+
+> *Kecerdasan yang hanya bangun untuk manusia.*
+> Status: **VISION / PHASE 0**
+> Platform: Android (Floating Bubble Overlay)
+> Core Engine: NVIDIA NIM (Llama 3.3 / Qwen Coder)
+> Gate: ZCP2O Human Proof (3s Hold)
+> Economy: $ZPRO (ZWS Wallet)
+
+### 1. Konsep Inti
+ZproAI adalah asisten AI ambient yang hidup sebagai **bubble kecil (overlay)** di layar Android. Ia tidak memerlukan aplikasi utama untuk dibuka; ia selalu hadir di latar depan, siap membantu, meringkas, atau mengingatkan. Namun, berbeda dengan AI assistant generik, ZproAI menerapkan doktrin ZCP2O secara ketat: **AI hanya aktif bila manusia membuktikan kehadirannya.**
+
+### 2. Arsitektur & Alur Pengguna
+1. **Ambient Presence:** Bubble kecil mengambang di atas aplikasi lain. Tap untuk membuka panel chat ringkas; long-press untuk menu (Wallet, Kuota, Settings).
+2. **Proof-of-Human Gate:** Untuk mengaktifkan kuota AI harian (Free Tier), user melakukan *hold 3 detik* pada bubble. Ini adalah aplikasi konsumen pertama yang menggunakan ZCP2O captcha sebagai "kunci kontak" AI.
+3. **Cloud Inference:** Permintaan dikirim ke NVIDIA NIM (OpenAI-compatible endpoint). Tidak ada model berat yang dijalankan di perangkat (hemat baterai & RAM).
+4. **ZWS Wallet Integration:** User dengan kuota $ZPRO di wallet mereka dapat meng-upgrade ke Pro Tier (prioritas model, kuota tanpa batas, fitur lanjutan).
+
+### 3. Model Ekonomi (ZPRO Token Utility)
+ZproAI adalah *use case* utama yang membuat token $ZPRO berguna bagi pengguna ritel:
+- **Free Tier:** Kuota harian terbatas. Dibuka setiap hari dengan ZCP2O Captcha (memberikan kontribusi validator ke protokol).
+- **Pro Tier:** Dibayar dengan mikro-transaksi $ZPRO. Memberikan akses ke model premium, prioritas antrian, dan fitur otomatisasi.
+- **Revenue Split:** Mengikuti doktrin FOUNDATION-ECONOMICS (40% Burn, 30% Dev, 20% Likuiditas, 10% Donasi).
+
+### 4. Posisi Strategis di Ekosistem
+ZproAI mengubah ZCP2O dari *protokol identitas di latar belakang* menjadi **titik kontak konsumen harian**. 
+- **Bagi User:** AI assistant yang berdaulat, tanpa KYC, dan terintegrasi dengan ekonomi kripto mereka.
+- **Bagi Protokol:** Meningkatkan permintaan (demand) untuk $ZPRO dan memvalidasi jutaan *Human Proof* baru setiap hari melalui aktivasi captcha harian.
+- **Bagi Developer:** Menjadi *showcase* utama untuk ZCP2O SDK di masa depan.
+
+### 5. Roadmap Eksekusi
+- **Phase 0 (Prototype):** Bubble overlay + Chat NIM (Sideload APK).
+- **Phase 1 (Gate):** Integrasi ZCP2O Captcha untuk kuota harian.
+- **Phase 2 (Economy):** Integrasi ZWS Wallet & Pro Tier.
+- **Phase 3 (Distribution):** Play Store Listing & Privacy Compliance.
+
+---
+*Doktrin: "We do not build AI to replace humans. We build AI that requires humans to wake up."*
